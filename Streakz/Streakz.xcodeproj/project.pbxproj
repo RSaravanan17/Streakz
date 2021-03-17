@@ -14,6 +14,10 @@
 		CE9890E7260271D800E3E44E /* Streakz.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */; };
 		CE9890E9260271D900E3E44E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9890E8260271D900E3E44E /* Assets.xcassets */; };
 		CE9890EC260271D900E3E44E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */; };
+		CE9890F52602828F00E3E44E /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890F42602828F00E3E44E /* HomeVC.swift */; };
+		CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890F7260282AD00E3E44E /* FriendsVC.swift */; };
+		CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890FA260282C000E3E44E /* DiscoverVC.swift */; };
+		CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890FD260282E300E3E44E /* ProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		CE9890E8260271D900E3E44E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9890EB260271D900E3E44E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE9890ED260271D900E3E44E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE9890F42602828F00E3E44E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		CE9890F7260282AD00E3E44E /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
+		CE9890FA260282C000E3E44E /* DiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
+		CE9890FD260282E300E3E44E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,10 @@
 				CE9890DE260271D800E3E44E /* SceneDelegate.swift */,
 				CE9890E0260271D800E3E44E /* ViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
+				CE9890F42602828F00E3E44E /* HomeVC.swift */,
+				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
+				CE9890FA260282C000E3E44E /* DiscoverVC.swift */,
+				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
 				CE9890E8260271D900E3E44E /* Assets.xcassets */,
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				CE9890ED260271D900E3E44E /* Info.plist */,
@@ -141,6 +153,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9890E7260271D800E3E44E /* Streakz.xcdatamodeld in Sources */,
+				CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */,
+				CE9890F52602828F00E3E44E /* HomeVC.swift in Sources */,
+				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
+				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
 				CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */,
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
