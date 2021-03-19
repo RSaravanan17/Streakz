@@ -6,6 +6,7 @@ target 'Streakz' do
   use_frameworks!
 
   # Pods for Streakz
-  pod 'Alamofire', '5.4.1'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 
 end
