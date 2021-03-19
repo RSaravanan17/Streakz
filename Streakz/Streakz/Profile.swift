@@ -11,8 +11,9 @@ class Profile {
     /*
      First name
      last name
-     Profile picture
-     Streaks subscribed to (list of streaks)
-     Streak counters (probably map of streak -> counter). Can be used to fetch personal best etc.
+     Profile picture (link)
+     Friend's list
+     List of subscribed streaks List<StreakSubscription> (length of it == active streaks number)
+     List of streak posts
      */
 }
