@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1B60E0F8CD7518FAE2B82E51 /* Pods_Streakz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */; };
+		76F7B89826044678009F6AA9 /* Streak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89726044678009F6AA9 /* Streak.swift */; };
+		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DC260271D800E3E44E /* AppDelegate.swift */; };
 		CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DE260271D800E3E44E /* SceneDelegate.swift */; };
 		CE9890E1260271D800E3E44E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890E0260271D800E3E44E /* ViewController.swift */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.debug.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.debug.xcconfig"; sourceTree = "<group>"; };
 		6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Streakz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F7B89726044678009F6AA9 /* Streak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Streak.swift; sourceTree = "<group>"; };
+		76F7B89A260448C4009F6AA9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		78BC0F1FFD86442EA92EF7B3 /* Pods-Streakz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.release.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.release.xcconfig"; sourceTree = "<group>"; };
 		CE9890D9260271D800E3E44E /* Streakz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streakz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9890DC260271D800E3E44E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +62,6 @@
 				50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */,
 				78BC0F1FFD86442EA92EF7B3 /* Pods-Streakz.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -103,6 +106,8 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				CE9890ED260271D900E3E44E /* Info.plist */,
 				CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */,
+				76F7B89726044678009F6AA9 /* Streak.swift */,
+				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 			);
 			path = Streakz;
 			sourceTree = "<group>";
@@ -222,12 +227,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9890E7260271D800E3E44E /* Streakz.xcdatamodeld in Sources */,
+				76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */,
 				CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */,
 				CE9890F52602828F00E3E44E /* HomeVC.swift in Sources */,
 				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
 				CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */,
+				76F7B89826044678009F6AA9 /* Streak.swift in Sources */,
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
