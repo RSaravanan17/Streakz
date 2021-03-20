@@ -8,6 +8,16 @@
 import UIKit
 import Firebase
 
+extension UITextField {
+    func addBottomBorder(){
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: UIScreen.main.bounds.size.width - 100, height: 1)
+        bottomLine.backgroundColor = UIColor(named: "Streakz_DarkRed")?.cgColor
+        borderStyle = .none
+        layer.addSublayer(bottomLine)
+    }
+}
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
@@ -38,6 +48,9 @@ class LoginViewController: UIViewController {
             self.passwordTextField.text = nil
           }
         }
+        
+        self.emailTextField.addBottomBorder()
+        self.passwordTextField.addBottomBorder()
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

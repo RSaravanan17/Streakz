@@ -21,10 +21,25 @@ class SignUpViewController: UIViewController {
     let signUpSegue = "SignUpSegue"
     let returnLoginSegue1 = "ReturnLoginSegue1"
     
+    var signInSuccessful = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.nameTextField.addBottomBorder()
+        self.emailTextField.addBottomBorder()
+        self.passwordTextField.addBottomBorder()
+        self.confirmPasswordTextField.addBottomBorder()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == signUpSegue {
+            // if the login was successful, allow signUpSegue to proceed
+            return self.signInSuccessful
+        } else {
+            return true
+        }
     }
     
     @IBAction func createAccountButtonPressed(_ sender: Any) {
@@ -76,6 +91,7 @@ class SignUpViewController: UIViewController {
                     // directly sign in the newly created user
                     Auth.auth().signIn(withEmail: email,
                                        password: password)
+                    self.signInSuccessful = true
                     self.performSegue(withIdentifier: self.signUpSegue, sender: nil)
                 }
             }
