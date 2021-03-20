@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B60E0F8CD7518FAE2B82E51 /* Pods_Streakz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */; };
+		388BA71926066DF80091F905 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71826066DF80091F905 /* LoginViewController.swift */; };
+		388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */; };
+		388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71E26066E5F0091F905 /* SignUpViewController.swift */; };
+		388BA72D260672310091F905 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388BA72C260672310091F905 /* GoogleService-Info.plist */; };
 		76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89726044678009F6AA9 /* StreakInfo.swift */; };
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
@@ -26,6 +30,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		388BA71826066DF80091F905 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		388BA71E26066E5F0091F905 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		388BA726260671A90091F905 /* Streakz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Streakz.entitlements; sourceTree = "<group>"; };
+		388BA72C260672310091F905 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.debug.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.debug.xcconfig"; sourceTree = "<group>"; };
 		6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Streakz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F7B89726044678009F6AA9 /* StreakInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakInfo.swift; sourceTree = "<group>"; };
@@ -98,14 +107,19 @@
 		CE9890DB260271D800E3E44E /* Streakz */ = {
 			isa = PBXGroup;
 			children = (
+				388BA726260671A90091F905 /* Streakz.entitlements */,
 				CE9890DC260271D800E3E44E /* AppDelegate.swift */,
 				CE9890DE260271D800E3E44E /* SceneDelegate.swift */,
 				CE9890E0260271D800E3E44E /* ViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
+				388BA71E26066E5F0091F905 /* SignUpViewController.swift */,
+				388BA71826066DF80091F905 /* LoginViewController.swift */,
+				388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */,
 				CE9890F42602828F00E3E44E /* HomeVC.swift */,
 				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
 				CE9890FA260282C000E3E44E /* DiscoverVC.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
+				388BA72C260672310091F905 /* GoogleService-Info.plist */,
 				CE9890E8260271D900E3E44E /* Assets.xcassets */,
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				CE9890ED260271D900E3E44E /* Info.plist */,
@@ -178,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9890EC260271D900E3E44E /* LaunchScreen.storyboard in Resources */,
+				388BA72D260672310091F905 /* GoogleService-Info.plist in Resources */,
 				CE9890E9260271D900E3E44E /* Assets.xcassets in Resources */,
 				CE9890E4260271D800E3E44E /* Main.storyboard in Resources */,
 			);
@@ -240,9 +255,12 @@
 				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
+				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,
+				388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */,
 				CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */,
 				76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */,
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
+				388BA71926066DF80091F905 /* LoginViewController.swift in Sources */,
 				76F7B8A126056680009F6AA9 /* StreakPost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,8 +409,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Streakz/Streakz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V73B9ZU2Z5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Streakz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -411,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Streakz/Streakz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V73B9ZU2Z5;
 				INFOPLIST_FILE = Streakz/Info.plist;
