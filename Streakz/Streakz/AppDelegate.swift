@@ -8,16 +8,45 @@
 import UIKit
 import CoreData
 import Firebase
+import GoogleSignIn
+import FBSDKCoreKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = "999899369890-vpqevtjrvnktmgb4dn65ucpeqg31e20i.apps.googleusercontent.com"
+        
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
+        
         return true
+    }
+    
+    // MARK: Google & Facebook Sign-In
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        let googleSignIn = GIDSignIn.sharedInstance().handle(url)
+        let facebookSignIn = ApplicationDelegate.shared.application(
+                                    app,
+                                    open: url,
+                                    sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                    annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+                                )
+        return googleSignIn || facebookSignIn
+    }
+    
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
     }
 
     // MARK: UISceneSession Lifecycle

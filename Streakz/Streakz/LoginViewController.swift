@@ -7,6 +7,12 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
+import FBSDKLoginKit
+import FirebaseFirestore
+import Combine
+
+let db_firestore = Firestore.firestore()
 
 extension UITextField {
     func addBottomBorder(){
@@ -16,14 +22,23 @@ extension UITextField {
         borderStyle = .none
         layer.addSublayer(bottomLine)
     }
+    func addBottomBorderForNameFields() {
+        let bottomLine = CALayer()
+        print(self.frame.size.height, self.frame.size.width)
+        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: (UIScreen.main.bounds.size.width - 110) / 2, height: 1)
+        bottomLine.backgroundColor = UIColor(named: "Streakz_DarkRed")?.cgColor
+        borderStyle = .none
+        layer.addSublayer(bottomLine)
+    }
 }
 
-class LoginViewController: UIViewController {
-
+class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDelegate {
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var facebookLoginButton: FBLoginButton!
     @IBOutlet weak var createAccountButton: UIButton!
     
     let signInSegue = "SignInSegue"
@@ -43,6 +58,7 @@ class LoginViewController: UIViewController {
           auth, user in
           
           if user != nil {
+            self.loginSuccessful = true
             self.performSegue(withIdentifier: self.signInSegue, sender: nil)
             self.emailTextField.text = nil
             self.passwordTextField.text = nil
@@ -51,6 +67,101 @@ class LoginViewController: UIViewController {
         
         self.emailTextField.addBottomBorder()
         self.passwordTextField.addBottomBorder()
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().delegate = self
+        
+        // automatically sign in the user with Google
+        //GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        
+        self.facebookLoginButton.delegate = self
+        
+        // automatically sign in the user with Facebook
+        if let token = AccessToken.current,
+            !token.isExpired {
+            loginSuccessful = true
+            self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            return
+        } else {
+//            print(user.userID)
+//            print(user.authentication.idToken)
+//            print(user.profile.name)
+//            print(user.profile.givenName)
+//            print(user.profile.familyName)
+//            print(user.profile.email)
+            
+            loginSuccessful = true
+            db_firestore.collection("profiles_google").document(user.profile.email).setData([
+                "firstName": user.profile.givenName!,
+                "lastName": user.profile.familyName!
+            ], merge: true) {
+                err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+            }
+            self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+        }
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if let error = error {
+            // process error
+            print("\(error.localizedDescription)")
+        } else if let result = result,
+                  result.isCancelled {
+            // handle cancellations
+            print("result:", result)
+        } else {
+            // navigate to other view
+            loginSuccessful = true
+            
+            guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
+            let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                          parameters: ["fields": "email, name"],
+                                                          tokenString: accessToken.tokenString,
+                                                          version: nil,
+                                                          httpMethod: .get)
+            graphRequest.start { (connection, result, error) -> Void in
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    if let result = result as? [String:String],
+                        let email: String = result["email"],
+                        let fbId: String = result["id"] {
+                        db_firestore.collection("profiles_facebook").document(email).setData([
+                            "email": email,
+                            "userName": fbId
+                        ], merge: true) {
+                            err in
+                            if let err = err {
+                                print("Error writing document: \(err)")
+                            } else {
+                                print("Document successfully written!")
+                            }
+                        }
+                    }
+                }
+            }
+            
+            self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        return
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -89,15 +200,5 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -17,20 +17,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="StreakzLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XWy-tu-3ui">
-                                <rect key="frame" x="119.5" y="119" width="175" height="175"/>
+                                <rect key="frame" x="119.5" y="79" width="175" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="175" id="T9Y-H5-5qc"/>
                                     <constraint firstAttribute="height" constant="175" id="sE0-pb-dgC"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streakz" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4c-0K-W5i">
-                                <rect key="frame" x="0.0" y="314" width="414" height="57.5"/>
+                                <rect key="frame" x="0.0" y="274" width="414" height="57.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With self-discipline, most anything is possible." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="883-jM-Mj4">
-                                <rect key="frame" x="75" y="421.5" width="264" height="50"/>
+                                <rect key="frame" x="75" y="431.5" width="264" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5OU-eT-AID"/>
                                 </constraints>
@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theodore Roosevelt" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqC-ak-f0Y">
-                                <rect key="frame" x="75" y="491.5" width="264" height="20.5"/>
+                                <rect key="frame" x="75" y="501.5" width="264" height="20.5"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,14 +51,14 @@
                             <constraint firstItem="QqC-ak-f0Y" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1Np-cS-3iE"/>
                             <constraint firstItem="f4c-0K-W5i" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="29e-84-qB6"/>
                             <constraint firstItem="883-jM-Mj4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2t1-2l-muq"/>
-                            <constraint firstItem="883-jM-Mj4" firstAttribute="top" secondItem="f4c-0K-W5i" secondAttribute="bottom" constant="50" id="AqT-lU-kZ0"/>
+                            <constraint firstItem="883-jM-Mj4" firstAttribute="top" secondItem="f4c-0K-W5i" secondAttribute="bottom" constant="100" id="AqT-lU-kZ0"/>
                             <constraint firstItem="QqC-ak-f0Y" firstAttribute="top" secondItem="883-jM-Mj4" secondAttribute="bottom" constant="20" id="C5a-OR-xcm"/>
                             <constraint firstItem="XWy-tu-3ui" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="D57-Yb-ckq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f4c-0K-W5i" secondAttribute="trailing" id="EbG-rC-hrW"/>
                             <constraint firstItem="883-jM-Mj4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="75" id="N3H-66-bCh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QqC-ak-f0Y" secondAttribute="trailing" constant="75" id="O7B-gT-M4h"/>
                             <constraint firstItem="f4c-0K-W5i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PB3-zP-SaM"/>
-                            <constraint firstItem="XWy-tu-3ui" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="R68-TG-CMF"/>
+                            <constraint firstItem="XWy-tu-3ui" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="35" id="R68-TG-CMF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="883-jM-Mj4" secondAttribute="trailing" constant="75" id="g7D-3c-bPD"/>
                             <constraint firstItem="QqC-ak-f0Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="75" id="lzF-h2-zBI"/>
                             <constraint firstItem="f4c-0K-W5i" firstAttribute="top" secondItem="XWy-tu-3ui" secondAttribute="bottom" constant="20" id="onp-rT-4bY"/>
@@ -73,7 +73,7 @@
     <resources>
         <image name="StreakzLogo" width="256" height="256"/>
         <namedColor name="Streakz_Background">
-            <color red="0.91872668270000002" green="0.7691221466" blue="0.73688008159999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.91900002956390381" green="0.76899999380111694" blue="0.7369999885559082" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

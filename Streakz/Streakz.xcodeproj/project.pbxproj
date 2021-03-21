@@ -12,6 +12,7 @@
 		388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */; };
 		388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71E26066E5F0091F905 /* SignUpViewController.swift */; };
 		388BA72D260672310091F905 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388BA72C260672310091F905 /* GoogleService-Info.plist */; };
+		38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */; };
 		76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89726044678009F6AA9 /* StreakInfo.swift */; };
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
@@ -35,6 +36,7 @@
 		388BA71E26066E5F0091F905 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		388BA726260671A90091F905 /* Streakz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Streakz.entitlements; sourceTree = "<group>"; };
 		388BA72C260672310091F905 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
 		50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.debug.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.debug.xcconfig"; sourceTree = "<group>"; };
 		6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Streakz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F7B89726044678009F6AA9 /* StreakInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakInfo.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
 				388BA71E26066E5F0091F905 /* SignUpViewController.swift */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
+				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */,
 				CE9890F42602828F00E3E44E /* HomeVC.swift */,
 				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
@@ -144,6 +147,7 @@
 				CE9890D6260271D700E3E44E /* Frameworks */,
 				CE9890D7260271D700E3E44E /* Resources */,
 				EDFA45CFBEE9B94BB8B5F42E /* [CP] Embed Pods Frameworks */,
+				C21455F0E9AE17B64A387838 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -223,6 +227,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C21455F0E9AE17B64A387838 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Streakz/Pods-Streakz-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Streakz/Pods-Streakz-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Streakz/Pods-Streakz-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EDFA45CFBEE9B94BB8B5F42E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +273,7 @@
 				76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */,
 				CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */,
 				CE9890F52602828F00E3E44E /* HomeVC.swift in Sources */,
+				38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */,
 				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,

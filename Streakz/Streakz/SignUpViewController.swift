@@ -9,8 +9,9 @@ import UIKit
 import Firebase
 
 class SignUpViewController: UIViewController {
-
-    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -27,7 +28,8 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.nameTextField.addBottomBorder()
+        self.firstNameTextField.addBottomBorderForNameFields()
+        self.lastNameTextField.addBottomBorderForNameFields()
         self.emailTextField.addBottomBorder()
         self.passwordTextField.addBottomBorder()
         self.confirmPasswordTextField.addBottomBorder()
@@ -44,11 +46,13 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createAccountButtonPressed(_ sender: Any) {
         // verify if inputs are valid
-        guard let name = nameTextField.text,
+        guard let firstName = firstNameTextField.text,
+              let lastName = lastNameTextField.text,
               let email = emailTextField.text,
               let password = passwordTextField.text,
               let confirmPassword = confirmPasswordTextField.text,
-              name.count > 0,
+              firstName.count > 0,
+              lastName.count > 0,
               email.count > 0,
               password.count > 0,
               confirmPassword.count > 0
@@ -91,21 +95,22 @@ class SignUpViewController: UIViewController {
                     // directly sign in the newly created user
                     Auth.auth().signIn(withEmail: email,
                                        password: password)
+                    db_firestore.collection("profiles_email").document(email).setData([
+                        "firstName": firstName,
+                        "lastName": lastName
+                    ], merge: true) {
+                        err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                        } else {
+                            print("Document successfully written!")
+                        }
+                    }
                     self.signInSuccessful = true
                     self.performSegue(withIdentifier: self.signUpSegue, sender: nil)
                 }
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -7,6 +7,8 @@ target 'Streakz' do
 
   # Pods for Streakz
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  pod 'FBSDKLoginKit'
   pod 'Firebase/Firestore'
 
 end
