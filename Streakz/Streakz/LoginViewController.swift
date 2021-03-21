@@ -14,6 +14,7 @@ import Combine
 
 let db_firestore = Firestore.firestore()
 
+// UI styling for text fields
 extension UITextField {
     func addBottomBorder(){
         let bottomLine = CALayer()
@@ -24,7 +25,6 @@ extension UITextField {
     }
     func addBottomBorderForNameFields() {
         let bottomLine = CALayer()
-        print(self.frame.size.height, self.frame.size.width)
         bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: (UIScreen.main.bounds.size.width - 110) / 2, height: 1)
         bottomLine.backgroundColor = UIColor(named: "Streakz_DarkRed")?.cgColor
         borderStyle = .none
@@ -65,16 +65,22 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
           }
         }
         
+        // update UI for aesthetics
         self.emailTextField.addBottomBorder()
         self.passwordTextField.addBottomBorder()
         
+        // Google sign in
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
         
-        // automatically sign in the user with Google
-        //GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
+        // Facebook sign in
         self.facebookLoginButton.delegate = self
+        self.facebookLoginButton.permissions = ["public_profile", "email"]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // automatically sign in the user with Google
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         // automatically sign in the user with Facebook
         if let token = AccessToken.current,
@@ -93,13 +99,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             }
             return
         } else {
-//            print(user.userID)
-//            print(user.authentication.idToken)
-//            print(user.profile.name)
-//            print(user.profile.givenName)
-//            print(user.profile.familyName)
-//            print(user.profile.email)
-            
             loginSuccessful = true
             db_firestore.collection("profiles_google").document(user.profile.email).setData([
                 "firstName": user.profile.givenName!,
@@ -126,11 +125,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             print("result:", result)
         } else {
             // navigate to other view
-            loginSuccessful = true
-            
             guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
             let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                          parameters: ["fields": "email, name"],
+                                                          parameters: ["fields": "id, email, name, first_name, last_name, picture.type(large)"],
                                                           tokenString: accessToken.tokenString,
                                                           version: nil,
                                                           httpMethod: .get)
@@ -139,11 +136,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                     print("error: \(error)")
                 } else {
                     if let result = result as? [String:String],
+                        let fbId: String = result["id"],
                         let email: String = result["email"],
-                        let fbId: String = result["id"] {
+                        let name: String = result["name"],
+                        let firstName: String = result["first_name"],
+                        let lastName: String = result["last_name"],
+                        let imageURL = ((result["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
                         db_firestore.collection("profiles_facebook").document(email).setData([
+                            "id": fbId,
                             "email": email,
-                            "userName": fbId
+                            "name": name,
+                            "firstName": firstName,
+                            "lastName": lastName,
+                            "profilePicture": imageURL
                         ], merge: true) {
                             err in
                             if let err = err {
@@ -156,11 +161,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                 }
             }
             
+            loginSuccessful = true
             self.performSegue(withIdentifier: self.signInSegue, sender: nil)
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        print("logged out")
         return
     }
     
