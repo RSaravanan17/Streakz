@@ -49,8 +49,20 @@
                     <view key="view" contentMode="scaleToFill" id="bI5-GY-Qcf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJd-pd-nUw">
+                                <rect key="frame" x="186" y="437.66666666666669" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="JWH-79-9aI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UJd-pd-nUw" firstAttribute="centerY" secondItem="bI5-GY-Qcf" secondAttribute="centerY" id="bik-Kq-v1M"/>
+                            <constraint firstItem="UJd-pd-nUw" firstAttribute="centerX" secondItem="bI5-GY-Qcf" secondAttribute="centerX" id="lMI-RS-7Hh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="vuY-jA-gLb">
                         <barButtonItem key="leftBarButtonItem" title="Sign Out" id="FYv-us-7Yr">
@@ -59,10 +71,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="userInfoLabel" destination="UJd-pd-nUw" id="D4A-Sg-kds"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ha-vX-33L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1664" y="1705"/>
+            <point key="canvasLocation" x="1663.7681159420292" y="1704.9107142857142"/>
         </scene>
         <!--Home-->
         <scene sceneID="KSU-nn-lAI">
@@ -71,25 +86,10 @@
                     <view key="view" contentMode="scaleToFill" id="LXk-aC-fRD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2V-fO-8w0">
-                                <rect key="frame" x="186" y="437.66666666666669" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="aMl-6X-uxS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="k2V-fO-8w0" firstAttribute="centerY" secondItem="LXk-aC-fRD" secondAttribute="centerY" id="G8T-Oo-VEx"/>
-                            <constraint firstItem="k2V-fO-8w0" firstAttribute="centerX" secondItem="LXk-aC-fRD" secondAttribute="centerX" id="O9B-xo-W76"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="iV0-Uf-8Pz"/>
-                    <connections>
-                        <outlet property="userInfoLabel" destination="k2V-fO-8w0" id="eMd-b0-UYs"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czg-si-4aT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
