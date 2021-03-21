@@ -17,4 +17,20 @@ class StreakInfo {
      subscribers/members
      viewability: public/private/friend's only
      */
+    
+    let owner: String
+    var name: String
+    var description: String
+    var frequency: String
+    var subscribers: [Profile]
+    var viewability: String
+    
+    init(owner: String, name: String, description: String) {
+        self.owner = owner
+        self.name = name
+        self.description = description
+        self.frequency = ""
+        self.subscribers = [Profile()]
+        self.viewability = ""
+    }
 }

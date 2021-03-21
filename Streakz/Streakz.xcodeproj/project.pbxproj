@@ -13,6 +13,7 @@
 		388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71E26066E5F0091F905 /* SignUpViewController.swift */; };
 		388BA72D260672310091F905 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388BA72C260672310091F905 /* GoogleService-Info.plist */; };
 		38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */; };
+		765132612607F75600D3E202 /* AddStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765132602607F75600D3E202 /* AddStreakVC.swift */; };
 		76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89726044678009F6AA9 /* StreakInfo.swift */; };
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
@@ -39,6 +40,7 @@
 		38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
 		50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.debug.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.debug.xcconfig"; sourceTree = "<group>"; };
 		6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Streakz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		765132602607F75600D3E202 /* AddStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStreakVC.swift; sourceTree = "<group>"; };
 		76F7B89726044678009F6AA9 /* StreakInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakInfo.swift; sourceTree = "<group>"; };
 		76F7B89A260448C4009F6AA9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakSubscription.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */,
 				76F7B8A026056680009F6AA9 /* StreakPost.swift */,
+				765132602607F75600D3E202 /* AddStreakVC.swift */,
 			);
 			path = Streakz;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
 				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,
 				388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */,
+				765132612607F75600D3E202 /* AddStreakVC.swift in Sources */,
 				CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */,
 				76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */,
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
