@@ -133,6 +133,10 @@ class ProfileVC: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == signOutSegue {
+            // sign out email user
+            do { try Auth.auth().signOut() }
+            catch { print("Email user already logged out") }
+            
             // sign out Google user
             GIDSignIn.sharedInstance().signOut()
             
