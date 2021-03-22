@@ -26,6 +26,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // test code
 //        let profile = Profile(firstName: "TestFirst", lastName: "TestLast")
+//        let streakInfo = StreakInfo(owner: "TestPerson", name: "PUSH UPS!", description: "Make gains")
+//        let streakSub = StreakSubscription(streakInfo: streakInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
+//        profile.friends = [Profile(firstName: "Test", lastName: "Friend")]
+//        profile.subscribedStreaks = [streakSub]
+//        profile.streakPosts = [StreakPost()]
+//        
 //        do {
 //            try db_firestore.collection("profiles_email").document("TestDocument").setData(from: profile)
 //        } catch let error {
