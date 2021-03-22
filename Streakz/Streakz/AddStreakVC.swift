@@ -11,6 +11,8 @@ class AddStreakVC: UIViewController, UITextViewDelegate {
     
     // outlets
     @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var addStreakButton: UIButton!
     
     let descPlaceholder = "Do push ups three times a week for the gains"
     let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
@@ -27,6 +29,11 @@ class AddStreakVC: UIViewController, UITextViewDelegate {
         descTextView.layer.borderColor = textFieldGray.cgColor
         descTextView.layer.borderWidth = 0.5
         descTextView.clipsToBounds = true
+        
+        // make add streak button rounded and colored
+        addStreakButton.backgroundColor = UIColor.init(named: "Streakz_DarkRed")
+        addStreakButton.layer.cornerRadius = 25
+        addStreakButton.tintColor = UIColor.black
     }
     
 

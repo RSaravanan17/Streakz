@@ -86,14 +86,45 @@
                     <view key="view" contentMode="scaleToFill" id="LXk-aC-fRD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bmf-f2-XGd">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aWE-40-dPF">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWE-40-dPF" id="LPe-vZ-XBi">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="aMl-6X-uxS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="leading" secondItem="aMl-6X-uxS" secondAttribute="leading" id="4s1-cl-qpN"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="trailing" secondItem="aMl-6X-uxS" secondAttribute="trailing" id="GWn-06-raV"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="bottom" secondItem="aMl-6X-uxS" secondAttribute="bottom" id="gRh-f2-Jky"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="top" secondItem="aMl-6X-uxS" secondAttribute="top" id="yeF-Dw-X9v"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="iV0-Uf-8Pz"/>
+                    <navigationItem key="navigationItem" title="Home" id="iV0-Uf-8Pz">
+                        <barButtonItem key="rightBarButtonItem" title="Add Streak" id="b74-1N-lNR">
+                            <connections>
+                                <segue destination="DWX-zo-HZm" kind="show" id="Pl0-M4-0yk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Bmf-f2-XGd" id="3tb-qn-TVh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czg-si-4aT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471" y="1705"/>
+            <point key="canvasLocation" x="-1471.0144927536232" y="1704.9107142857142"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ktw-L8-9sx">
@@ -600,6 +631,81 @@
             </objects>
             <point key="canvasLocation" x="1205.7971014492755" y="-845.08928571428567"/>
         </scene>
+        <!--Add Streak-->
+        <scene sceneID="nDY-xe-bTY">
+            <objects>
+                <viewController id="DWX-zo-HZm" customClass="AddStreakVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z9U-c9-GG5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eu-b1-CND">
+                                <rect key="frame" x="20" y="108" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Push ups" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKy-mu-ynR">
+                                <rect key="frame" x="20" y="137" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl5-Rl-0jE">
+                                <rect key="frame" x="20" y="179" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lnL-Az-QqR">
+                                <rect key="frame" x="20" y="208" width="374" height="130"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="p4l-5S-lbI"/>
+                                </constraints>
+                                <string key="text">this text is here to show you how large the textbox is. this text is here to show you how large the textbox is. this text is here to show you how large the textbox is. this text is here to show you how large the textbox is. this text is here to show you how large the textbox is. this text is here to show you how large the textbox is. this text is here to show you how large the textbox is.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVl-8q-aRW">
+                                <rect key="frame" x="20" y="753" width="374" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Rwe-9G-70N"/>
+                                </constraints>
+                                <state key="normal" title="Add Streak"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FTz-2r-r4r"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5eu-b1-CND" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="Nb8-zy-8uK"/>
+                            <constraint firstItem="lnL-Az-QqR" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="OJd-sC-LeH"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="tKy-mu-ynR" secondAttribute="trailing" constant="20" id="PjU-oZ-xp1"/>
+                            <constraint firstItem="Wl5-Rl-0jE" firstAttribute="top" secondItem="tKy-mu-ynR" secondAttribute="bottom" constant="8" symbolic="YES" id="WL1-Pg-FzO"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="5eu-b1-CND" secondAttribute="trailing" constant="20" id="Ygi-kU-J3q"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="lnL-Az-QqR" secondAttribute="trailing" constant="20" id="a5E-vJ-5Ib"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="lVl-8q-aRW" secondAttribute="trailing" constant="20" id="gYK-RR-r1Y"/>
+                            <constraint firstItem="lVl-8q-aRW" firstAttribute="bottom" secondItem="FTz-2r-r4r" secondAttribute="bottom" constant="-10" id="i9P-4b-YI7"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="Wl5-Rl-0jE" secondAttribute="trailing" constant="20" id="n2l-xa-1Jn"/>
+                            <constraint firstItem="5eu-b1-CND" firstAttribute="top" secondItem="FTz-2r-r4r" secondAttribute="top" constant="20" id="npx-B4-3W1"/>
+                            <constraint firstItem="lVl-8q-aRW" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="sAk-K9-n3A"/>
+                            <constraint firstItem="Wl5-Rl-0jE" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="u9R-vT-b8x"/>
+                            <constraint firstItem="lnL-Az-QqR" firstAttribute="top" secondItem="Wl5-Rl-0jE" secondAttribute="bottom" constant="8" symbolic="YES" id="v9M-BL-f67"/>
+                            <constraint firstItem="tKy-mu-ynR" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="xzm-st-D4A"/>
+                            <constraint firstItem="tKy-mu-ynR" firstAttribute="top" secondItem="5eu-b1-CND" secondAttribute="bottom" constant="8" symbolic="YES" id="zTv-3v-oQX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Streak" id="0gs-kv-J5i"/>
+                    <connections>
+                        <outlet property="addStreakButton" destination="lVl-8q-aRW" id="Te0-Cy-xsS"/>
+                        <outlet property="descTextView" destination="lnL-Az-QqR" id="uVc-75-4Bt"/>
+                        <outlet property="nameTextField" destination="tKy-mu-ynR" id="ofv-3E-xx4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ulm-eb-91Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1471.0144927536232" y="2362.5"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ocQ-1A-0DN"/>
@@ -620,6 +726,9 @@
         <namedColor name="Streakz_LightRed">
             <color red="0.92699998617172241" green="0.43399998545646667" blue="0.27399998903274536" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
