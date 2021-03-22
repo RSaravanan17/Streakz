@@ -22,7 +22,7 @@ import Foundation
  StreakSubscription objects keep track statistics for a user's currently active streak.
  StreakSubscriptions inherit from StreakInfo, so they still contain the information about a streak.
  */
-class StreakSubscription : StreakInfo {
+class StreakSubscription {
     /*
      constructor takes in a streakinfo class so that we can add the user to streakinfo list of subscribers
      
@@ -33,4 +33,22 @@ class StreakSubscription : StreakInfo {
      subscription start date
      streak privacy setting: public/private/friend's only (applies to posts and whether or not it displays on your profile)
      */
+    
+    enum PrivacyType {
+        case Private, Friends, Public
+    }
+    
+    var streakNumber: Int
+    var reminderTime: Date
+    var subscriptionStartDate: Date
+    var privacy: PrivacyType
+    var streakInfo: StreakInfo
+    
+    init(streakInfo: StreakInfo, reminderTime: Date, subscriptionStartDate: Date, privacy: PrivacyType) {
+        self.streakInfo = streakInfo
+        self.streakNumber = 0
+        self.reminderTime = reminderTime
+        self.subscriptionStartDate = subscriptionStartDate
+        self.privacy = privacy
+    }
 }

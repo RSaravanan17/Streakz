@@ -14,6 +14,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var subscribedStreaks: [StreakSubscription] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
