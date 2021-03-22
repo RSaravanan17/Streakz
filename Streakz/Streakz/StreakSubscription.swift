@@ -7,22 +7,11 @@
 
 import Foundation
 
-
-/*
- could have substreak inherit from streak as they will share some properties like name, owner, etc.
- 
- subscribed streak will need:
- counter
- subscription start date
- frequency information for notifications
- 
- */
-
 /*
  StreakSubscription objects keep track statistics for a user's currently active streak.
- StreakSubscriptions inherit from StreakInfo, so they still contain the information about a streak.
+ StreakSubscriptions will store a StreakInfo object, so they still contain the information about a streak.
  */
-class StreakSubscription {
+class StreakSubscription : Codable {
     /*
      constructor takes in a streakinfo class so that we can add the user to streakinfo list of subscribers
      
@@ -34,7 +23,7 @@ class StreakSubscription {
      streak privacy setting: public/private/friend's only (applies to posts and whether or not it displays on your profile)
      */
     
-    enum PrivacyType {
+    enum PrivacyType : String, Codable {
         case Private, Friends, Public
     }
     

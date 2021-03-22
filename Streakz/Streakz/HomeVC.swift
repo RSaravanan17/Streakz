@@ -9,6 +9,7 @@ import UIKit
 import GoogleSignIn
 import FBSDKLoginKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,6 +23,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // test code
+//        let profile = Profile(firstName: "TestFirst", lastName: "TestLast")
+//        do {
+//            try db_firestore.collection("profiles_email").document("TestDocument").setData(from: profile)
+//        } catch let error {
+//            print("Error writing profile to Firestore: \(error)")
+//        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

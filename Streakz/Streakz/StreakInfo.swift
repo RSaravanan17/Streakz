@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StreakInfo {
+class StreakInfo : Codable {
     /*
      contains the information about the streak such as:
      owner
@@ -30,7 +30,7 @@ class StreakInfo {
         self.name = name
         self.description = description
         self.frequency = ""
-        self.subscribers = [Profile()]
+        self.subscribers = [Profile(firstName: "Test", lastName: "User")]
         self.viewability = ""
     }
 }

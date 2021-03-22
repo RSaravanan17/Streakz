@@ -11,7 +11,7 @@ import Foundation
  Class to store information about a streak post
  */
 
-class StreakPost {
+class StreakPost : Codable {
     /*
      user who posted
      the streak (streaksubscription object)
