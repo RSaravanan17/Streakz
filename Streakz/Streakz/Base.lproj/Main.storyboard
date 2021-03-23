@@ -87,37 +87,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bmf-f2-XGd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bmf-f2-XGd">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StreakCellIdentifier" id="aWE-40-dPF" userLabel="StreakCell" customClass="StreakCell" customModule="Streakz" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWE-40-dPF" id="LPe-vZ-XBi">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33A-4F-6um" userLabel="StreakNumber">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="21" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="20" y="16.333333333333329" width="31.333333333333329" height="27.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIZ-k3-Idf">
-                                                    <rect key="frame" x="51" y="11.333333333333336" width="87" height="21"/>
+                                                    <rect key="frame" x="66.333333333333329" y="19.666666666666668" width="86.999999999999986" height="21.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrow.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yzx-WT-U8g">
-                                                    <rect key="frame" x="374" y="14.666666666666668" width="20" height="14.666666666666661"/>
+                                                    <rect key="frame" x="374" y="23" width="20" height="14.666666666666664"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yzx-WT-U8g" secondAttribute="trailing" id="Bl6-bi-z4T"/>
                                                 <constraint firstItem="yIZ-k3-Idf" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="YCC-8E-D1b"/>
-                                                <constraint firstItem="yIZ-k3-Idf" firstAttribute="leading" secondItem="33A-4F-6um" secondAttribute="trailing" constant="10" id="hPD-7V-7oq"/>
+                                                <constraint firstItem="yIZ-k3-Idf" firstAttribute="leading" secondItem="33A-4F-6um" secondAttribute="trailing" constant="15" id="hPD-7V-7oq"/>
                                                 <constraint firstItem="yzx-WT-U8g" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="wD9-w0-Ib5"/>
                                                 <constraint firstItem="33A-4F-6um" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="xfh-gB-QYJ"/>
                                                 <constraint firstItem="33A-4F-6um" firstAttribute="leading" secondItem="LPe-vZ-XBi" secondAttribute="leadingMargin" id="xhn-kY-Yze"/>
@@ -126,6 +126,7 @@
                                         <connections>
                                             <outlet property="streakNumber" destination="33A-4F-6um" id="vo0-dd-f7P"/>
                                             <outlet property="title" destination="yIZ-k3-Idf" id="XfT-xy-VXQ"/>
+                                            <outlet property="view" destination="LPe-vZ-XBi" id="h3e-cI-XOf"/>
                                             <segue destination="eCe-TN-ij1" kind="show" identifier="ViewStreakSegueIdentifier" id="jva-lv-c3l"/>
                                         </connections>
                                     </tableViewCell>

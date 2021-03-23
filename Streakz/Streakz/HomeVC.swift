@@ -70,8 +70,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: streakCellIdentifier, for: indexPath as IndexPath) as! StreakCell
         let row = indexPath.row
         let streakSub = subscribedStreaks[row]
-        cell.title?.text = streakSub.streakInfo.name
-        cell.streakNumber?.text = String(streakSub.streakNumber)
+        cell.styleView(streak: streakSub)
         return cell
         
     }
@@ -89,5 +88,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 class StreakCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var view: UIView!
     @IBOutlet weak var streakNumber: UILabel!
+    
+    func styleView(streak: StreakSubscription) {
+        title?.text = streak.streakInfo.name
+        streakNumber?.text = String(streak.streakNumber)
+        backgroundColor = UIColor(named: "Streakz_Background")
+        layer.cornerRadius = 20
+    }
 }
