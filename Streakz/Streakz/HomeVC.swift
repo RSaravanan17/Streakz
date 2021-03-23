@@ -23,7 +23,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,6 +59,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                print("Error decoding document into profile: \(error)")
 //            }
 //        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
