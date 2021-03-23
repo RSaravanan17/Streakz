@@ -13,11 +13,12 @@ import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
     @IBOutlet weak var tableView: UITableView!
     
-    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
+    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "Another Test Streak", description: "Do another test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
     
-    var homeStreakCellIdentifier = "HomeStreakCellIdentifier"
+    var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
     
     override func viewDidLoad() {
@@ -66,10 +67,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: homeStreakCellIdentifier, for: indexPath as IndexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: streakCellIdentifier, for: indexPath as IndexPath) as! StreakCell
         let row = indexPath.row
         let streakSub = subscribedStreaks[row]
-        cell.textLabel?.text = streakSub.streakInfo.name
+        cell.title?.text = streakSub.streakInfo.name
+        cell.streakNumber?.text = String(streakSub.streakNumber)
         return cell
         
     }
@@ -83,4 +85,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 tableView.deselectRow(at: streakSubIndexPath, animated: false)
         }
     }
+}
+
+class StreakCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var streakNumber: UILabel!
 }
