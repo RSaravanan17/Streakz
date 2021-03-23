@@ -74,24 +74,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    // This is needed to unselect after a user taps a cell
-    // Otherwise when we return from ViewStreakVC, the cell will be highlighted
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Change the selected background view of the cell.
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == viewStreakSegueIdentifier,
            let nextVC = segue.destination as? ViewStreakVC,
-            let streakSubIndex = tableView.indexPathForSelectedRow?.row
+            let streakSubIndexPath = tableView.indexPathForSelectedRow
         {
-                nextVC.streakSub = subscribedStreaks[streakSubIndex]
-                tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: false)
-
+            nextVC.streakSub = subscribedStreaks[streakSubIndexPath.row]
+                tableView.deselectRow(at: streakSubIndexPath, animated: false)
         }
-        
     }
-
 }
