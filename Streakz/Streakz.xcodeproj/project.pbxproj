@@ -18,6 +18,8 @@
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
 		76F7B8A126056680009F6AA9 /* StreakPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B8A026056680009F6AA9 /* StreakPost.swift */; };
+		AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20726095B040077EE03 /* ViewStreakVC.swift */; };
+		AF62F20B2609808E0077EE03 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20A2609808E0077EE03 /* DateExtensions.swift */; };
 		CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DC260271D800E3E44E /* AppDelegate.swift */; };
 		CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DE260271D800E3E44E /* SceneDelegate.swift */; };
 		CE9890E1260271D800E3E44E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890E0260271D800E3E44E /* ViewController.swift */; };
@@ -46,6 +48,8 @@
 		76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakSubscription.swift; sourceTree = "<group>"; };
 		76F7B8A026056680009F6AA9 /* StreakPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakPost.swift; sourceTree = "<group>"; };
 		78BC0F1FFD86442EA92EF7B3 /* Pods-Streakz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.release.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.release.xcconfig"; sourceTree = "<group>"; };
+		AF62F20726095B040077EE03 /* ViewStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStreakVC.swift; sourceTree = "<group>"; };
+		AF62F20A2609808E0077EE03 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		CE9890D9260271D800E3E44E /* Streakz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streakz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9890DC260271D800E3E44E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE9890DE260271D800E3E44E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */,
 				CE9890F42602828F00E3E44E /* HomeVC.swift */,
+				AF62F20726095B040077EE03 /* ViewStreakVC.swift */,
+				AF62F20A2609808E0077EE03 /* DateExtensions.swift */,
 				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
 				CE9890FA260282C000E3E44E /* DiscoverVC.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -274,8 +280,10 @@
 				76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */,
 				CE9890E7260271D800E3E44E /* Streakz.xcdatamodeld in Sources */,
 				76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */,
+				AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */,
 				CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */,
 				CE9890F52602828F00E3E44E /* HomeVC.swift in Sources */,
+				AF62F20B2609808E0077EE03 /* DateExtensions.swift in Sources */,
 				38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */,
 				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,

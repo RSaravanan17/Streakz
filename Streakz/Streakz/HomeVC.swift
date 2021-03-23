@@ -15,7 +15,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var subscribedStreaks: [StreakSubscription] = []
+    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
+    
+    var homeStreakCellIdentifier = "HomeStreakCellIdentifier"
+    var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,22 +62,36 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return subscribedStreaks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: homeStreakCellIdentifier, for: indexPath as IndexPath)
+        let row = indexPath.row
+        let streakSub = subscribedStreaks[row]
+        cell.textLabel?.text = streakSub.streakInfo.name
+        return cell
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // This is needed to unselect after a user taps a cell
+    // Otherwise when we return from ViewStreakVC, the cell will be highlighted
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Change the selected background view of the cell.
+        tableView.deselectRow(at: indexPath, animated: false)
     }
-    */
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == viewStreakSegueIdentifier,
+           let nextVC = segue.destination as? ViewStreakVC,
+            let streakSubIndex = tableView.indexPathForSelectedRow?.row
+        {
+                nextVC.streakSub = subscribedStreaks[streakSubIndex]
+                tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: false)
+
+        }
+        
+    }
 
 }

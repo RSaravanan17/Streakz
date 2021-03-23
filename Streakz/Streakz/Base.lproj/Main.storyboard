@@ -91,13 +91,16 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aWE-40-dPF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeStreakCellIdentifier" id="aWE-40-dPF">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWE-40-dPF" id="LPe-vZ-XBi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="eCe-TN-ij1" kind="show" identifier="ViewStreakSegueIdentifier" id="jva-lv-c3l"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -704,7 +707,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ulm-eb-91Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471.0144927536232" y="2362.5"/>
+            <point key="canvasLocation" x="-1843" y="2413"/>
+        </scene>
+        <!--View Streak-->
+        <scene sceneID="CQj-HX-bS2">
+            <objects>
+                <viewController id="eCe-TN-ij1" customClass="ViewStreakVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LeG-KE-9Yz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuW-EF-PlC">
+                                <rect key="frame" x="20" y="108" width="160" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8U-xk-MqF">
+                                <rect key="frame" x="20" y="164" width="54" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed since:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPP-QX-Srh">
+                                <rect key="frame" x="20" y="195" width="136" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ln5-Mb-f16" userLabel="StreakNumberDisplay">
+                                <rect key="frame" x="84" y="164" width="21" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX/XX/XXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-hc-HRc" userLabel="SubscribedSinceDisplay">
+                                <rect key="frame" x="166" y="195" width="98" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tpE-N6-mo9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="leading" secondItem="TPP-QX-Srh" secondAttribute="trailing" constant="10" id="2cC-oJ-Tgf"/>
+                            <constraint firstItem="S8U-xk-MqF" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="20" id="6Wq-o0-jA7"/>
+                            <constraint firstItem="S8U-xk-MqF" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="8C9-Fc-6kn"/>
+                            <constraint firstItem="TPP-QX-Srh" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="AJE-Fg-Mh0"/>
+                            <constraint firstItem="DuW-EF-PlC" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="HAM-zE-ir5"/>
+                            <constraint firstItem="ln5-Mb-f16" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="20" id="Msm-rt-J5B"/>
+                            <constraint firstItem="TPP-QX-Srh" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="abP-Xd-WxN"/>
+                            <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" constant="20" id="bkL-8O-cOQ"/>
+                            <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="10" id="iLN-LN-aNL"/>
+                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="mXf-w1-wui"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="View Streak" id="uyI-7z-pNs"/>
+                    <connections>
+                        <outlet property="StreakNumberDisplay" destination="ln5-Mb-f16" id="h99-DF-0D2"/>
+                        <outlet property="SubscribedDateDisplay" destination="Ozp-hc-HRc" id="ZaS-sa-Fg7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TGp-ra-GBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1054" y="2413"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
