@@ -24,7 +24,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
-        // test code
+        // test put profile code
 //        let profile = Profile(firstName: "TestFirst", lastName: "TestLast")
 //        let streakInfo = StreakInfo(owner: "TestPerson", name: "PUSH UPS!", description: "Make gains")
 //        let streakSub = StreakSubscription(streakInfo: streakInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
@@ -36,6 +36,25 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            try db_firestore.collection("profiles_email").document("TestDocument").setData(from: profile)
 //        } catch let error {
 //            print("Error writing profile to Firestore: \(error)")
+//        }
+        
+        // test fetch profile code
+//        db_firestore.collection("profiles_email").document("TestDocument").getDocument {
+//            (document, error) in
+//            let result = Result {
+//                try document?.data(as: Profile.self)
+//            }
+//            switch result {
+//            case .success(let fetchedProfile):
+//                if let fetchedProfile = fetchedProfile {
+//                    print("Received profile successfully")
+//                    print(fetchedProfile.firstName, fetchedProfile.lastName, fetchedProfile.friends[0].firstName)
+//                } else {
+//                    print("Document doesn't exist")
+//                }
+//            case .failure(let error):
+//                print("Error decoding document into profile: \(error)")
+//            }
 //        }
     }
     
