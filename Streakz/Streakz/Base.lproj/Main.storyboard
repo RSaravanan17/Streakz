@@ -705,20 +705,157 @@
                                 </constraints>
                                 <state key="normal" title="Add Streak"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How often will this streak be completed?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENq-0T-ecY" userLabel="FrequencyLabel">
+                                <rect key="frame" x="16" y="370" width="382" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1L-V5-16l">
+                                <rect key="frame" x="16" y="399" width="382" height="32"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouH-yZ-BEf" userLabel="SundayView">
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="SM6-VG-UlV"/>
+                                            <constraint firstAttribute="width" constant="32" id="VoV-9g-Wqb"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-qF-I0q" userLabel="MondayView">
+                                        <rect key="frame" x="40" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="bJO-FJ-FCK"/>
+                                            <constraint firstAttribute="width" constant="32" id="vFw-ne-HlP"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="how-Lf-bOR" userLabel="TuesdayView">
+                                        <rect key="frame" x="80" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="DTe-QK-eIJ"/>
+                                            <constraint firstAttribute="height" constant="32" id="u1V-0o-sh3"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-ec-8DU" userLabel="WednesdayView">
+                                        <rect key="frame" x="120" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="BwC-4B-PH9"/>
+                                            <constraint firstAttribute="height" constant="32" id="Qgb-t2-4Ef"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgu-vb-T85" userLabel="ThursdayView">
+                                        <rect key="frame" x="160" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="2Rg-zZ-mcm"/>
+                                            <constraint firstAttribute="width" constant="32" id="ccz-80-Jo1"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEs-Fd-GJo" userLabel="FridayView">
+                                        <rect key="frame" x="200" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="2sT-v7-2qv"/>
+                                            <constraint firstAttribute="width" constant="32" id="iXA-PO-oja"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGz-DW-HW6" userLabel="SaturdayView">
+                                        <rect key="frame" x="240" y="0.0" width="32" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="CeU-Tn-Zgt"/>
+                                            <constraint firstAttribute="height" constant="32" id="Cvx-1l-Ntn"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="BGz-DW-HW6" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="5ZZ-k7-hBb"/>
+                                    <constraint firstItem="ouH-yZ-BEf" firstAttribute="leading" secondItem="y1L-V5-16l" secondAttribute="leading" id="APo-j1-g5w"/>
+                                    <constraint firstItem="qgu-vb-T85" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="LjE-H5-MeU"/>
+                                    <constraint firstItem="pH2-qF-I0q" firstAttribute="leading" secondItem="ouH-yZ-BEf" secondAttribute="trailing" constant="8" id="NEd-mw-0QH"/>
+                                    <constraint firstItem="BGz-DW-HW6" firstAttribute="leading" secondItem="JEs-Fd-GJo" secondAttribute="trailing" constant="8" symbolic="YES" id="Nsi-GW-Pcc"/>
+                                    <constraint firstItem="JEs-Fd-GJo" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="WLB-H0-lI7"/>
+                                    <constraint firstItem="ouH-yZ-BEf" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="ZV0-FZ-Q6Y"/>
+                                    <constraint firstItem="pH2-qF-I0q" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="ba7-Kx-Ads"/>
+                                    <constraint firstItem="JEs-Fd-GJo" firstAttribute="leading" secondItem="qgu-vb-T85" secondAttribute="trailing" constant="8" symbolic="YES" id="cUc-27-1cN"/>
+                                    <constraint firstItem="how-Lf-bOR" firstAttribute="leading" secondItem="pH2-qF-I0q" secondAttribute="trailing" constant="8" symbolic="YES" id="csW-ho-iy1"/>
+                                    <constraint firstItem="how-Lf-bOR" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="e3Z-VJ-3BJ"/>
+                                    <constraint firstItem="qgu-vb-T85" firstAttribute="leading" secondItem="ILg-ec-8DU" secondAttribute="trailing" constant="8" symbolic="YES" id="o3r-ZV-Yo4"/>
+                                    <constraint firstItem="ILg-ec-8DU" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="top" id="qiz-nP-q8g"/>
+                                    <constraint firstAttribute="height" constant="32" id="yWq-vX-3u9"/>
+                                    <constraint firstItem="ILg-ec-8DU" firstAttribute="leading" secondItem="how-Lf-bOR" secondAttribute="trailing" constant="8" symbolic="YES" id="zMV-Uu-DDX"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9D-DE-Hpi" userLabel="ReminderTimeLabel">
+                                <rect key="frame" x="16.000000000000007" y="463" width="114.66666666666669" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114.66666666666669" id="nFc-qb-jqR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="7y1-vS-4am" userLabel="ReminderTimePicker">
+                                <rect key="frame" x="254" y="451" width="144" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="IAe-aI-vh6"/>
+                                    <constraint firstAttribute="width" constant="144" id="QpU-WD-08Z"/>
+                                </constraints>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who can see this streak?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rro-tM-RRB" userLabel="VisibilityLabel">
+                                <rect key="frame" x="16" y="529" width="190" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uld-qH-Jl1" userLabel="VisibilityPicker">
+                                <rect key="frame" x="250" y="507" width="144" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="SF6-Dc-jS0"/>
+                                    <constraint firstAttribute="height" constant="64" id="dFv-dY-Ddr"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FTz-2r-r4r"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                        </accessibility>
                         <constraints>
+                            <constraint firstItem="Rro-tM-RRB" firstAttribute="top" secondItem="7y1-vS-4am" secondAttribute="bottom" constant="32" id="0bv-TQ-qCG"/>
+                            <constraint firstItem="Rro-tM-RRB" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="64v-Uh-I8j"/>
+                            <constraint firstItem="T9D-DE-Hpi" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="bottom" constant="32" id="BaO-mU-23Y"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="ENq-0T-ecY" secondAttribute="trailing" constant="16" id="FJi-1p-06Z"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="7y1-vS-4am" secondAttribute="trailing" constant="16" id="Igk-pf-igU"/>
                             <constraint firstItem="5eu-b1-CND" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="Nb8-zy-8uK"/>
+                            <constraint firstItem="ENq-0T-ecY" firstAttribute="top" secondItem="lnL-Az-QqR" secondAttribute="bottom" constant="32" id="Ndn-pb-ALp"/>
                             <constraint firstItem="lnL-Az-QqR" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="OJd-sC-LeH"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="tKy-mu-ynR" secondAttribute="trailing" constant="20" id="PjU-oZ-xp1"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="uld-qH-Jl1" secondAttribute="trailing" constant="20" id="Rh5-gU-riQ"/>
                             <constraint firstItem="Wl5-Rl-0jE" firstAttribute="top" secondItem="tKy-mu-ynR" secondAttribute="bottom" constant="8" symbolic="YES" id="WL1-Pg-FzO"/>
+                            <constraint firstItem="ENq-0T-ecY" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="YCw-2i-wFc"/>
+                            <constraint firstItem="y1L-V5-16l" firstAttribute="top" secondItem="ENq-0T-ecY" secondAttribute="bottom" constant="8" id="YcQ-cb-8sj"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="5eu-b1-CND" secondAttribute="trailing" constant="20" id="Ygi-kU-J3q"/>
+                            <constraint firstItem="7y1-vS-4am" firstAttribute="top" secondItem="y1L-V5-16l" secondAttribute="bottom" constant="20" id="Zmb-z6-1UJ"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="lnL-Az-QqR" secondAttribute="trailing" constant="20" id="a5E-vJ-5Ib"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="7y1-vS-4am" secondAttribute="trailing" constant="16" id="cJU-rv-XjX"/>
+                            <constraint firstItem="T9D-DE-Hpi" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="dGB-yF-V9C"/>
+                            <constraint firstItem="uld-qH-Jl1" firstAttribute="top" secondItem="7y1-vS-4am" secondAttribute="bottom" constant="10" id="ec4-Ns-G4d"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="lVl-8q-aRW" secondAttribute="trailing" constant="20" id="gYK-RR-r1Y"/>
                             <constraint firstItem="lVl-8q-aRW" firstAttribute="bottom" secondItem="FTz-2r-r4r" secondAttribute="bottom" constant="-10" id="i9P-4b-YI7"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="y1L-V5-16l" secondAttribute="trailing" constant="16" id="jii-gi-1Eg"/>
+                            <constraint firstItem="T9D-DE-Hpi" firstAttribute="centerY" secondItem="7y1-vS-4am" secondAttribute="centerY" constant="-1" id="kq0-7r-PXp"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="Wl5-Rl-0jE" secondAttribute="trailing" constant="20" id="n2l-xa-1Jn"/>
                             <constraint firstItem="5eu-b1-CND" firstAttribute="top" secondItem="FTz-2r-r4r" secondAttribute="top" constant="20" id="npx-B4-3W1"/>
+                            <constraint firstItem="y1L-V5-16l" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="rv8-ui-ojI"/>
                             <constraint firstItem="lVl-8q-aRW" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="sAk-K9-n3A"/>
                             <constraint firstItem="Wl5-Rl-0jE" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="20" id="u9R-vT-b8x"/>
                             <constraint firstItem="lnL-Az-QqR" firstAttribute="top" secondItem="Wl5-Rl-0jE" secondAttribute="bottom" constant="8" symbolic="YES" id="v9M-BL-f67"/>
@@ -731,11 +868,20 @@
                         <outlet property="addStreakButton" destination="lVl-8q-aRW" id="Te0-Cy-xsS"/>
                         <outlet property="descTextView" destination="lnL-Az-QqR" id="uVc-75-4Bt"/>
                         <outlet property="nameTextField" destination="tKy-mu-ynR" id="ofv-3E-xx4"/>
+                        <outlet property="reminderTimePicker" destination="7y1-vS-4am" id="wYa-ed-ThK"/>
+                        <outlet property="viewFriday" destination="JEs-Fd-GJo" id="G9j-8J-POF"/>
+                        <outlet property="viewMonday" destination="pH2-qF-I0q" id="QfL-f8-Fcx"/>
+                        <outlet property="viewSaturday" destination="BGz-DW-HW6" id="blH-IU-NjT"/>
+                        <outlet property="viewSunday" destination="ouH-yZ-BEf" id="c5j-R0-AIo"/>
+                        <outlet property="viewThursday" destination="qgu-vb-T85" id="CZ4-6H-jUa"/>
+                        <outlet property="viewTuesday" destination="how-Lf-bOR" id="6oY-Jb-vJg"/>
+                        <outlet property="viewWednesday" destination="ILg-ec-8DU" id="fDR-gO-U7U"/>
+                        <outlet property="visibilityPicker" destination="uld-qH-Jl1" id="C9D-4e-H8X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ulm-eb-91Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1843" y="2413"/>
+            <point key="canvasLocation" x="-1843.4782608695652" y="2412.7232142857142"/>
         </scene>
         <!--View Streak-->
         <scene sceneID="CQj-HX-bS2">
