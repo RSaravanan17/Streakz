@@ -8,29 +8,6 @@
 import UIKit
 
 class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 10
-        } else {
-            return 100
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return "Only Me"
-        } else if component == 1 {
-            return "Friends"
-        } else {
-            return "Anyone"
-        }
-    }
-    
-    
     // outlets
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -51,13 +28,15 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     let daysOfWeekTitles = ["Su", "M", "Tu", "W", "Th", "F", "Sa"]
     var daysOfWeekSelected = [false, false, false, false, false, false, false]
     
-    var sundayPressed: Bool = false
     let descPlaceholder = "Do push ups three times a week for the gains"
     let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        visibilityPicker.dataSource = self
+        visibilityPicker.delegate = self
+        
         descTextView.delegate = self
         descTextView.text = descPlaceholder
         descTextView.textColor = textFieldGray
@@ -96,7 +75,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             daysOfWeekButtons.append(button)
             view?.addSubview(button)
         }
-}
+    }
     
     @objc func dayPressed(sender: UIButton!) {
         let index = daysOfWeekTitles.firstIndex(of: sender.title(for: .normal)!)!
@@ -108,6 +87,27 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         }
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return 3
+        } else {
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return "Only Me"
+        } else if component == 1 {
+            return "Friends"
+        } else {
+            return "Anyone"
+        }
+    }
 
     /*
     // MARK: - Navigation
