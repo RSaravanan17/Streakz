@@ -104,18 +104,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             return
         } else {
             loginSuccessful = true
-            // TODO push actual profile object instead
-//            let newUser = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)
-            db_firestore.collection("profiles_google").document(user.profile.email).setData([
-                "firstName": user.profile.givenName!,
-                "lastName": user.profile.familyName!
-            ], merge: true) {
-                err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
+            let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)
+            do {
+                try db_firestore.collection("profiles_email").document(user.profile.email).setData(from: userProfile, merge: true)
+            } catch let error {
+                print("Error adding new user to database", error)
             }
             self.performSegue(withIdentifier: self.signInSegue, sender: nil)
         }
@@ -133,7 +126,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             // navigate to other view
             guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
             let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                          parameters: ["fields": "id, email, name, first_name, last_name, picture.type(large)"],
+                                                          parameters: ["fields": "email, first_name, last_name"],
                                                           tokenString: accessToken.tokenString,
                                                           version: nil,
                                                           httpMethod: .get)
@@ -142,26 +135,15 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                     print("error: \(error)")
                 } else {
                     if let result = result as? [String:String],
-                        let fbId: String = result["id"],
                         let email: String = result["email"],
-                        let name: String = result["name"],
                         let firstName: String = result["first_name"],
-                        let lastName: String = result["last_name"],
-                        let imageURL = ((result["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
-                        db_firestore.collection("profiles_facebook").document(email).setData([
-                            "id": fbId,
-                            "email": email,
-                            "name": name,
-                            "firstName": firstName,
-                            "lastName": lastName,
-                            "profilePicture": imageURL
-                        ], merge: true) {
-                            err in
-                            if let err = err {
-                                print("Error writing document: \(err)")
-                            } else {
-                                print("Document successfully written!")
-                            }
+                        let lastName: String = result["last_name"] {
+                        let userProfile = Profile(firstName: firstName, lastName: lastName)
+                        // TODO: get user profile picture
+                        do {
+                            try db_firestore.collection("profiles_email").document(email).setData(from: userProfile, merge: true)
+                        } catch let error {
+                            print("Error adding new user to database", error)
                         }
                     }
                 }

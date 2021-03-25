@@ -36,11 +36,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     print("Error fetching document: \(error!)")
                     return
                 }
-                guard let data = document.data() else {
+                guard document.data() != nil else {
                     print("Document data was empty.")
                     return
                 }
-                print("Current data: \(data)")
                 do {
                     let userProfile = try document.data(as: Profile.self)
                     self.userProfile = userProfile

@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class SignUpViewController: UIViewController {
     
@@ -95,16 +96,12 @@ class SignUpViewController: UIViewController {
                     // directly sign in the newly created user
                     Auth.auth().signIn(withEmail: email,
                                        password: password)
-                    db_firestore.collection("profiles_email").document(email).setData([
-                        "firstName": firstName,
-                        "lastName": lastName
-                    ], merge: true) {
-                        err in
-                        if let err = err {
-                            print("Error writing document: \(err)")
-                        } else {
-                            print("Document successfully written!")
-                        }
+                    // create the user a profile and push it to firebase
+                    let newProfile = Profile(firstName: firstName, lastName: lastName)
+                    do {
+                        try db_firestore.collection("profiles_email").document(email).setData(from: newProfile, merge: true)
+                    } catch let error {
+                        print("Error adding new user to database", error)
                     }
                     self.signInSuccessful = true
                     self.performSegue(withIdentifier: self.signUpSegue, sender: nil)
