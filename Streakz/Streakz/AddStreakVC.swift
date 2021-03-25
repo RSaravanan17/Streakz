@@ -35,27 +35,6 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if let collection = cur_user_collection, let document = cur_user_email {
-            db_firestore.collection(collection).document(document).getDocument {
-                (document, error) in
-                let result = Result {
-                    try document?.data(as: Profile.self)
-                }
-                switch result {
-                case .success(let fetchedProfile):
-                    if let fetchedProfile = fetchedProfile {
-                        print("Received profile successfully")
-                        self.curUserProfile = fetchedProfile
-                    } else {
-                        print("Document doesn't exist")
-                    }
-                case .failure(let error):
-                    print("Error decoding document into profile: \(error)")
-                }
-            }
-        } else {
-            print("Error fetching current profile - user email and/or profile_type is nil")
-        }
         
         visibilityPicker.dataSource = self
         visibilityPicker.delegate = self

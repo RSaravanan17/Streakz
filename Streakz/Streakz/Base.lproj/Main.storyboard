@@ -145,7 +145,7 @@
                     <navigationItem key="navigationItem" title="Home" id="iV0-Uf-8Pz">
                         <barButtonItem key="rightBarButtonItem" title="Add Streak" id="b74-1N-lNR">
                             <connections>
-                                <segue destination="DWX-zo-HZm" kind="show" id="Pl0-M4-0yk"/>
+                                <segue destination="DWX-zo-HZm" kind="show" identifier="AddStreakSegueIdentifier" id="Pl0-M4-0yk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

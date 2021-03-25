@@ -13,13 +13,14 @@ import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var tableView: UITableView!
     
+    var userProfile: Profile?
     var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak", reminderDays: [false, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "Another Test Streak", description: "Do another test streak", reminderDays: [false, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
     
     var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
+    var addStreakSegueIdentifier = "AddStreakSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 print("Current data: \(data)")
                 do {
                     let userProfile = try document.data(as: Profile.self)
+                    self.userProfile = userProfile
                     self.subscribedStreaks = userProfile!.subscribedStreaks
                     self.tableView.reloadData()
                 } catch let error {
@@ -70,10 +72,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == viewStreakSegueIdentifier,
            let nextVC = segue.destination as? ViewStreakVC,
-            let streakSubIndexPath = tableView.indexPathForSelectedRow
-        {
+           let streakSubIndexPath = tableView.indexPathForSelectedRow {
             nextVC.streakSub = subscribedStreaks[streakSubIndexPath.row]
                 tableView.deselectRow(at: streakSubIndexPath, animated: false)
+        } else if segue.identifier == addStreakSegueIdentifier,
+                  let nextVC = segue.destination as? AddStreakVC {
+            nextVC.curUserProfile = userProfile
         }
     }
 }
