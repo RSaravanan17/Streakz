@@ -27,48 +27,28 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
-        // test put profile code
-//        let profile = Profile(firstName: "TestFirst", lastName: "TestLast")
-//        let streakInfo = StreakInfo(owner: "TestPerson", name: "PUSH UPS!", description: "Make gains", reminderDays: [false, false, false, false, false, false, false])
-//        let streakSub = StreakSubscription(streakInfo: streakInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
-//        let friend = Profile(firstName: "Test", lastName: "Friend")
-//        friend.subscribedStreaks = [streakSub]
-//        profile.friends = [friend]
-//        profile.subscribedStreaks = [streakSub]
-//        profile.streakPosts = [StreakPost()]
-//        do {
-//            try db_firestore.collection("profiles_email").document("TestDocument").setData(from: profile)
-//        } catch let error {
-//            print("Error writing profile to Firestore: \(error)")
-//        }
-        
-//        // test update code
-//        let newProfile = Profile(firstName: "New", lastName: "Friend")
-//        newProfile.subscribedStreaks = [streakSub]
-//        let json = try! JSONEncoder().encode(newProfile)
-//        let betterThing =  try? JSONSerialization.jsonObject(with: json, options: .allowFragments)
-//        db_firestore.collection("profiles_email").document("TestDocument").updateData([
-//            "friends": FieldValue.arrayUnion([betterThing!])
-//        ])
-        
-        // test fetch profile code
-//        db_firestore.collection("profiles_email").document("TestDocument").getDocument {
-//            (document, error) in
-//            let result = Result {
-//                try document?.data(as: Profile.self)
-//            }
-//            switch result {
-//            case .success(let fetchedProfile):
-//                if let fetchedProfile = fetchedProfile {
-//                    print("Received profile successfully")
-//                    print(fetchedProfile.firstName, fetchedProfile.lastName, fetchedProfile.friends[0].firstName)
-//                } else {
-//                    print("Document doesn't exist")
-//                }
-//            case .failure(let error):
-//                print("Error decoding document into profile: \(error)")
-//            }
-//        }
+        // fetch profile for current list of streaks from firebase
+        if let collection = cur_user_collection, let user = cur_user_email {
+        db_firestore.collection(collection).document(user)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                print("Current data: \(data)")
+                do {
+                    let userProfile = try document.data(as: Profile.self)
+                    self.subscribedStreaks = userProfile!.subscribedStreaks
+                    self.tableView.reloadData()
+                } catch let error {
+                    print("Error deserializing data", error)
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +65,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let streakSub = subscribedStreaks[row]
         cell.styleView(streak: streakSub)
         return cell
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

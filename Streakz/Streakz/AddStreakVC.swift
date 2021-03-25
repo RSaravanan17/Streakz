@@ -28,13 +28,35 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     var daysOfWeekButtons: [UIButton] = []
     let daysOfWeekTitles = ["Su", "M", "Tu", "W", "Th", "F", "Sa"]
     var daysOfWeekSelected = [false, false, false, false, false, false, false]
-    
+    var curUserProfile: Profile? = nil
     let descPlaceholder = "Do push ups three times a week for the gains"
     let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if let collection = cur_user_collection, let document = cur_user_email {
+            db_firestore.collection(collection).document(document).getDocument {
+                (document, error) in
+                let result = Result {
+                    try document?.data(as: Profile.self)
+                }
+                switch result {
+                case .success(let fetchedProfile):
+                    if let fetchedProfile = fetchedProfile {
+                        print("Received profile successfully")
+                        self.curUserProfile = fetchedProfile
+                    } else {
+                        print("Document doesn't exist")
+                    }
+                case .failure(let error):
+                    print("Error decoding document into profile: \(error)")
+                }
+            }
+        } else {
+            print("Error fetching current profile - user email and/or profile_type is nil")
+        }
+        
         visibilityPicker.dataSource = self
         visibilityPicker.delegate = self
         
@@ -123,6 +145,8 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         if let streakName = nameTextField.text,
            let streakDesc = descTextView.text,
            let owner = cur_user_email,
+           let collection = cur_user_collection,
+           let curProfile = curUserProfile,
            !daysOfWeekSelected.allSatisfy({$0 == false}) {
             let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
             
@@ -133,14 +157,14 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             newStreak.subscribers.append(cur_user_profile!)
             
             // add streak to user profile
-            cur_user_profile?.subscribedStreaks.append(subbedStreak)
+            curProfile.subscribedStreaks.append(subbedStreak)
             
             // if streak privacy is public, add to collection of public streaks
             
             // update firebase
             do {
                 print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
-                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: cur_user_profile!)
+                try db_firestore.collection(collection).document(owner).setData(from: curProfile)
             } catch let error {
                 print("Error writing profile to Firestore: \(error)")
             }
