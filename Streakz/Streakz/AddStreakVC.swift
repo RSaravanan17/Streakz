@@ -24,6 +24,9 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     @IBOutlet weak var reminderTimePicker: UIDatePicker!
     @IBOutlet weak var visibilityPicker: UIPickerView!
     
+    var pickerData: [StreakSubscription.PrivacyType] = [.Private, .Friends, .Public]
+    var privacyType: StreakSubscription.PrivacyType!
+    
     var daysOfWeekViews: [UIView?] = []
     var daysOfWeekButtons: [UIButton] = []
     let daysOfWeekTitles = ["Su", "M", "Tu", "W", "Th", "F", "Sa"]
@@ -35,6 +38,8 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        privacyType = self.pickerData[0]
         
         visibilityPicker.dataSource = self
         visibilityPicker.delegate = self
@@ -89,21 +94,15 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 3
-        } else {
-            return 0
-        }
+        return pickerData.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return "Only Me"
-        } else if component == 1 {
-            return "Friends"
-        } else {
-            return "Anyone"
-        }
+        return pickerData[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        privacyType = pickerData[row]
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -130,7 +129,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
             
             // autosubscribe the user
-            let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: .Private)
+            let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: privacyType)
             
             // add to user's profile streaks profile list
             newStreak.subscribers.append(cur_user_profile!)
