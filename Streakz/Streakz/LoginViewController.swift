@@ -188,6 +188,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         setCurUserEmailAndType()
+        setCurUserProfile()
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
@@ -261,7 +262,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                     if let fetchedProfile = fetchedProfile {
                         print("Received profile successfully")
                         cur_user_profile = fetchedProfile
-                        print(fetchedProfile.firstName, fetchedProfile.lastName, fetchedProfile.friends[0].firstName)
                     } else {
                         print("Document doesn't exist")
                     }
