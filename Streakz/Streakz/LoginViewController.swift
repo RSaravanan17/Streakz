@@ -10,11 +10,13 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Combine
 
 let db_firestore = Firestore.firestore()
 var cur_user_email: String? = nil
 var cur_user_collection: String? = nil
+var cur_user_profile: Profile? = nil
 
 // UI styling for text fields
 extension UITextField {
@@ -102,6 +104,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             return
         } else {
             loginSuccessful = true
+            // TODO push actual profile object instead
+//            let newUser = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)
             db_firestore.collection("profiles_google").document(user.profile.email).setData([
                 "firstName": user.profile.givenName!,
                 "lastName": user.profile.familyName!
@@ -242,6 +246,31 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                     print("Error fetching facebook profile")
                 }
             }
+        }
+    }
+    
+    func setCurUserProfile() {
+        if let collection = cur_user_collection, let document = cur_user_email {
+            db_firestore.collection(collection).document(document).getDocument {
+                (document, error) in
+                let result = Result {
+                    try document?.data(as: Profile.self)
+                }
+                switch result {
+                case .success(let fetchedProfile):
+                    if let fetchedProfile = fetchedProfile {
+                        print("Received profile successfully")
+                        cur_user_profile = fetchedProfile
+                        print(fetchedProfile.firstName, fetchedProfile.lastName, fetchedProfile.friends[0].firstName)
+                    } else {
+                        print("Document doesn't exist")
+                    }
+                case .failure(let error):
+                    print("Error decoding document into profile: \(error)")
+                }
+            }
+        } else {
+            print("Error fetching current profile - user email and/or profile_type is nil")
         }
     }
 }

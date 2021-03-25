@@ -125,10 +125,24 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
            let owner = cur_user_email,
            !daysOfWeekSelected.allSatisfy({$0 == false}) {
             let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
-            // autosubscribe the user
             
-            // add to user's profile list of streaks
+            // autosubscribe the user
+            let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: .Private)
+            
+            // add to user's profile streaks profile list
+            newStreak.subscribers.append(cur_user_profile!)
+            
+            // add streak to user profile
+            cur_user_profile?.subscribedStreaks.append(subbedStreak)
+            
             // if streak privacy is public, add to collection of public streaks
+            
+            // update firebase
+            do {
+                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: cur_user_email!)
+            } catch let error {
+                print("Error writing profile to Firestore: \(error)")
+            }
         } else {
             
         }
