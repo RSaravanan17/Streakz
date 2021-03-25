@@ -16,7 +16,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "Another Test Streak", description: "Do another test streak"), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
+    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak", reminderDays: [false, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "Another Test Streak", description: "Do another test streak", reminderDays: [false, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
     
     var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
@@ -29,17 +29,27 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // test put profile code
 //        let profile = Profile(firstName: "TestFirst", lastName: "TestLast")
-//        let streakInfo = StreakInfo(owner: "TestPerson", name: "PUSH UPS!", description: "Make gains")
+//        let streakInfo = StreakInfo(owner: "TestPerson", name: "PUSH UPS!", description: "Make gains", reminderDays: [false, false, false, false, false, false, false])
 //        let streakSub = StreakSubscription(streakInfo: streakInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
-//        profile.friends = [Profile(firstName: "Test", lastName: "Friend")]
+//        let friend = Profile(firstName: "Test", lastName: "Friend")
+//        friend.subscribedStreaks = [streakSub]
+//        profile.friends = [friend]
 //        profile.subscribedStreaks = [streakSub]
 //        profile.streakPosts = [StreakPost()]
-//        
 //        do {
 //            try db_firestore.collection("profiles_email").document("TestDocument").setData(from: profile)
 //        } catch let error {
 //            print("Error writing profile to Firestore: \(error)")
 //        }
+        
+//        // test update code
+//        let newProfile = Profile(firstName: "New", lastName: "Friend")
+//        newProfile.subscribedStreaks = [streakSub]
+//        let json = try! JSONEncoder().encode(newProfile)
+//        let betterThing =  try? JSONSerialization.jsonObject(with: json, options: .allowFragments)
+//        db_firestore.collection("profiles_email").document("TestDocument").updateData([
+//            "friends": FieldValue.arrayUnion([betterThing!])
+//        ])
         
         // test fetch profile code
 //        db_firestore.collection("profiles_email").document("TestDocument").getDocument {

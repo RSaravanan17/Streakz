@@ -13,6 +13,8 @@ import FirebaseFirestore
 import Combine
 
 let db_firestore = Firestore.firestore()
+var cur_user_email: String? = nil
+var cur_user_collection: String? = nil
 
 // UI styling for text fields
 extension UITextField {
@@ -180,6 +182,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        setCurUserEmailAndType()
+    }
+    
     @IBAction func signInButtonPressed(_ sender: Any) {
         // verify if email and password are valid inputs
         guard let email = emailTextField.text,
@@ -208,4 +214,34 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         }
     }
 
+    func setCurUserEmailAndType() {
+        if Auth.auth().currentUser != nil {
+            // current user signed in through Facebook
+            cur_user_email = Auth.auth().currentUser!.email
+            cur_user_collection = "profiles_email"
+        } else if let googleUser = GIDSignIn.sharedInstance()?.currentUser {
+            // current user signed in through Google
+            cur_user_email = googleUser.profile.email
+            cur_user_collection = "profiles_google"
+        } else if AccessToken.current != nil {
+            // current user signed in through Facebook
+            let accessToken = AccessToken.current!
+            let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                          parameters: ["fields": "email"],
+                                                          tokenString: accessToken.tokenString,
+                                                          version: nil,
+                                                          httpMethod: .get)
+            graphRequest.start { (connection, result, error) -> Void in
+                if error == nil, let result = result as? Dictionary<String, AnyObject> {
+                    cur_user_email = result["email"] as? String
+                    cur_user_collection = "profiles_facebook"
+                }
+                else if let error = error {
+                    print("Error when fetching facebook profile information: \(error)")
+                } else {
+                    print("Error fetching facebook profile")
+                }
+            }
+        }
+    }
 }

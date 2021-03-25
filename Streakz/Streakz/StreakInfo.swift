@@ -21,16 +21,16 @@ class StreakInfo : Codable {
     let owner: String
     var name: String
     var description: String
-    var frequency: String
+    var reminderDays: [Bool]       // 0th index is Sunday, 1st is Monday, etc.
     var subscribers: [Profile]
-    var viewability: String
+    var viewability: StreakSubscription.PrivacyType
     
-    init(owner: String, name: String, description: String) {
+    init(owner: String, name: String, description: String, reminderDays: [Bool]) {
         self.owner = owner
         self.name = name
         self.description = description
-        self.frequency = ""
-        self.subscribers = [Profile(firstName: "Test", lastName: "User")]
-        self.viewability = ""
+        self.reminderDays = reminderDays
+        self.subscribers = []
+        self.viewability = .Private // everything private for alpha release
     }
 }

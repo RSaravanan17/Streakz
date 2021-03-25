@@ -50,8 +50,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJd-pd-nUw">
-                                <rect key="frame" x="186" y="437.66666666666669" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJd-pd-nUw">
+                                <rect key="frame" x="169.66666666666666" y="437.66666666666669" width="75" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -700,10 +700,20 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVl-8q-aRW">
                                 <rect key="frame" x="20" y="753" width="374" height="50"/>
+                                <color key="backgroundColor" name="Streakz_DarkRed"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Rwe-9G-70N"/>
                                 </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Add Streak"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addStreakPressed:" destination="DWX-zo-HZm" eventType="touchUpInside" id="gQt-iA-L2a"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How often will this streak be completed?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENq-0T-ecY" userLabel="FrequencyLabel">
                                 <rect key="frame" x="16" y="370" width="382" height="21"/>
@@ -925,15 +935,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRp-cO-MXK">
-                                <rect key="frame" x="50" y="252" width="314" height="41"/>
-                                <color key="backgroundColor" name="Streakz_LightRed"/>
+                                <rect key="frame" x="50" y="241" width="314" height="50"/>
+                                <color key="backgroundColor" name="Streakz_DarkRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ASg-dj-DqI"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Mark done for today">
                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -942,7 +955,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 hours remaining to complete streak today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htb-tk-7M6">
-                                <rect key="frame" x="38" y="303" width="338" height="21"/>
+                                <rect key="frame" x="38" y="301" width="338" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -962,7 +975,7 @@
                             <constraint firstItem="ln5-Mb-f16" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="20" id="Msm-rt-J5B"/>
                             <constraint firstItem="PRp-cO-MXK" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="50" id="My7-wS-Lfk"/>
                             <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="PRp-cO-MXK" secondAttribute="trailing" constant="50" id="OdO-tR-P5Q"/>
-                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="36" id="UuL-hR-cV9"/>
+                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="25" id="UuL-hR-cV9"/>
                             <constraint firstItem="TPP-QX-Srh" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="abP-Xd-WxN"/>
                             <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" constant="20" id="bkL-8O-cOQ"/>
                             <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="5" id="iLN-LN-aNL"/>

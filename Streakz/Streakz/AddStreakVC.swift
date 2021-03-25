@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
 class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     // outlets
@@ -19,7 +21,6 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     @IBOutlet weak var viewThursday: UIView!
     @IBOutlet weak var viewFriday: UIView!
     @IBOutlet weak var viewSaturday: UIView!
-    
     @IBOutlet weak var reminderTimePicker: UIDatePicker!
     @IBOutlet weak var visibilityPicker: UIPickerView!
     
@@ -46,11 +47,6 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         descTextView.layer.borderColor = textFieldGray.cgColor
         descTextView.layer.borderWidth = 0.5
         descTextView.clipsToBounds = true
-        
-        // make add streak button rounded and colored
-        addStreakButton.backgroundColor = UIColor.init(named: "Streakz_DarkRed")
-        addStreakButton.layer.cornerRadius = 25
-        addStreakButton.tintColor = UIColor.black
         
         daysOfWeekViews = [
             viewSunday,
@@ -108,17 +104,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             return "Anyone"
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if descTextView.textColor == textFieldGray {
             descTextView.text = nil
@@ -130,6 +116,21 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         if descTextView.text.isEmpty {
             descTextView.text = descPlaceholder
             descTextView.textColor = textFieldGray
+        }
+    }
+    
+    @IBAction func addStreakPressed(_ sender: Any) {
+        if let streakName = nameTextField.text,
+           let streakDesc = descTextView.text,
+           let owner = cur_user_email,
+           !daysOfWeekSelected.allSatisfy({$0 == false}) {
+            let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
+            // autosubscribe the user
+            
+            // add to user's profile list of streaks
+            // if streak privacy is public, add to collection of public streaks
+        } else {
+            
         }
     }
 }
