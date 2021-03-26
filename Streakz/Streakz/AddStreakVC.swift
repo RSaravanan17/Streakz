@@ -143,6 +143,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             do {
                 print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
                 try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                navigationController?.popViewController(animated: true)
             } catch let error {
                 print("Error writing profile to Firestore: \(error)")
             }
