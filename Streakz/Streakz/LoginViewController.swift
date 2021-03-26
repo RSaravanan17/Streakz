@@ -251,25 +251,23 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     
     func setCurUserProfile() {
         if let collection = cur_user_collection, let document = cur_user_email {
-            db_firestore.collection(collection).document(document).getDocument {
-                (document, error) in
-                let result = Result {
-                    try document?.data(as: Profile.self)
-                }
-                switch result {
-                case .success(let fetchedProfile):
-                    if let fetchedProfile = fetchedProfile {
-                        print("cur_user_profile global set successfully")
-                        cur_user_profile = fetchedProfile
-                    } else {
-                        print("Error fetching cur_user_profile - Document doesn't exist")
+            db_firestore.collection(collection).document(document)
+                .addSnapshotListener { documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("cur_user_profile error fetching document: \(error!)")
+                        return
                     }
-                case .failure(let error):
-                    print("cur_user_profile - Error decoding document into profile: \(error)")
+                    guard document.data() != nil else {
+                        print("cur_user_profile fetch - ocument data was empty.")
+                        return
+                    }
+                    do {
+                        cur_user_profile = try document.data(as: Profile.self)
+                        print("cur_user_profile successfully set")
+                    } catch let error {
+                        print("Error deserializing data", error)
+                    }
                 }
             }
-        } else {
-            print("Error fetching current profile - user email and/or profile_type is nil")
-        }
     }
 }

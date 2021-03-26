@@ -131,11 +131,11 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             // autosubscribe the user
             let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: privacyType)
             
-            // add to user's profile streaks profile list
-            newStreak.subscribers.append(cur_user_profile!)
-            
             // add streak to user profile
             curProfile.subscribedStreaks.append(subbedStreak)
+            
+            // add to user's profile streaks profile list
+            newStreak.subscribers.append(cur_user_profile!)
             
             // if streak privacy is public, add to collection of public streaks
             
@@ -148,7 +148,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
                 print("Error writing profile to Firestore: \(error)")
             }
         } else {
-            
+            // print that something wasn't filled out
         }
     }
 }
