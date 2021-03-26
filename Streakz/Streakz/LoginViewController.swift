@@ -104,11 +104,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             return
         } else {
             loginSuccessful = true
-            let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)
-            do {
-                try db_firestore.collection("profiles_email").document(user.profile.email).setData(from: userProfile, merge: true)
-            } catch let error {
-                print("Error adding new user to database", error)
+            db_firestore.collection("profiles_google").document(user.profile.email).getDocument {
+                (document, error) in
+                if let document = document, document.exists {
+                    print("User exists, no need to make new profile")
+                } else {
+                    print("New google user. Creating new profile")
+                    let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)                    // TODO: get user profile picture
+                    do {
+                        try db_firestore.collection("profiles_google").document(user.profile.email).setData(from: userProfile, merge: true)
+                    } catch let error {
+                        print("Error adding new user to database", error)
+                    }
+                }
             }
             self.performSegue(withIdentifier: self.signInSegue, sender: nil)
         }
@@ -138,12 +146,21 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                         let email: String = result["email"],
                         let firstName: String = result["first_name"],
                         let lastName: String = result["last_name"] {
-                        let userProfile = Profile(firstName: firstName, lastName: lastName)
-                        // TODO: get user profile picture
-                        do {
-                            try db_firestore.collection("profiles_email").document(email).setData(from: userProfile, merge: true)
-                        } catch let error {
-                            print("Error adding new user to database", error)
+                        
+                        db_firestore.collection("profiles_facebook").document(email).getDocument {
+                            (document, error) in
+                            if let document = document, document.exists {
+                                print("User exists, no need to make new profile")
+                            } else {
+                                print("New facebook user. Creating new profile")
+                                let userProfile = Profile(firstName: firstName, lastName: lastName)
+                                // TODO: get user profile picture
+                                do {
+                                    try db_firestore.collection("profiles_facebook").document(email).setData(from: userProfile, merge: true)
+                                } catch let error {
+                                    print("Error adding new user to database", error)
+                                }
+                            }
                         }
                     }
                 }
