@@ -259,13 +259,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                 switch result {
                 case .success(let fetchedProfile):
                     if let fetchedProfile = fetchedProfile {
-                        print("Received profile successfully")
+                        print("cur_user_profile global set successfully")
                         cur_user_profile = fetchedProfile
                     } else {
-                        print("Document doesn't exist")
+                        print("Error fetching cur_user_profile - Document doesn't exist")
                     }
                 case .failure(let error):
-                    print("Error decoding document into profile: \(error)")
+                    print("cur_user_profile - Error decoding document into profile: \(error)")
                 }
             }
         } else {
