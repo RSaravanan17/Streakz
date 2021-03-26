@@ -986,6 +986,10 @@
                     <connections>
                         <outlet property="StreakNumberDisplay" destination="ln5-Mb-f16" id="h99-DF-0D2"/>
                         <outlet property="SubscribedDateDisplay" destination="Ozp-hc-HRc" id="ZaS-sa-Fg7"/>
+                        <outlet property="buttonSubText" destination="htb-tk-7M6" id="0UF-ye-maQ"/>
+                        <outlet property="markDoneButton" destination="PRp-cO-MXK" id="3Bl-sP-Sbt"/>
+                        <outlet property="streakNumberDisplay" destination="ln5-Mb-f16" id="51P-uB-JeU"/>
+                        <outlet property="subscribedDateDisplay" destination="Ozp-hc-HRc" id="5Fw-vv-6mN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGp-ra-GBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -16,7 +16,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var userProfile: Profile?
-    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Test Streak", description: "Do a test streak", reminderDays: [true, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "Another Test Streak", description: "Do another test streak", reminderDays: [false, false, false, true, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
+    var subscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Debug Streak", description: "a test streak", reminderDays: [true, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "If you see this something went wrong getting your profile's streaks", description: "another test streak", reminderDays: [false, false, false, true, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
     
     var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"

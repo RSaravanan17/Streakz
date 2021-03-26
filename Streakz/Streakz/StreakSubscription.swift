@@ -30,7 +30,7 @@ class StreakSubscription : Codable {
         self.reminderTime = reminderTime
         self.subscriptionStartDate = subscriptionStartDate
         self.privacy = privacy
-        self.lastStreakUpdate = .distantPast // This helps us know that this streak has never been completed
+        self.lastStreakUpdate = Date()
     }
     
     func nextDeadline() -> Date {
@@ -49,7 +49,7 @@ class StreakSubscription : Codable {
         let currentDay = calendar.component(.weekday, from: currentDate) // 1 is Sunday, ..., 7 is Saturday
         var nextStreakDay = currentDay
 
-        if (streakWasCompletedToday()) {
+        if (wasCompletedToday()) {
             nextStreakDay = getNextDayInt(day: nextStreakDay)
         }
         
@@ -66,7 +66,7 @@ class StreakSubscription : Codable {
         
         let nextDeadline = calendar.nextDate(after: currentDate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
         print("\n\nStreak:", streakInfo.name, "next deadline is:", nextDeadline.fullDateTime)
-        
+
         return nextDeadline
     }
     
@@ -76,9 +76,9 @@ class StreakSubscription : Codable {
         return calendar.isDateInTomorrow(nextDeadline())
     }
     
-    func streakWasCompletedToday() -> Bool {
+    func wasCompletedToday() -> Bool {
         let calendar = Calendar.current
-        return calendar.isDateInToday(lastStreakUpdate)
+        return streakNumber != 0 && calendar.isDateInToday(lastStreakUpdate)
     }
     
     // Increments this StreakSubscription's counter by 1
