@@ -22,7 +22,7 @@ class StreakInfo : Codable {
     var name: String
     var description: String
     var reminderDays: [Bool]       // 0th index is Sunday, 1st is Monday, etc.
-    var subscribers: [Profile]
+    var subscribers: [BaseProfile]
     var viewability: StreakSubscription.PrivacyType
     
     init(owner: String, name: String, description: String, reminderDays: [Bool]) {

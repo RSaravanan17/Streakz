@@ -18,6 +18,7 @@
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
 		76F7B8A126056680009F6AA9 /* StreakPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B8A026056680009F6AA9 /* StreakPost.swift */; };
+		AF349696260E665A00693574 /* BaseProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF349695260E665A00693574 /* BaseProfile.swift */; };
 		AF3D0AF5260A90D000E7C32C /* CompleteStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */; };
 		AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20726095B040077EE03 /* ViewStreakVC.swift */; };
 		AF62F20B2609808E0077EE03 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20A2609808E0077EE03 /* DateExtensions.swift */; };
@@ -49,6 +50,7 @@
 		76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakSubscription.swift; sourceTree = "<group>"; };
 		76F7B8A026056680009F6AA9 /* StreakPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakPost.swift; sourceTree = "<group>"; };
 		78BC0F1FFD86442EA92EF7B3 /* Pods-Streakz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.release.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.release.xcconfig"; sourceTree = "<group>"; };
+		AF349695260E665A00693574 /* BaseProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseProfile.swift; sourceTree = "<group>"; };
 		AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20726095B040077EE03 /* ViewStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20A2609808E0077EE03 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				CE9890ED260271D900E3E44E /* Info.plist */,
 				CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */,
 				76F7B89726044678009F6AA9 /* StreakInfo.swift */,
+				AF349695260E665A00693574 /* BaseProfile.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */,
 				76F7B8A026056680009F6AA9 /* StreakPost.swift */,
@@ -300,6 +303,7 @@
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
 				388BA71926066DF80091F905 /* LoginViewController.swift in Sources */,
 				76F7B8A126056680009F6AA9 /* StreakPost.swift in Sources */,
+				AF349696260E665A00693574 /* BaseProfile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

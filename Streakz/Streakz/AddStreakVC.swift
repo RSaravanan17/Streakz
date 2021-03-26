@@ -134,8 +134,12 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             // add streak to user profile
             curProfile.subscribedStreaks.append(subbedStreak)
             
-            // add to user's profile streaks profile list
-            newStreak.subscribers.append(cur_user_profile!)
+            // add user to StreakInfo's list of subscribers
+            if cur_user_email != nil && cur_user_collection != nil {
+                newStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
+            } else {
+                print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
+            }
             
             // if streak privacy is public, add to collection of public streaks
             
