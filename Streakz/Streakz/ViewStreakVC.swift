@@ -36,7 +36,22 @@ class ViewStreakVC: UIViewController {
 
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: Date(), to: streakSub.nextDeadline())
             // TODO: what if less than 1 hour remains
-            let timeRemainingString = String(diffComponents.hour!) + " hours remaining"
+            let hoursRemaining = diffComponents.hour!
+            let minutesRemaining = diffComponents.minute!
+            
+            var timeRemainingString: String = String(hoursRemaining) + " hours remaining"
+
+            if hoursRemaining == 1 {
+                timeRemainingString = String(hoursRemaining) + " hour remaining"
+            } else if hoursRemaining == 0 {
+                if minutesRemaining > 1 {
+                    timeRemainingString = String(minutesRemaining) + " minutes remaining"
+                } else if minutesRemaining == 1 {
+                    timeRemainingString = String(minutesRemaining) + " minute remaining"
+                } else {
+                    timeRemainingString = "Less than a minute left!"
+                }
+            }
             
             buttonSubText.text = timeRemainingString
         } else {
