@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import FirebaseFirestoreSwift
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -34,6 +34,12 @@ class SignUpViewController: UIViewController {
         self.emailTextField.addBottomBorder()
         self.passwordTextField.addBottomBorder()
         self.confirmPasswordTextField.addBottomBorder()
+        
+        self.firstNameTextField.delegate = self
+        self.lastNameTextField.delegate = self
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+        self.confirmPasswordTextField.delegate = self
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -112,5 +118,20 @@ class SignUpViewController: UIViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    // Handler for return key pressed on text fields
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            // Shift focus from text field to the next text field upon return key pressed
+            nextResponder.becomeFirstResponder()
+        } else {
+            // Dismiss keyboard of the last text input once its return key is pressed
+            textField.resignFirstResponder()
+        }
+
+        return true
     }
 }
