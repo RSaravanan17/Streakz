@@ -13,6 +13,8 @@ class ViewStreakVC: UIViewController {
     @IBOutlet weak var subscribedDateDisplay: UILabel!
     @IBOutlet weak var buttonSubText: UILabel!
     @IBOutlet weak var markDoneButton: UIButton!
+    @IBOutlet weak var streakTitleDisplay: UILabel!
+    @IBOutlet weak var descriptionDisplay: UILabel!
     
     var curUserProfile: Profile? = nil
     var streakSub: StreakSubscription!
@@ -24,8 +26,10 @@ class ViewStreakVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        streakTitleDisplay.text = streakSub.streakInfo.name
         streakNumberDisplay.text = String(streakSub.streakNumber)
         subscribedDateDisplay.text = streakSub.subscriptionStartDate.shortDate
+        descriptionDisplay.text = streakSub.streakInfo.description
         
         if streakSub.wasCompletedToday() {
             markDoneButton.isEnabled = false

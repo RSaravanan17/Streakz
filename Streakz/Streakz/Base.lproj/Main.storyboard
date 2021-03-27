@@ -911,31 +911,31 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8U-xk-MqF">
-                                <rect key="frame" x="20" y="164" width="54" height="21"/>
+                                <rect key="frame" x="20" y="154" width="54" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed since:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPP-QX-Srh">
-                                <rect key="frame" x="20" y="195" width="136" height="21"/>
+                                <rect key="frame" x="20" y="185" width="136" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ln5-Mb-f16" userLabel="StreakNumberDisplay">
-                                <rect key="frame" x="79" y="164" width="21" height="21"/>
+                                <rect key="frame" x="79" y="154" width="21" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX/XX/XXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-hc-HRc" userLabel="SubscribedSinceDisplay">
-                                <rect key="frame" x="161" y="195" width="98" height="21"/>
+                                <rect key="frame" x="161" y="185" width="98" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRp-cO-MXK">
-                                <rect key="frame" x="50" y="241" width="314" height="50"/>
+                                <rect key="frame" x="50" y="266.33333333333331" width="314" height="50"/>
                                 <color key="backgroundColor" name="Streakz_DarkRed"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ASg-dj-DqI"/>
@@ -954,8 +954,14 @@
                                     <segue destination="ea5-xK-ZCV" kind="show" identifier="ViewStreakSegueIdentifier" id="fYH-w9-ykp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 hours remaining to complete streak today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htb-tk-7M6">
-                                <rect key="frame" x="38" y="301" width="338" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htb-tk-7M6">
+                                <rect key="frame" x="177.66666666666666" y="326.33333333333331" width="59" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9C-7S-BW8">
+                                <rect key="frame" x="20" y="216" width="374" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -965,21 +971,24 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ozp-hc-HRc" firstAttribute="leading" secondItem="TPP-QX-Srh" secondAttribute="trailing" constant="5" id="2cC-oJ-Tgf"/>
-                            <constraint firstItem="S8U-xk-MqF" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="20" id="6Wq-o0-jA7"/>
+                            <constraint firstItem="S8U-xk-MqF" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="10" id="6Wq-o0-jA7"/>
                             <constraint firstItem="S8U-xk-MqF" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="8C9-Fc-6kn"/>
                             <constraint firstItem="TPP-QX-Srh" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="AJE-Fg-Mh0"/>
                             <constraint firstItem="PRp-cO-MXK" firstAttribute="centerX" secondItem="tpE-N6-mo9" secondAttribute="centerX" id="ARj-YG-dUL"/>
                             <constraint firstItem="htb-tk-7M6" firstAttribute="centerX" secondItem="tpE-N6-mo9" secondAttribute="centerX" id="Apn-tV-YK0"/>
                             <constraint firstItem="DuW-EF-PlC" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="HAM-zE-ir5"/>
+                            <constraint firstItem="ln5-Mb-f16" firstAttribute="centerY" secondItem="S8U-xk-MqF" secondAttribute="centerY" id="IhO-u6-Qdp"/>
                             <constraint firstItem="htb-tk-7M6" firstAttribute="top" secondItem="PRp-cO-MXK" secondAttribute="bottom" constant="10" id="LKn-NN-xag"/>
-                            <constraint firstItem="ln5-Mb-f16" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="20" id="Msm-rt-J5B"/>
                             <constraint firstItem="PRp-cO-MXK" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="50" id="My7-wS-Lfk"/>
                             <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="PRp-cO-MXK" secondAttribute="trailing" constant="50" id="OdO-tR-P5Q"/>
-                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="25" id="UuL-hR-cV9"/>
+                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="c9C-7S-BW8" secondAttribute="bottom" constant="30" id="XJO-0X-1Gy"/>
+                            <constraint firstItem="c9C-7S-BW8" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="10" id="ZSA-C5-N3y"/>
                             <constraint firstItem="TPP-QX-Srh" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="abP-Xd-WxN"/>
+                            <constraint firstItem="c9C-7S-BW8" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="b0T-5A-sHO"/>
                             <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" constant="20" id="bkL-8O-cOQ"/>
                             <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="5" id="iLN-LN-aNL"/>
                             <constraint firstItem="Ozp-hc-HRc" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="mXf-w1-wui"/>
+                            <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="c9C-7S-BW8" secondAttribute="trailing" constant="20" id="okJ-EM-dJM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="View Streak" id="uyI-7z-pNs"/>
@@ -987,8 +996,10 @@
                         <outlet property="StreakNumberDisplay" destination="ln5-Mb-f16" id="h99-DF-0D2"/>
                         <outlet property="SubscribedDateDisplay" destination="Ozp-hc-HRc" id="ZaS-sa-Fg7"/>
                         <outlet property="buttonSubText" destination="htb-tk-7M6" id="0UF-ye-maQ"/>
+                        <outlet property="descriptionDisplay" destination="c9C-7S-BW8" id="mNu-C0-MyR"/>
                         <outlet property="markDoneButton" destination="PRp-cO-MXK" id="3Bl-sP-Sbt"/>
                         <outlet property="streakNumberDisplay" destination="ln5-Mb-f16" id="51P-uB-JeU"/>
+                        <outlet property="streakTitleDisplay" destination="DuW-EF-PlC" id="q7S-PZ-U8m"/>
                         <outlet property="subscribedDateDisplay" destination="Ozp-hc-HRc" id="5Fw-vv-6mN"/>
                     </connections>
                 </viewController>
