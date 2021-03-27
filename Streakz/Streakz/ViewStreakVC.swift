@@ -33,6 +33,10 @@ class ViewStreakVC: UIViewController {
         
         if streakSub.canBeCompletedToday() {
             markDoneButton.isEnabled = true
+            markDoneButton.setTitleColor(.systemBackground, for: .normal)
+            markDoneButton.layer.borderWidth = 0.0
+            markDoneButton.backgroundColor = UIColor(named: "Streakz_DarkRed")
+            markDoneButton.setTitle("Mark done for today", for: .normal)
 
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: Date(), to: streakSub.nextDeadline())
             // TODO: what if less than 1 hour remains
@@ -55,8 +59,12 @@ class ViewStreakVC: UIViewController {
             
             buttonSubText.text = timeRemainingString
         } else {
-            // TODO: style button differently if disabled
             markDoneButton.isEnabled = false
+            markDoneButton.setTitleColor(UIColor(named: "Streakz_DarkRed"), for: .normal)
+            markDoneButton.layer.borderColor = UIColor(named: "Streakz_DarkRed")?.cgColor
+            markDoneButton.layer.borderWidth = 1.0
+            markDoneButton.backgroundColor = .systemBackground
+            markDoneButton.setTitle("Complete", for: .normal)
             
             if streakSub.wasCompletedToday() {
                 buttonSubText.text = "Good Job keeping up your streak today!"
