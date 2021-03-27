@@ -50,8 +50,8 @@ class StreakSubscription : Codable {
             return d
         }
         
-        let lastDayCompleted = calendar.component(.weekday, from: Date()) // 1 is Sunday, ..., 7 is Saturday
-        var nextStreakDay = lastDayCompleted
+        let lastDayUpdated = calendar.component(.weekday, from: lastStreakUpdate) // 1 is Sunday, ..., 7 is Saturday
+        var nextStreakDay = lastDayUpdated
 
         if (wasCompletedToday()) {
             nextStreakDay = incrementDayInt(day: nextStreakDay)
@@ -61,11 +61,12 @@ class StreakSubscription : Codable {
             nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
         
-        let nextDayOfWeekComponents = DateComponents(calendar:calendar, weekday: nextStreakDay)
-        let nextStreakDate = calendar.nextDate(after: lastStreakUpdate, matching: nextDayOfWeekComponents, matchingPolicy: .nextTime)!
+        let nextStreakDeadlineDay = incrementDayInt(day: nextStreakDay)
+        let nextStreakDeadlineComponents = DateComponents(calendar:calendar, weekday: nextStreakDeadlineDay)
+        let afterDate = wasCompletedToday() ? calendar.date(byAdding: .day, value: 1, to: lastStreakUpdate)! : lastStreakUpdate
+        let nextDeadlineDate = calendar.nextDate(after: afterDate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
         
-        let nextStreakDeadline = calendar.date(byAdding: .day, value: 1, to: nextStreakDate)
-        return nextStreakDeadline!
+        return nextDeadlineDate
     }
     
     func canBeCompletedToday() -> Bool {
@@ -92,7 +93,7 @@ class StreakSubscription : Codable {
     }
     
     func nextStreakDate() -> Date {
-        return Calendar.current.date(byAdding: .month, value: -1, to: nextDeadline())!
+        return Calendar.current.date(byAdding: .day, value: -1, to: nextDeadline())!
     }
     
     func resetStreak() {
