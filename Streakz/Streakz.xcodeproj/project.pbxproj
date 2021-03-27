@@ -22,6 +22,7 @@
 		AF3D0AF5260A90D000E7C32C /* CompleteStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */; };
 		AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20726095B040077EE03 /* ViewStreakVC.swift */; };
 		AF62F20B2609808E0077EE03 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20A2609808E0077EE03 /* DateExtensions.swift */; };
+		CE55CBDA260ECBBD00FA8A6E /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55CBD9260ECBBD00FA8A6E /* SettingsVC.swift */; };
 		CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DC260271D800E3E44E /* AppDelegate.swift */; };
 		CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890DE260271D800E3E44E /* SceneDelegate.swift */; };
 		CE9890E1260271D800E3E44E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890E0260271D800E3E44E /* ViewController.swift */; };
@@ -54,6 +55,7 @@
 		AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20726095B040077EE03 /* ViewStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20A2609808E0077EE03 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		CE55CBD9260ECBBD00FA8A6E /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		CE9890D9260271D800E3E44E /* Streakz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streakz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9890DC260271D800E3E44E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE9890DE260271D800E3E44E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
+				CE55CBD9260ECBBD00FA8A6E /* SettingsVC.swift */,
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -294,6 +297,7 @@
 				38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */,
 				CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */,
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
+				CE55CBDA260ECBBD00FA8A6E /* SettingsVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
 				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,
 				388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */,
