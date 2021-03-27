@@ -10,17 +10,50 @@ import GoogleSignIn
 import FBSDKLoginKit
 import Firebase
 
-class ProfileVC: UIViewController {
+// Extension of UIImageView class: function used to load a remote URL image
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+
+protocol ProfileDelegate {
+    func updateProfile(firstName: String, lastName: String)
+    func getProfile() -> Profile?
+}
+
+class ProfileVC: UIViewController, ProfileDelegate {
     
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userInfoLabel: UILabel!
+    @IBOutlet weak var userFriendsLabel: UILabel!
     
     let signOutSegue = "SignOutSegue"
+    let settingsSegue = "SettingsSegue"
+    
+    var userProfile: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setCurrentUser()
+        
+        // Round the profile image view
+        userImageView.layer.borderWidth = 1.0
+        userImageView.layer.masksToBounds = false
+        userImageView.layer.borderColor = UIColor.white.cgColor
+        userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
+        userImageView.clipsToBounds = true
         
         // example: prints out documents stored in Firestore (Note: ASYNC!)
         /*
@@ -55,75 +88,58 @@ class ProfileVC: UIViewController {
     }
     
     func setCurrentUser() {
-        if Auth.auth().currentUser != nil {
-            // current user signed in through Facebook
-            getEmailUserDatacompletion(completion: {(result)->Void in
-                self.userInfoLabel.text = "EMAIL: " + result
-            })
-        } else if let googleUser = GIDSignIn.sharedInstance()?.currentUser {
-            // current user signed in through Google
-            self.userInfoLabel.text = "GOOGLE: " + googleUser.profile.email
-            print("email:", googleUser.profile.email!)
-            print("firstName:", googleUser.profile.givenName!)
-            print("lastName:", googleUser.profile.familyName!)
-            print("name:", googleUser.profile.name!)
-            print("id:", googleUser.userID!)
-            print("profilePictureURL:", googleUser.profile.imageURL(withDimension: UInt(round(100 * UIScreen.main.scale)))!)
-        } else if AccessToken.current != nil {
-            // current user signed in through Facebook
-            getFacebookUserData(completion: {(result)->Void in
-                self.userInfoLabel.text = "FACEBOOK: " + result
-            })
-        }
-    }
-    
-    func getEmailUserDatacompletion(completion: @escaping (_ result:String) -> Void) {
-        let docRef = db_firestore.collection("profiles_email").document((Auth.auth().currentUser?.email)!)
-        docRef.getDocument {
-            (document, error) in
-            if let document = document,
-                document.exists,
-                let email: String = document.documentID as? String,
-                let firstName: String = document["firstName"] as? String,
-                let lastName: String = document["lastName"] as? String {
-                print("email:", email)
-                print("firstName:", firstName)
-                print("lastName:", lastName)
-                completion(document.documentID)
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
-    
-    func getFacebookUserData(completion: @escaping (_ result:String) -> Void) {
-        guard let accessToken = FBSDKLoginKit.AccessToken.current else { return }
-        let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                      parameters: ["fields": "id, email, name, first_name, last_name, picture.type(large)"],
-                                                      tokenString: accessToken.tokenString,
-                                                      version: nil,
-                                                      httpMethod: .get)
-        graphRequest.start { (connection, result, error) -> Void in
-            if let error = error {
-                print("error: \(error)")
-            } else {
-                if let result = result as? Dictionary<String, AnyObject>,
-                    let email: String = result["email"] as? String,
-                    let firstName: String = result["first_name"] as? String,
-                    let lastName: String = result["last_name"] as? String,
-                    let name: String = result["name"] as? String,
-                    let id: String = result["id"] as? String {
-                    print("result:", result)
-                    print("email:", email)
-                    print("firstName:", firstName)
-                    print("lastName:", lastName)
-                    print("name:", name)
-                    print("id:", id)
-                    print("profilePictureURL: ", "https://graph.facebook.com/\(id)/picture?type=large")
-                    completion(email)
+        if let collection = cur_user_collection, let user = cur_user_email {
+            db_firestore.collection(collection).document(user)
+                .addSnapshotListener { documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("Error fetching document: \(error!)")
+                        return
+                    }
+                    do {
+                        let userProfile = try document.data(as: Profile.self)
+                        self.userProfile = userProfile
+                        // Set profile picture image view
+                        if let imageURL: String = userProfile?.profilePicture {
+                            if imageURL == "" {
+                                self.userImageView.image = UIImage(named: "ProfileImageBlank")
+                            } else {
+                                self.userImageView.load(url: URL(string: imageURL)!)
+                            }
+                        } else {
+                            self.userImageView.image = UIImage(named: "ProfileImageBlank")
+                        }
+                        // Set first and last name labels
+                        if let firstName: String = userProfile?.firstName,
+                           let lastName: String = userProfile?.lastName {
+                            self.userNameLabel.text = "\(firstName) \(lastName)"
+                        }
+                        // Set the number of friends label
+                        if let friendsCount: Int = userProfile?.friends.count {
+                            self.userFriendsLabel.text = "\(friendsCount)"
+                        } else {
+                            self.userFriendsLabel.text = "0"
+                        }
+                        if let email = cur_user_email {
+                            self.userInfoLabel.text = "EMAIL: " + email
+                        }
+                    } catch let error {
+                        print("Error deserializing data", error)
+                    }
                 }
-            }
         }
+    }
+    
+    func updateProfile(firstName: String, lastName: String) {
+        // Update profile in firebase
+        if let owner = cur_user_email,
+           let collection = cur_user_collection {
+            let newData = ["firstName": firstName, "lastName": lastName]
+            db_firestore.collection(collection).document(owner).setData(newData, merge: true)
+        }
+    }
+    
+    func getProfile() -> Profile? {
+        return self.userProfile
     }
     
     // MARK: - Navigation
@@ -143,6 +159,10 @@ class ProfileVC: UIViewController {
             // sign out Facebook user
             let loginManager = LoginManager()
             loginManager.logOut()
+        } else if segue.identifier == settingsSegue {
+            if let destination = segue.destination as? SettingsVC {
+                destination.profileDelegate = self as ProfileDelegate
+            }
         }
     }
 
