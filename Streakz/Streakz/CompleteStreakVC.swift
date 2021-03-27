@@ -15,7 +15,8 @@ class CompleteStreakVC: UIViewController {
     @IBOutlet weak var newStreakNumberLabel: UILabel!
     
     var streakSub: StreakSubscription!
-    
+    var curUserProfile: Profile? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +27,18 @@ class CompleteStreakVC: UIViewController {
     }
     
     @IBAction func postStreakPressed(_ sender: UIButton) {
-        // TODO: create streak post and properly update this StreakSubscription
-        streakSub.streakNumber += 1
+        // TODO: create streak post
+        _ = streakSub.completeStreak()
+        
+        if let curProfile = curUserProfile {
+            // update firebase
+            do {
+                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)
+            } catch let error {
+                print("Error writing profile to Firestore: \(error)")
+            }
+        }
+        
         navigationController?.popViewController(animated: true)
     }
     

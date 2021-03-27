@@ -14,6 +14,7 @@ class ViewStreakVC: UIViewController {
     @IBOutlet weak var buttonSubText: UILabel!
     @IBOutlet weak var markDoneButton: UIButton!
     
+    var curUserProfile: Profile? = nil
     var streakSub: StreakSubscription!
     
     var completeStreakSegueIdentifier = "ViewStreakSegueIdentifier"
@@ -52,6 +53,7 @@ class ViewStreakVC: UIViewController {
            let nextVC = segue.destination as? CompleteStreakVC
         {
             nextVC.streakSub = streakSub
+            nextVC.curUserProfile = curUserProfile
         }
     }
 

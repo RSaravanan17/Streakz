@@ -72,10 +72,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if segue.identifier == viewStreakSegueIdentifier,
            let nextVC = segue.destination as? ViewStreakVC,
            let streakSubIndexPath = tableView.indexPathForSelectedRow {
+            
             nextVC.streakSub = subscribedStreaks[streakSubIndexPath.row]
-                tableView.deselectRow(at: streakSubIndexPath, animated: false)
+            nextVC.curUserProfile = userProfile
+            tableView.deselectRow(at: streakSubIndexPath, animated: false)
+            
         } else if segue.identifier == addStreakSegueIdentifier,
                   let nextVC = segue.destination as? AddStreakVC {
+            
             nextVC.curUserProfile = userProfile
         }
     }
