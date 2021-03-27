@@ -33,11 +33,15 @@ class StreakSubscription : Codable {
         self.lastStreakUpdate = Date()
     }
     
+    // Returns a Date that represents when this streak expires
+    // if nextDeadline() is in the past, that means this streak has been expired, and resetStreak() should be called
     func nextDeadline() -> Date {
-        let calendar = Calendar.current
-        let currentDate = Date()
+        //pre-condition needed to avoid infinite loop due to bad data
+        assert(streakInfo.reminderDays.contains(true))
         
-        func getNextDayInt(day: Int) -> Int {
+        let calendar = Calendar.current
+        
+        func incrementDayInt(day: Int) -> Int {
             var d = day
             d += 1
             if (d == 8) {
@@ -46,27 +50,21 @@ class StreakSubscription : Codable {
             return d
         }
         
-        let currentDay = calendar.component(.weekday, from: currentDate) // 1 is Sunday, ..., 7 is Saturday
+        let currentDay = calendar.component(.weekday, from: lastStreakUpdate) // 1 is Sunday, ..., 7 is Saturday
         var nextStreakDay = currentDay
 
         if (wasCompletedToday()) {
-            nextStreakDay = getNextDayInt(day: nextStreakDay)
+            nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
-        
-        //avoiding infinite loop due to bad data
-        assert(streakInfo.reminderDays.contains(true))
         
         while (!streakInfo.reminderDays[nextStreakDay - 1]) {
-            nextStreakDay = getNextDayInt(day: nextStreakDay)
+            nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
         
-        let nextStreakDeadline = getNextDayInt(day: nextStreakDay)
-
+        let nextStreakDeadline = incrementDayInt(day: nextStreakDay)
         let nextStreakDeadlineComponents = DateComponents(calendar:calendar, weekday: nextStreakDeadline)
+        let nextDeadline = calendar.nextDate(after: lastStreakUpdate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
         
-        let nextDeadline = calendar.nextDate(after: currentDate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
-        print("\n\nStreak:", streakInfo.name, "next deadline is:", nextDeadline.fullDateTime)
-
         return nextDeadline
     }
     
@@ -92,5 +90,12 @@ class StreakSubscription : Codable {
         return false
     }
     
+    func nextStreakDate() -> Date {
+        return Calendar.current.date(byAdding: .month, value: -1, to: nextDeadline())!
+    }
     
+    func resetStreak() {
+        streakNumber = 0
+        lastStreakUpdate = Date()
+    }
 }

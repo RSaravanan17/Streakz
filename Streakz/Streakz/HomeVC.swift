@@ -44,6 +44,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     let userProfile = try document.data(as: Profile.self)
                     self.userProfile = userProfile
                     self.subscribedStreaks = userProfile!.subscribedStreaks
+                    self.verifyStreaks(streakSubs: self.subscribedStreaks)
                     self.tableView.reloadData()
                 } catch let error {
                     print("Error deserializing data", error)
@@ -81,6 +82,37 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                   let nextVC = segue.destination as? AddStreakVC {
             
             nextVC.curUserProfile = userProfile
+        }
+    }
+    
+    func verifyStreaks(streakSubs: [StreakSubscription]) {
+        let currentDate = Date()
+        var needToUpdateDB = false
+        for streakSub in streakSubs {
+            if streakSub.nextDeadline() < currentDate || currentDate < streakSub.lastStreakUpdate {
+                // The left hand side of this OR checks if the user has missed their deadline
+                
+                // The right hand side of the OR checks if this streak was updated at some point in the future.
+                // If streakSub.lastStreakUpdate is in the future, behavior will not be as expected
+                // Realistically, this should never happen, but it happens quite often for us when debugging b/c we have to
+                // change our system time in order to test out the app without actually having to wait a week for the right Date
+                
+                // In either case, we need to reset the streak
+                print("Streak Expired:", streakSub.streakInfo.name)
+                streakSub.resetStreak()
+                needToUpdateDB = true
+            }
+        }
+
+        if needToUpdateDB,
+           let curProfile = userProfile {
+            // update firebase
+            do {
+                print("Some streaks have expired, updating database")
+                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)
+            } catch let error {
+                print("Error writing profile to Firestore: \(error)")
+            }
         }
     }
 }

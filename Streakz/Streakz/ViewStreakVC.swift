@@ -31,10 +31,7 @@ class ViewStreakVC: UIViewController {
         subscribedDateDisplay.text = streakSub.subscriptionStartDate.shortDate
         descriptionDisplay.text = streakSub.streakInfo.description
         
-        if streakSub.wasCompletedToday() {
-            markDoneButton.isEnabled = false
-            buttonSubText.text = "Good Job keeping up your streak today!"
-        } else if streakSub.canBeCompletedToday() {
+        if streakSub.canBeCompletedToday() {
             markDoneButton.isEnabled = true
 
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: Date(), to: streakSub.nextDeadline())
@@ -45,9 +42,13 @@ class ViewStreakVC: UIViewController {
         } else {
             // TODO: style button differently if disabled
             markDoneButton.isEnabled = false
-            buttonSubText.text = "Can't do streak today"
+            
+            if streakSub.wasCompletedToday() {
+                buttonSubText.text = "Good Job keeping up your streak today!"
+            } else {
+                buttonSubText.text = "Come back on " + streakSub.nextStreakDate().fullDate
+            }
         }
-        
         
     }
     
