@@ -36,7 +36,7 @@ extension UITextField {
     }
 }
 
-class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDelegate, LoginButtonDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -72,6 +72,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         // update UI for aesthetics
         self.emailTextField.addBottomBorder()
         self.passwordTextField.addBottomBorder()
+        
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
         
         // Google sign in
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -191,6 +194,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
+        self.signInWithEmailPassword()
+    }
+    
+    func signInWithEmailPassword() {
         // verify if email and password are valid inputs
         guard let email = emailTextField.text,
               let password = passwordTextField.text,
@@ -273,5 +280,22 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    // Handler for return key pressed on text fields
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            // Shift focus from text field to the next text field upon return key pressed
+            nextResponder.becomeFirstResponder()
+        } else {
+            // Dismiss keyboard of the last text input once its return key is pressed
+            textField.resignFirstResponder()
+            // Sign user in once password input return key is pressed
+            self.signInWithEmailPassword()
+        }
+
+        return true
     }
 }
