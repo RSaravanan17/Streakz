@@ -152,7 +152,17 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
                 print("Error writing profile to Firestore: \(error)")
             }
         } else {
-            // print that something wasn't filled out
+            let alert = UIAlertController(
+                title: "Streak Incomplete",
+                message: "Please fill out all of the fields",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(
+                                title: "OK",
+                                style: .default,
+                                handler: nil
+                                ))
+            present(alert, animated: true, completion: nil)
         }
     }
     
