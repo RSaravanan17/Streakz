@@ -88,7 +88,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" name="Streakz_DarkRed"/>
+                                        <color key="backgroundColor" name="Streakz_Background"/>
                                         <constraints>
                                             <constraint firstItem="XL6-rE-DtX" firstAttribute="centerY" secondItem="DLm-FP-vaU" secondAttribute="centerY" id="Q8Y-6n-obs"/>
                                             <constraint firstItem="XL6-rE-DtX" firstAttribute="leading" secondItem="EG6-t4-AVA" secondAttribute="trailing" constant="16" id="ZND-gt-hfS"/>
@@ -341,13 +341,13 @@
                                     <constraint firstAttribute="width" constant="175" id="Q5Z-46-b3A"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streakz" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37a-XN-5vb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37a-XN-5vb">
                                 <rect key="frame" x="0.0" y="274" width="414" height="57.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZCL-am-eel">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZCL-am-eel">
                                 <rect key="frame" x="50" y="371.33333333333331" width="314" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="oKE-TW-CKL"/>
@@ -355,7 +355,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-oC-USg">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-oC-USg">
                                 <rect key="frame" x="50" y="426.33333333333331" width="314" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="p8i-tO-xIO"/>
@@ -376,15 +376,18 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cID-mt-bed">
-                                <rect key="frame" x="50" y="511.33333333333326" width="314" height="41"/>
+                                <rect key="frame" x="50" y="511.33333333333326" width="314" height="50"/>
                                 <color key="backgroundColor" name="Streakz_LightRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="nUw-lP-Ua3"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Sign In">
                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -424,7 +427,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IHG-We-cod"/>
-                        <color key="backgroundColor" name="Streakz_Background"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cID-mt-bed" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="1WE-Cd-aYV"/>
                             <constraint firstItem="B6Q-HJ-xA5" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="2wC-lI-45k"/>
@@ -483,46 +486,20 @@
                                     <constraint firstAttribute="height" constant="175" id="pBk-Ua-9mK"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streakz" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uN5-ZO-EMQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uN5-ZO-EMQ">
                                 <rect key="frame" x="0.0" y="274" width="414" height="57.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LH-RA-qG1">
-                                <rect key="frame" x="50" y="557.33333333333337" width="314" height="41"/>
-                                <color key="backgroundColor" name="Streakz_LightRed"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Reset Password">
-                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signInButtonPressed:" destination="7TI-J7-o1g" eventType="touchUpInside" id="ICS-dr-Pch"/>
-                                    <segue destination="iS4-ET-bJB" kind="presentation" identifier="ResetPasswordSignInSegue" modalPresentationStyle="fullScreen" id="Y9h-S4-dS2"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot password?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEK-lG-6Kj">
-                                <rect key="frame" x="99.333333333333329" y="371.33333333333331" width="215.33333333333337" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="16Q-uf-oW9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the email associated with your account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3r-l8-699">
-                                <rect key="frame" x="34.666666666666657" y="431.33333333333331" width="345" height="21"/>
+                                <rect key="frame" x="34.666666666666657" y="385" width="345" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YmG-wV-1eM">
-                                <rect key="frame" x="50" y="477.33333333333331" width="314" height="30"/>
+                                <rect key="frame" x="50" y="433" width="314" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="nPn-X8-ooW"/>
                                 </constraints>
@@ -541,15 +518,34 @@
                                     <segue destination="iS4-ET-bJB" kind="presentation" identifier="ReturnLoginSegue2" modalPresentationStyle="fullScreen" id="g4x-eD-PDU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LH-RA-qG1">
+                                <rect key="frame" x="50" y="513" width="314" height="50"/>
+                                <color key="backgroundColor" name="Streakz_LightRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="0CD-jv-fCE"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="xYj-Ul-Fg5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Reset Password">
+                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signInButtonPressed:" destination="7TI-J7-o1g" eventType="touchUpInside" id="ICS-dr-Pch"/>
+                                    <segue destination="iS4-ET-bJB" kind="presentation" identifier="ResetPasswordSignInSegue" modalPresentationStyle="fullScreen" id="Y9h-S4-dS2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dye-WY-DGU"/>
-                        <color key="backgroundColor" name="Streakz_Background"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="E3r-l8-699" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="1eo-Ha-BF0"/>
                             <constraint firstItem="uN5-ZO-EMQ" firstAttribute="top" secondItem="U9i-4B-f03" secondAttribute="bottom" constant="20" id="1jZ-I1-04B"/>
                             <constraint firstItem="d31-S8-CA5" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="5k1-Zk-l5I"/>
-                            <constraint firstItem="E3r-l8-699" firstAttribute="top" secondItem="GEK-lG-6Kj" secondAttribute="bottom" constant="25" id="88Q-bH-BkO"/>
-                            <constraint firstItem="GEK-lG-6Kj" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="9Bc-Ml-d9L"/>
                             <constraint firstItem="dye-WY-DGU" firstAttribute="bottom" secondItem="d31-S8-CA5" secondAttribute="bottom" constant="20" id="AvO-ph-UYP"/>
                             <constraint firstItem="uN5-ZO-EMQ" firstAttribute="leading" secondItem="dye-WY-DGU" secondAttribute="leading" id="Htj-pG-Hev"/>
                             <constraint firstItem="dye-WY-DGU" firstAttribute="trailing" secondItem="uN5-ZO-EMQ" secondAttribute="trailing" id="HyE-SS-djm"/>
@@ -561,10 +557,10 @@
                             <constraint firstItem="uN5-ZO-EMQ" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="ZHy-AF-jWS"/>
                             <constraint firstItem="U9i-4B-f03" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="cAz-j1-4d8"/>
                             <constraint firstItem="YmG-wV-1eM" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="deL-QZ-coX"/>
-                            <constraint firstItem="GEK-lG-6Kj" firstAttribute="top" secondItem="uN5-ZO-EMQ" secondAttribute="bottom" constant="40" id="fFd-54-z3Y"/>
+                            <constraint firstItem="E3r-l8-699" firstAttribute="top" secondItem="uN5-ZO-EMQ" secondAttribute="bottom" constant="53.670000000000002" id="ggx-k1-7eh"/>
                             <constraint firstItem="5LH-RA-qG1" firstAttribute="centerX" secondItem="3UE-x0-VnE" secondAttribute="centerX" id="m1m-It-ruD"/>
                             <constraint firstItem="dye-WY-DGU" firstAttribute="trailing" secondItem="5LH-RA-qG1" secondAttribute="trailing" constant="50" id="nWb-Lz-TFY"/>
-                            <constraint firstItem="YmG-wV-1eM" firstAttribute="top" secondItem="E3r-l8-699" secondAttribute="bottom" constant="25" id="uum-Qj-T2Z"/>
+                            <constraint firstItem="YmG-wV-1eM" firstAttribute="top" secondItem="E3r-l8-699" secondAttribute="bottom" constant="27" id="uum-Qj-T2Z"/>
                         </constraints>
                     </view>
                     <connections>
@@ -591,9 +587,9 @@
                                     <constraint firstAttribute="width" constant="175" id="RMc-G6-JLV"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streakz" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDa-ah-Dvu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDa-ah-Dvu">
                                 <rect key="frame" x="0.0" y="269" width="414" height="57.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -631,15 +627,18 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSM-66-SLS">
-                                <rect key="frame" x="50" y="607.33333333333337" width="314" height="41"/>
+                                <rect key="frame" x="50" y="607.33333333333337" width="314" height="50"/>
                                 <color key="backgroundColor" name="Streakz_LightRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ils-G3-egZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Create Account">
                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -661,6 +660,7 @@
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="TermsConditions" translatesAutoresizingMaskIntoConstraints="NO" id="bND-hU-vSW">
                                 <rect key="frame" x="50" y="561.33333333333337" width="51" height="31"/>
+                                <color key="onTintColor" name="Streakz_DarkRed"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I agree with our Terms and Conditions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ttv-VK-G6n">
                                 <rect key="frame" x="114.00000000000001" y="569.66666666666663" width="214.33333333333337" height="14.333333333333371"/>
@@ -679,7 +679,7 @@
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wZU-QR-fD3"/>
-                        <color key="backgroundColor" name="Streakz_Background"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bDa-ah-Dvu" firstAttribute="top" secondItem="xN7-Ge-gwN" secondAttribute="bottom" constant="15" id="0wO-Ux-8JM"/>
                             <constraint firstItem="bDa-ah-Dvu" firstAttribute="centerX" secondItem="RCN-LJ-PAu" secondAttribute="centerX" id="18s-CL-SZZ"/>
@@ -776,8 +776,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Rwe-9G-70N"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal" title="Add Streak"/>
+                                <state key="normal" title="Add Streak">
+                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="25"/>
@@ -1142,15 +1145,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Complete Streak" id="hA9-0f-shE">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="KNm-wa-GuM">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="k6A-n7-QmD">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Post"/>
-                                <connections>
-                                    <action selector="postStreakPressed:" destination="ea5-xK-ZCV" eventType="touchUpInside" id="bGj-JI-t6U"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="GGp-7Z-d1c">
+                            <connections>
+                                <action selector="postStreakPressed:" destination="ea5-xK-ZCV" id="bh6-qr-lON"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

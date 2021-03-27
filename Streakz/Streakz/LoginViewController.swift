@@ -270,4 +270,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                 }
             }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

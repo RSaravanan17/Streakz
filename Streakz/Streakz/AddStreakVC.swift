@@ -155,4 +155,8 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             // print that something wasn't filled out
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

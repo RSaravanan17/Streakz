@@ -26,7 +26,7 @@ class CompleteStreakVC: UIViewController {
         newStreakNumberLabel.text = String(streakSub.streakNumber + 1)
     }
     
-    @IBAction func postStreakPressed(_ sender: UIButton) {
+    @IBAction func postStreakPressed(_ sender: Any) {
         // TODO: create streak post
         _ = streakSub.completeStreak()
         
