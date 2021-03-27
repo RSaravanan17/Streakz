@@ -254,7 +254,7 @@
         <scene sceneID="z18-kP-87N">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Ll-q5-ief" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="t6U-di-LoZ" userLabel="Home"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house.fill" id="t6U-di-LoZ" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DJZ-d2-8oA">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -273,7 +273,7 @@
         <scene sceneID="7OM-cQ-2w9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jjk-Rk-9Wz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.and.person" catalog="system" id="I5x-He-Ax2" userLabel="Friends"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.and.person" catalog="system" selectedImage="person.and.person.fill" id="I5x-He-Ax2" userLabel="Friends"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPJ-dM-IBS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -292,7 +292,7 @@
         <scene sceneID="kPA-z2-xOR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hAP-6n-Mw3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="star" catalog="system" id="ybZ-H1-BBb" userLabel="Discover"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="star" catalog="system" selectedImage="star.fill" id="ybZ-H1-BBb" userLabel="Discover"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JzX-bc-XMG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -311,7 +311,7 @@
         <scene sceneID="UiH-py-1L0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7cn-nh-tCf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="Qwc-Ls-6vF" userLabel="Profile"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" selectedImage="person.fill" id="Qwc-Ls-6vF" userLabel="Profile"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5aL-kK-EID">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1267,9 +1267,13 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.and.person" catalog="system" width="128" height="81"/>
+        <image name="person.and.person.fill" catalog="system" width="128" height="80"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="Streakz_Background">
             <color red="0.91900002956390381" green="0.76899999380111694" blue="0.7369999885559082" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
