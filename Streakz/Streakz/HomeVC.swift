@@ -61,6 +61,39 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return subscribedStreaks.count
     }
     
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+         return "Unsubscribe"
+    }
+    
+    // allows rows to be deleted from the table
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let owner = cur_user_email,
+               let collection = cur_user_collection,
+               let curProfile = self.userProfile {
+                self.subscribedStreaks.remove(at: indexPath.row)
+                self.userProfile?.subscribedStreaks = subscribedStreaks
+                
+                // deletes the row in the tableView
+                // can add animation if desired but need to fix TableCell corner rounding
+                //tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                // update firebase
+                do {
+                    print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
+                    try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                    navigationController?.popViewController(animated: true)
+                } catch let error {
+                    print("Error writing profile to Firestore: \(error)")
+                }
+            } else {
+                print("Could not delete Streak \(indexPath.row)")
+            }
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: streakCellIdentifier, for: indexPath as IndexPath) as! StreakCell
         let row = indexPath.row
