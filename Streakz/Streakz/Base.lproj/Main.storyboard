@@ -364,7 +364,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ya2-4R-EGG">
-                                <rect key="frame" x="132" y="466.33333333333331" width="150" height="30"/>
+                                <rect key="frame" x="132" y="472.33333333333331" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="ti7-2D-pyq"/>
                                 </constraints>
@@ -376,7 +376,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cID-mt-bed">
-                                <rect key="frame" x="50" y="511.33333333333326" width="314" height="50"/>
+                                <rect key="frame" x="50" y="517.33333333333337" width="314" height="50"/>
                                 <color key="backgroundColor" name="Streakz_LightRed"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nUw-lP-Ua3"/>
@@ -407,52 +407,61 @@
                                     <segue destination="D6J-ut-sJc" kind="presentation" identifier="CreateAccountSegue" modalPresentationStyle="fullScreen" id="uec-0B-EiG"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHT-oJ-1ja" userLabel="Google Sign In Button" customClass="GIDSignInButton">
-                                <rect key="frame" x="50" y="611" width="152" height="70"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xU5-iF-o5K" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="294" y="629" width="70" height="34"/>
-                                <state key="normal" title="FB Login"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="AGF-Jh-cCO">
+                                <rect key="frame" x="50" y="599.33333333333337" width="314" height="100"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHT-oJ-1ja" userLabel="GoogleSignInButton" customClass="GIDSignInButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xU5-iF-o5K" userLabel="FacebookLoginButton" customClass="FBSDKLoginButton">
+                                        <rect key="frame" x="0.0" y="66" width="314" height="34"/>
+                                        <state key="normal" title="FB Login"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Qn9-sd-kdz"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IHG-We-cod"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cID-mt-bed" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="1WE-Cd-aYV"/>
                             <constraint firstItem="B6Q-HJ-xA5" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="2wC-lI-45k"/>
+                            <constraint firstItem="AGF-Jh-cCO" firstAttribute="top" secondItem="cID-mt-bed" secondAttribute="bottom" constant="32" id="5h8-8f-5bG"/>
                             <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="ZCL-am-eel" secondAttribute="trailing" constant="50" id="7fh-6S-mjx"/>
                             <constraint firstItem="TNb-W6-wAY" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="9MX-3R-Ck5"/>
                             <constraint firstItem="5oW-oC-USg" firstAttribute="top" secondItem="ZCL-am-eel" secondAttribute="bottom" constant="25" id="Au9-qG-OA8"/>
-                            <constraint firstItem="IHT-oJ-1ja" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="CFK-jh-cBf"/>
                             <constraint firstItem="cID-mt-bed" firstAttribute="top" secondItem="Ya2-4R-EGG" secondAttribute="bottom" constant="15" id="Ceg-Wk-dPB"/>
                             <constraint firstItem="5oW-oC-USg" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="HzW-d8-NTS"/>
                             <constraint firstItem="B6Q-HJ-xA5" firstAttribute="top" secondItem="IHG-We-cod" secondAttribute="top" constant="35" id="IKA-Rh-a5U"/>
-                            <constraint firstItem="xU5-iF-o5K" firstAttribute="centerY" secondItem="IHT-oJ-1ja" secondAttribute="centerY" id="IQZ-1n-JQc"/>
                             <constraint firstItem="37a-XN-5vb" firstAttribute="top" secondItem="B6Q-HJ-xA5" secondAttribute="bottom" constant="20" id="Kf5-ru-bua"/>
-                            <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="xU5-iF-o5K" secondAttribute="trailing" constant="50" id="Nrp-yx-oqZ"/>
-                            <constraint firstItem="xU5-iF-o5K" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IHT-oJ-1ja" secondAttribute="trailing" constant="20" id="Ohp-WR-ZkQ"/>
                             <constraint firstItem="IHG-We-cod" firstAttribute="bottom" secondItem="TNb-W6-wAY" secondAttribute="bottom" constant="20" id="QuU-Zi-ufr"/>
                             <constraint firstItem="37a-XN-5vb" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" id="TND-as-AQa"/>
                             <constraint firstItem="37a-XN-5vb" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="V2m-LE-7yG"/>
-                            <constraint firstItem="IHT-oJ-1ja" firstAttribute="top" secondItem="cID-mt-bed" secondAttribute="bottom" constant="20" id="WYE-iO-dxs"/>
+                            <constraint firstItem="AGF-Jh-cCO" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="ZDK-Hv-iZb"/>
                             <constraint firstItem="5oW-oC-USg" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="cuC-c8-emW"/>
                             <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="cID-mt-bed" secondAttribute="trailing" constant="50" id="fcX-9p-Lax"/>
                             <constraint firstItem="cID-mt-bed" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="fi9-B2-gVN"/>
-                            <constraint firstItem="Ya2-4R-EGG" firstAttribute="top" secondItem="5oW-oC-USg" secondAttribute="bottom" constant="10" id="lAI-gF-Phs"/>
+                            <constraint firstItem="Ya2-4R-EGG" firstAttribute="top" secondItem="5oW-oC-USg" secondAttribute="bottom" constant="16" id="lAI-gF-Phs"/>
                             <constraint firstItem="ZCL-am-eel" firstAttribute="leading" secondItem="IHG-We-cod" secondAttribute="leading" constant="50" id="nW6-Ea-DZR"/>
                             <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="37a-XN-5vb" secondAttribute="trailing" id="q4O-C0-YQS"/>
                             <constraint firstItem="ZCL-am-eel" firstAttribute="top" secondItem="37a-XN-5vb" secondAttribute="bottom" constant="40" id="qOP-aG-d4b"/>
+                            <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="AGF-Jh-cCO" secondAttribute="trailing" constant="50" id="the-8l-n6A"/>
                             <constraint firstItem="ZCL-am-eel" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="utc-Er-eui"/>
                             <constraint firstItem="Ya2-4R-EGG" firstAttribute="centerX" secondItem="j0W-Be-dLa" secondAttribute="centerX" id="wqM-TG-acu"/>
                             <constraint firstItem="IHG-We-cod" firstAttribute="trailing" secondItem="5oW-oC-USg" secondAttribute="trailing" constant="50" id="xKf-Op-yFG"/>
@@ -463,6 +472,7 @@
                         <outlet property="emailTextField" destination="ZCL-am-eel" id="6bf-4W-ueo"/>
                         <outlet property="facebookLoginButton" destination="xU5-iF-o5K" id="yPL-LI-gxK"/>
                         <outlet property="forgotPasswordButton" destination="Ya2-4R-EGG" id="61w-mc-jkI"/>
+                        <outlet property="googleSignInButton" destination="IHT-oJ-1ja" id="z3R-R8-4Hk"/>
                         <outlet property="passwordTextField" destination="5oW-oC-USg" id="cLY-pu-5gT"/>
                         <outlet property="signInButton" destination="cID-mt-bed" id="2cl-Aw-BmF"/>
                     </connections>
@@ -1259,7 +1269,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Rhc-Ne-7rS"/>
-        <segue reference="yoH-zy-Ihj"/>
+        <segue reference="AcB-c6-j40"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="StreakzLogo" width="170.66667175292969" height="170.66667175292969"/>

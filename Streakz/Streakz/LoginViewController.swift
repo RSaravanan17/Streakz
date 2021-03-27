@@ -42,6 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var googleSignInButton: GIDSignInButton!
     @IBOutlet weak var facebookLoginButton: FBLoginButton!
     @IBOutlet weak var createAccountButton: UIButton!
     
@@ -80,9 +81,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
         
+        // Adjust styling on google button
+        self.googleSignInButton.style = .wide
+        
         // Facebook sign in
         self.facebookLoginButton.delegate = self
         self.facebookLoginButton.permissions = ["public_profile", "email"]
+        
+        // Style Facebook sign in button to match styling of Google sign in button
+        for const in self.facebookLoginButton.constraints {
+            if const.firstAttribute == NSLayoutConstraint.Attribute.height && const.constant == 28 {
+                self.facebookLoginButton.removeConstraint(const)
+            }
+        }
+        self.facebookLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        self.facebookLoginButton.leadingAnchor.constraint(equalTo: googleSignInButton.leadingAnchor).isActive = true
+        self.facebookLoginButton.trailingAnchor.constraint(equalTo: googleSignInButton.trailingAnchor).isActive = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
