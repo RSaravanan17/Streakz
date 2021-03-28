@@ -158,7 +158,12 @@ class StreakCell: UITableViewCell {
     func styleView(streak: StreakSubscription) {
         title?.text = streak.streakInfo.name
         streakNumber?.text = String(streak.streakNumber)
-        backgroundColor = UIColor(named: "Streakz_Background")
-        layer.cornerRadius = 20
+        view.layer.cornerRadius = 20
+        
+        if streak.canBeCompletedToday() {
+            view.backgroundColor = UIColor(named: "Streakz_Background")
+        } else {
+            view.backgroundColor = UIColor(named: "Streakz_Grey")
+        }
     }
 }
