@@ -7,12 +7,16 @@
 
 import UIKit
 
-class CompleteStreakVC: UIViewController {
+class CompleteStreakVC: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var streakTitleLabel: UILabel!
     @IBOutlet weak var currentDateLabel: UILabel!
     @IBOutlet weak var oldStreakNumberLabel: UILabel!
     @IBOutlet weak var newStreakNumberLabel: UILabel!
+    @IBOutlet weak var commentTextView: UITextView!
+    
+    let commentPlaceholder = "Comment on your latest streak achievement"
+    let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
     
     var streakSub: StreakSubscription!
     var curUserProfile: Profile? = nil
@@ -20,6 +24,16 @@ class CompleteStreakVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        commentTextView.delegate = self
+        commentTextView.text = commentPlaceholder
+        commentTextView.textColor = textFieldGray
+
+        // make description text view match name text field
+        commentTextView.layer.cornerRadius = 5
+        commentTextView.layer.borderColor = textFieldGray.cgColor
+        commentTextView.layer.borderWidth = 0.5
+        commentTextView.clipsToBounds = true
+        
         streakTitleLabel.text = streakSub.streakInfo.name
         currentDateLabel.text = Date().fullDate
         oldStreakNumberLabel.text = String(streakSub.streakNumber)
@@ -27,11 +41,17 @@ class CompleteStreakVC: UIViewController {
     }
     
     @IBAction func postStreakPressed(_ sender: Any) {
-        // TODO: create streak post
         _ = streakSub.completeStreak()
+        // TODO: let user add images to post
+        var postText = commentTextView.text ?? ""
+        if postText.isEmpty || postText == commentPlaceholder {
+            postText = "Streak completed on \(Date().shortDate)!"
+        }
+        let streakPost = StreakPost(for: streakSub, postText: postText, image: "")
         
         if let curProfile = curUserProfile {
             // update firebase
+            curProfile.streakPosts.append(streakPost)
             do {
                 try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)
             } catch let error {
@@ -42,14 +62,18 @@ class CompleteStreakVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if commentTextView.textColor == textFieldGray {
+            commentTextView.text = nil
+            commentTextView.textColor = UIColor.black
+        }
     }
-    */
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentTextView.text.isEmpty {
+            commentTextView.text = commentPlaceholder
+            commentTextView.textColor = textFieldGray
+        }
+    }
 
 }

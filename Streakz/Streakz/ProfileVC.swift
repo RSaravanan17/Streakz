@@ -30,22 +30,27 @@ protocol ProfileDelegate {
     func getProfile() -> Profile?
 }
 
-class ProfileVC: UIViewController, ProfileDelegate {
+class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userInfoLabel: UILabel!
     @IBOutlet weak var userFriendsLabel: UILabel!
+    @IBOutlet weak var streakPostsTable: UITableView!
     
     let signOutSegue = "SignOutSegue"
     let settingsSegue = "SettingsSegue"
-    
+    let streakPostCell = "StreakPostCellIdentifier"
+    var streakPosts: [StreakPost] = []
     var userProfile: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        streakPostsTable.delegate = self
+        streakPostsTable.dataSource = self
+//        streakPostsTable.isScrollEnabled = false
         setCurrentUser()
         
         // Round the profile image view
@@ -54,37 +59,28 @@ class ProfileVC: UIViewController, ProfileDelegate {
         userImageView.layer.borderColor = UIColor.white.cgColor
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
-        
-        // example: prints out documents stored in Firestore (Note: ASYNC!)
-        /*
-        db_firestore.collection("profiles_google").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-        db_firestore.collection("profiles_facebook").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-        db_firestore.collection("profiles_email").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-        */
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return streakPosts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: streakPostCell, for: indexPath as IndexPath) as! StreakPostCell
+        let row = indexPath.row
+        let streakPost = streakPosts[row]
+        cell.styleView(streakPost: streakPost)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       return "Streak Posts:"
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UITableViewHeaderFooterView()
+        view.contentView.backgroundColor = UIColor.systemBackground
+        return view
     }
     
     func setCurrentUser() {
@@ -122,6 +118,17 @@ class ProfileVC: UIViewController, ProfileDelegate {
                         if let email = cur_user_email {
                             self.userInfoLabel.text = "EMAIL: " + email
                         }
+                        // Set the streakPosts table
+                        if let posts = userProfile?.streakPosts {
+                            self.streakPosts = posts
+                        } else {
+                            let dummyInfo = StreakInfo(owner: "Dummy", name: "Dummy streak", description: "", reminderDays: [false, false, false, false, false, false, false])
+                            let dummyStreak = StreakSubscription(streakInfo: dummyInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
+                            self.streakPosts = [StreakPost(for: dummyStreak, postText: "Error fetching streak posts", image: "")]
+                        }
+                        self.streakPostsTable.reloadData()
+//                        self.streakPostsTable.layoutIfNeeded()
+//                        self.streakPostsTable.heightAnchor.constraint(equalToConstant: self.streakPostsTable.contentSize.height).isActive = true
                     } catch let error {
                         print("Error deserializing data", error)
                     }
@@ -165,5 +172,27 @@ class ProfileVC: UIViewController, ProfileDelegate {
             }
         }
     }
+}
 
+class StreakPostCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var streakNumberLabel: UILabel!
+    @IBOutlet weak var view: UIView!
+    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var postComment: UILabel!
+    
+    func styleView(streakPost: StreakPost) {
+        titleLabel?.text = streakPost.streak.streakInfo.name
+        streakNumberLabel?.text = "Streak: \(streakPost.achievedStreak)"
+        view.layer.cornerRadius = 20
+        postComment.text = streakPost.postText
+        postComment.numberOfLines = 4
+        
+        if streakPost.image == "" {
+            self.postImage.image = UIImage(named: "StreakzLogo")
+        } else {
+            self.postImage.load(url: URL(string: streakPost.image)!)
+        }
+    }
 }
