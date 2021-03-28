@@ -55,9 +55,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // sign out email user
         do { try Auth.auth().signOut() }
-        catch { print("already logged out") }
+        catch { print("Email user already logged out") }
+        
+        // sign out Google user
+        GIDSignIn.sharedInstance().signOut()
+        
+        // sign out Facebook user
+        let loginManager = LoginManager()
+        loginManager.logOut()
         
         Auth.auth().addStateDidChangeListener() {
           auth, user in
@@ -104,9 +111,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         // automatically sign in the user with Facebook
-        if let token = AccessToken.current,
-            !token.isExpired {
-            loginSuccessful = true
+        if let token = AccessToken.current, !token.isExpired {
+            self.loginSuccessful = true
             self.performSegue(withIdentifier: self.signInSegue, sender: nil)
         }
     }
@@ -120,7 +126,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
             }
             return
         } else {
-            loginSuccessful = true
+            self.loginSuccessful = true
             db_firestore.collection("profiles_google").document(user.profile.email).getDocument {
                 (document, error) in
                 if let document = document, document.exists {
@@ -195,7 +201,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == signInSegue {
-            // if the login was successful, allow signInSegue to proceed
             return self.loginSuccessful
         } else {
             return true
