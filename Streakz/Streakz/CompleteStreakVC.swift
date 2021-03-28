@@ -43,7 +43,10 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate {
     @IBAction func postStreakPressed(_ sender: Any) {
         _ = streakSub.completeStreak()
         // TODO: let user add images to post
-        let postText = commentTextView.text ?? "Streak completed!"
+        var postText = commentTextView.text ?? ""
+        if postText.isEmpty || postText == commentPlaceholder {
+            postText = "Streak completed on \(Date().shortDate)!"
+        }
         let streakPost = StreakPost(for: streakSub, postText: postText, image: "")
         
         if let curProfile = curUserProfile {
