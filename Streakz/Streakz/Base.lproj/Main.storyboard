@@ -1136,13 +1136,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQI-li-OlH">
+                                <rect key="frame" x="20" y="208" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2vb-x5-chZ">
+                                <rect key="frame" x="20" y="237" width="374" height="142"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="142" id="tLw-g6-qt1"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MMy-Py-Zg6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="2vb-x5-chZ" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="6sx-Jw-lQX"/>
                             <constraint firstItem="RBS-Da-oy6" firstAttribute="centerY" secondItem="U4T-NA-sWj" secondAttribute="centerY" id="B9C-j5-tXa"/>
                             <constraint firstItem="sjb-aZ-6l5" firstAttribute="centerX" secondItem="MMy-Py-Zg6" secondAttribute="centerX" id="Cbc-wX-ASZ"/>
                             <constraint firstItem="Dx6-Ge-w4n" firstAttribute="centerX" secondItem="MMy-Py-Zg6" secondAttribute="centerX" id="FQB-Vt-86c"/>
+                            <constraint firstItem="2vb-x5-chZ" firstAttribute="top" secondItem="HQI-li-OlH" secondAttribute="bottom" constant="8" symbolic="YES" id="K5Y-Jl-fPY"/>
+                            <constraint firstItem="MMy-Py-Zg6" firstAttribute="trailing" secondItem="2vb-x5-chZ" secondAttribute="trailing" constant="20" id="LuM-8a-8hb"/>
                             <constraint firstItem="sjb-aZ-6l5" firstAttribute="top" secondItem="Dx6-Ge-w4n" secondAttribute="bottom" constant="4" id="RWQ-hb-csk"/>
                             <constraint firstItem="U4T-NA-sWj" firstAttribute="leading" secondItem="5Gv-gR-uOM" secondAttribute="trailing" constant="5" id="XRN-bm-nTh"/>
                             <constraint firstItem="RBS-Da-oy6" firstAttribute="leading" secondItem="U4T-NA-sWj" secondAttribute="trailing" constant="5" id="Yeq-WB-7JB"/>
@@ -1150,8 +1170,11 @@
                             <constraint firstItem="mKi-pW-JhD" firstAttribute="leading" secondItem="RBS-Da-oy6" secondAttribute="trailing" constant="5" id="ZsQ-YS-Wda"/>
                             <constraint firstItem="5Gv-gR-uOM" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="bCe-uf-ov1"/>
                             <constraint firstItem="Dx6-Ge-w4n" firstAttribute="top" secondItem="MMy-Py-Zg6" secondAttribute="top" constant="10" id="dN4-XT-0L5"/>
+                            <constraint firstItem="HQI-li-OlH" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="qup-xd-AaW"/>
                             <constraint firstItem="5Gv-gR-uOM" firstAttribute="top" secondItem="sjb-aZ-6l5" secondAttribute="bottom" constant="20" id="r5d-QU-GaC"/>
+                            <constraint firstItem="MMy-Py-Zg6" firstAttribute="trailing" secondItem="HQI-li-OlH" secondAttribute="trailing" constant="20" id="rvg-ht-9hO"/>
                             <constraint firstItem="mKi-pW-JhD" firstAttribute="centerY" secondItem="RBS-Da-oy6" secondAttribute="centerY" id="uZh-fa-NiZ"/>
+                            <constraint firstItem="HQI-li-OlH" firstAttribute="top" secondItem="5Gv-gR-uOM" secondAttribute="bottom" constant="8" symbolic="YES" id="y4R-cf-7Kb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Complete Streak" id="hA9-0f-shE">
@@ -1162,6 +1185,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="commentTextView" destination="2vb-x5-chZ" id="55d-Y4-k4a"/>
                         <outlet property="currentDateLabel" destination="sjb-aZ-6l5" id="xLR-24-GNm"/>
                         <outlet property="newStreakNumberLabel" destination="mKi-pW-JhD" id="yMp-5y-r5Q"/>
                         <outlet property="oldStreakNumberLabel" destination="U4T-NA-sWj" id="Hle-tg-566"/>
@@ -1170,7 +1194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X3w-7A-NeM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="2413"/>
+            <point key="canvasLocation" x="-349.27536231884062" y="2412.7232142857142"/>
         </scene>
         <!--Settings-->
         <scene sceneID="FKQ-5Q-wJd">
@@ -1268,7 +1292,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Rhc-Ne-7rS"/>
+        <segue reference="ocQ-1A-0DN"/>
         <segue reference="AcB-c6-j40"/>
     </inferredMetricsTieBreakers>
     <resources>
