@@ -67,7 +67,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         // Testing for button
         for (i, view) in daysOfWeekViews.enumerated() {
             let button = UIButton(type: .custom)
-            button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+            button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             button.backgroundColor = UIColor.gray
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
             button.clipsToBounds = true
