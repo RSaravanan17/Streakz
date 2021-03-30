@@ -39,7 +39,6 @@ class ViewStreakVC: UIViewController {
             markDoneButton.setTitle("Mark done for today", for: .normal)
 
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: Date(), to: streakSub.nextDeadline())
-            // TODO: what if less than 1 hour remains
             let hoursRemaining = diffComponents.hour!
             let minutesRemaining = diffComponents.minute!
             

@@ -50,7 +50,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         // Do any additional setup after loading the view.
         streakPostsTable.delegate = self
         streakPostsTable.dataSource = self
-//        streakPostsTable.isScrollEnabled = false
         setCurrentUser()
         
         // Round the profile image view
@@ -127,8 +126,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                             self.streakPosts = [StreakPost(for: dummyStreak, postText: "Error fetching streak posts", image: "")]
                         }
                         self.streakPostsTable.reloadData()
-//                        self.streakPostsTable.layoutIfNeeded()
-//                        self.streakPostsTable.heightAnchor.constraint(equalToConstant: self.streakPostsTable.contentSize.height).isActive = true
+
                     } catch let error {
                         print("Error deserializing data", error)
                     }

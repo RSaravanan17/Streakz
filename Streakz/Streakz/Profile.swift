@@ -8,14 +8,6 @@
 import Foundation
 
 class Profile : Codable {
-    /*
-     First name
-     last name
-     Profile picture (link)
-     Friend's list
-     List of subscribed streaks List<StreakSubscription> (length of it == active streaks number)
-     List of streak posts
-     */
     
     let firstName: String
     var lastName: String

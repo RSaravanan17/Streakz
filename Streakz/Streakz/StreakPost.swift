@@ -12,15 +12,7 @@ import Foundation
  */
 
 class StreakPost : Codable {
-    /*
-     user who posted
-     the streak (streaksubscription object)
-     description/post text
-     image
-     date of post (needed for friend's feed)
-     privacy: inherit privacy setting from the streaksubscription object. private/friend's only, possibly public for later if we want to display public posts on view streak screen
-     */
-    
+
     var streak: StreakSubscription
     var postText: String
     var image: String
