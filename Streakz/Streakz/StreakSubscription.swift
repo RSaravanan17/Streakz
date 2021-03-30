@@ -33,43 +33,22 @@ class StreakSubscription : Codable {
         self.lastStreakUpdate = Date()
     }
     
-    // if streakExpired() is true, then resetStreak() must be called
-    func streakExpired() -> Bool {
-        let expiryDate = lastStreakUpdate
-        
-        let calendar = Calendar.current
-        
-        func incrementDayInt(day: Int) -> Int {
-            var d = day
-            d += 1
-            if (d == 8) {
-                d = 1
-            }
-            return d
-        }
-        
-        var nextStreakDay = calendar.component(.weekday, from: expiryDate) // 1 is Sunday, ..., 7 is Saturday
-        nextStreakDay = incrementDayInt(day: nextStreakDay)
-
-        while (!streakInfo.reminderDays[nextStreakDay - 1]) {
-            nextStreakDay = incrementDayInt(day: nextStreakDay)
-        }
-
-        let nextStreakDeadlineDay = incrementDayInt(day: nextStreakDay)
-
-        let nextStreakDeadlineComponents = DateComponents(calendar:calendar, weekday: nextStreakDeadlineDay)
-        let afterDate = calendar.date(byAdding: .day, value: 1, to: expiryDate)!
-        let nextDeadlineDate = calendar.nextDate(after: afterDate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
-        
-        return streakNumber != 0 && nextDeadlineDate < Date()
-    }
-    
     // Returns the next deadline from today
     func nextDeadline() -> Date {
+        return nextDeadlineFromDate(startDate: Date(), needsToBeCompletedOnThatDate: canBeCompletedToday())
+    }
+    
+    // if streakExpired() is true, then resetStreak() must be called
+    func streakExpired() -> Bool {
+        let expiryDate = nextDeadlineFromDate(startDate: lastStreakUpdate, needsToBeCompletedOnThatDate: false)
+        
+        return streakNumber != 0 && expiryDate < Date()
+    }
+    
+    // Helper function used by nextDeadline and streakExpired
+    private func nextDeadlineFromDate(startDate: Date, needsToBeCompletedOnThatDate: Bool) -> Date {
         //pre-condition needed to avoid infinite loop due to bad data
         assert(streakInfo.reminderDays.contains(true))
-        
-        let today = Date()
 
         let calendar = Calendar.current
         
@@ -82,9 +61,9 @@ class StreakSubscription : Codable {
             return d
         }
         
-        var nextStreakDay = calendar.component(.weekday, from: today) // 1 is Sunday, ..., 7 is Saturday
+        var nextStreakDay = calendar.component(.weekday, from: startDate) // 1 is Sunday, ..., 7 is Saturday
 
-        if (!canBeCompletedToday()) {
+        if (!needsToBeCompletedOnThatDate) {
             nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
 
@@ -95,7 +74,7 @@ class StreakSubscription : Codable {
         let nextStreakDeadlineDay = incrementDayInt(day: nextStreakDay)
 
         let nextStreakDeadlineComponents = DateComponents(calendar:calendar, weekday: nextStreakDeadlineDay)
-        let afterDate = !canBeCompletedToday() ? calendar.date(byAdding: .day, value: 1, to: today)! : today
+        let afterDate = !needsToBeCompletedOnThatDate ? calendar.date(byAdding: .day, value: 1, to: startDate)! : startDate
 
         let nextDeadlineDate = calendar.nextDate(after: afterDate, matching: nextStreakDeadlineComponents, matchingPolicy: .nextTime)!
 
