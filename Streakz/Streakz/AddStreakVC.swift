@@ -32,7 +32,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     let daysOfWeekTitles = ["Su", "M", "Tu", "W", "Th", "F", "Sa"]
     var daysOfWeekSelected = [false, false, false, false, false, false, false]
     var curUserProfile: Profile? = nil
-    let descPlaceholder = "Do push ups three times a week for the gains"
+    let descPlaceholder = "Enter Streak Description"
     let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
     
     override func viewDidLoad() {
@@ -120,50 +120,86 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     }
     
     @IBAction func addStreakPressed(_ sender: Any) {
-        if let streakName = nameTextField.text,
-           let streakDesc = descTextView.text,
-           let owner = cur_user_email,
-           let collection = cur_user_collection,
-           let curProfile = curUserProfile,
-           !daysOfWeekSelected.allSatisfy({$0 == false}) {
-            let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
-            
-            // autosubscribe the user
-            let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: privacyType)
-            
-            // add streak to user profile
-            curProfile.subscribedStreaks.append(subbedStreak)
-            
-            // add user to StreakInfo's list of subscribers
-            if cur_user_email != nil && cur_user_collection != nil {
-                newStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
-            } else {
-                print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
-            }
-            
-            // if streak privacy is public, add to collection of public streaks
-            
-            // update firebase
-            do {
-                print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
-                try db_firestore.collection(collection).document(owner).setData(from: curProfile)
-                navigationController?.popViewController(animated: true)
-            } catch let error {
-                print("Error writing profile to Firestore: \(error)")
-            }
-        } else {
+        /* Begin Input Verification */
+        guard let streakName = nameTextField.text,
+              !streakName.isEmpty
+        else {
             let alert = UIAlertController(
                 title: "Streak Incomplete",
-                message: "Please fill out all of the fields",
+                message: "Please fill out a Streak Name",
                 preferredStyle: .alert
             )
-            alert.addAction(UIAlertAction(
-                                title: "OK",
-                                style: .default,
-                                handler: nil
-                                ))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
+            return
         }
+        
+        guard let streakDesc = descTextView.text,
+              !streakDesc.isEmpty && streakDesc != descPlaceholder
+        else {
+            let alert = UIAlertController(
+                title: "Streak Incomplete",
+                message: "Please fill out a valid Streak Description",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        guard !daysOfWeekSelected.allSatisfy({$0 == false}) else {
+            let alert = UIAlertController(
+                title: "Streak Incomplete",
+                message: "Please select at least one day for when this streak should be completed",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        guard let owner = cur_user_email,
+              let collection = cur_user_collection,
+              let curProfile = curUserProfile
+        else {
+            let alert = UIAlertController(
+                title: "Invalid Session",
+                message: "We're having trouble finding out who you are, please try signing out and signing back in",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        /* End Input Verification */
+        
+        // All inputs are valid, so let's create the Streak
+        let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
+        
+        // autosubscribe the user
+        let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: privacyType)
+        
+        // add streak to user profile
+        curProfile.subscribedStreaks.append(subbedStreak)
+        
+        // add user to StreakInfo's list of subscribers
+        if cur_user_email != nil && cur_user_collection != nil {
+            newStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
+        } else {
+            print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
+        }
+        
+        // if streak privacy is public, add to collection of public streaks
+        
+        // update firebase
+        do {
+            print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
+            try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+            navigationController?.popViewController(animated: true)
+        } catch let error {
+            print("Error writing profile to Firestore: \(error)")
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
