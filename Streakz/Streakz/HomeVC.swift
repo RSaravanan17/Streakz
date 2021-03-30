@@ -122,15 +122,20 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let currentDate = Date()
         var needToUpdateDB = false
         for streakSub in streakSubs {
-            if streakSub.nextDeadline() < currentDate || currentDate < streakSub.lastStreakUpdate {
+            if streakSub.streakExpired() || currentDate < streakSub.lastStreakUpdate {
                 // The left hand side of this OR checks if the user has missed their deadline
                 
                 // The right hand side of the OR checks if this streak was updated at some point in the future.
                 // If streakSub.lastStreakUpdate is in the future, behavior will not be as expected
+                
                 // Realistically, this should never happen, but it happens quite often for us when debugging b/c we have to
                 // change our system time in order to test out the app without actually having to wait a week for the right Date
                 
-                // In either case, we need to reset the streak
+                // In practice, this will also help prevent users who attempt to cheese the system by changing their device time.
+                // A user could inflate their streakNumber by changing their device time and completing streaks ahead of time
+                // However, this will reset their streak back to zero once they reset their device to actual time
+                
+                // In any case, we need to reset the streak back to zero
                 print("Streak Expired:", streakSub.streakInfo.name)
                 streakSub.resetStreak()
                 needToUpdateDB = true

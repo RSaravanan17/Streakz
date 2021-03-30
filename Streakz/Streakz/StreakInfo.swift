@@ -8,15 +8,6 @@
 import Foundation
 
 class StreakInfo : Codable {
-    /*
-     contains the information about the streak such as:
-     owner
-     description
-     name
-     frequency (days of week) is consistent across everyone. reminder customization is done through settings "final reminder" setting or streaksubscription-specific reminder
-     subscribers/members
-     viewability: public/private/friend's only
-     */
     
     let owner: String
     var name: String
