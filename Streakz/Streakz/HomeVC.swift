@@ -30,26 +30,26 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // fetch profile for current list of streaks from firebase
         if let collection = cur_user_collection, let user = cur_user_email {
-        db_firestore.collection(collection).document(user)
-            .addSnapshotListener { documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
+            db_firestore.collection(collection).document(user)
+                .addSnapshotListener { documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("Error fetching document: \(error!)")
+                        return
+                    }
+                    guard document.data() != nil else {
+                        print("Document data was empty.")
+                        return
+                    }
+                    do {
+                        let userProfile = try document.data(as: Profile.self)
+                        self.userProfile = userProfile
+                        self.subscribedStreaks = userProfile!.subscribedStreaks
+                        self.verifyStreaks(streakSubs: self.subscribedStreaks)
+                        self.tableView.reloadData()
+                    } catch let error {
+                        print("Error deserializing data", error)
+                    }
                 }
-                guard document.data() != nil else {
-                    print("Document data was empty.")
-                    return
-                }
-                do {
-                    let userProfile = try document.data(as: Profile.self)
-                    self.userProfile = userProfile
-                    self.subscribedStreaks = userProfile!.subscribedStreaks
-                    self.verifyStreaks(streakSubs: self.subscribedStreaks)
-                    self.tableView.reloadData()
-                } catch let error {
-                    print("Error deserializing data", error)
-                }
-            }
         }
     }
     

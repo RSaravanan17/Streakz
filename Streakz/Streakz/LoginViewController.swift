@@ -55,20 +55,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        // Comment in for login debugging
-//        // sign out email user
-//        do { try Auth.auth().signOut() }
-//        catch { print("Email user already logged out") }
-//        
-//        // sign out Google user
-//        GIDSignIn.sharedInstance().signOut()
-
-        
-        // TODO: fix auto-login for FB and comment this out
-        // sign out Facebook user
-        let loginManager = LoginManager()
-        loginManager.logOut()
+        // sign out user
+        //signOutEmailUser()
+        //signOutGoogleUser()
+        //signOutFacebookUser()
         
         Auth.auth().addStateDidChangeListener() {
           auth, user in
@@ -88,14 +78,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
         
-        // Google sign in
+        // Google sign-in
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
         
         // Adjust styling on google button
         self.googleSignInButton.style = .wide
         
-        // Facebook sign in
+        // Facebook sign-in
         self.facebookLoginButton.delegate = self
         self.facebookLoginButton.permissions = ["public_profile", "email"]
         
@@ -110,14 +100,52 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
         self.facebookLoginButton.trailingAnchor.constraint(equalTo: googleSignInButton.trailingAnchor).isActive = true
     }
     
+    func signOutFacebookUser() {
+        let loginManager = LoginManager()
+        loginManager.logOut()
+    }
+    
+    func signOutEmailUser() {
+        do { try Auth.auth().signOut() }
+        catch { print("Email user already logged out") }
+    }
+    
+    func signOutGoogleUser() {
+        GIDSignIn.sharedInstance().signOut()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         // automatically sign in the user with Google
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         // automatically sign in the user with Facebook
         if let token = AccessToken.current, !token.isExpired {
-            self.loginSuccessful = true
-            self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+            setFBLoginEmailAndType(completion: {(result) -> Void in
+                cur_user_email = result
+                cur_user_collection = "profiles_facebook"
+                
+                self.loginSuccessful = true
+                self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+            })
+        }
+    }
+    
+    func setFBLoginEmailAndType(completion: @escaping (String?) -> Void) {
+        let accessToken = AccessToken.current!
+        let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                      parameters: ["fields": "email"],
+                                                      tokenString: accessToken.tokenString,
+                                                      version: nil,
+                                                      httpMethod: .get)
+        graphRequest.start { (connection, result, error) -> Void in
+            if error == nil, let result = result as? Dictionary<String, AnyObject> {
+                completion(result["email"] as? String)
+            }
+            else if let error = error {
+                print("Error when fetching facebook profile information: \(error)")
+            } else {
+                print("Error fetching facebook profile")
+            }
         }
     }
     
@@ -173,6 +201,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                         let email: String = result["email"],
                         let firstName: String = result["first_name"],
                         let lastName: String = result["last_name"] {
+                        
+                        cur_user_email = email
+                        cur_user_collection = "profiles_facebook"
                         
                         db_firestore.collection("profiles_facebook").document(email).getDocument {
                             (document, error) in
@@ -248,6 +279,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
         }
     }
 
+    // globally stores current user's login type and email for email and Google sign-in
+    // Facebook sign-in is taken care of in before perfoming the segue because it requires an async callback function
     func setCurUserEmailAndType() {
         if Auth.auth().currentUser != nil {
             // current user signed in through Facebook
@@ -257,25 +290,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
             // current user signed in through Google
             cur_user_email = googleUser.profile.email
             cur_user_collection = "profiles_google"
-        } else if AccessToken.current != nil {
-            // current user signed in through Facebook
-            let accessToken = AccessToken.current!
-            let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                          parameters: ["fields": "email"],
-                                                          tokenString: accessToken.tokenString,
-                                                          version: nil,
-                                                          httpMethod: .get)
-            graphRequest.start { (connection, result, error) -> Void in
-                if error == nil, let result = result as? Dictionary<String, AnyObject> {
-                    cur_user_email = result["email"] as? String
-                    cur_user_collection = "profiles_facebook"
-                }
-                else if let error = error {
-                    print("Error when fetching facebook profile information: \(error)")
-                } else {
-                    print("Error fetching facebook profile")
-                }
-            }
         }
     }
     
