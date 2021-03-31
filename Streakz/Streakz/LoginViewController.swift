@@ -55,13 +55,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // sign out email user
-        do { try Auth.auth().signOut() }
-        catch { print("Email user already logged out") }
         
-        // sign out Google user
-        GIDSignIn.sharedInstance().signOut()
+        // Comment in for login debugging
+//        // sign out email user
+//        do { try Auth.auth().signOut() }
+//        catch { print("Email user already logged out") }
+//        
+//        // sign out Google user
+//        GIDSignIn.sharedInstance().signOut()
+
         
+        // TODO: fix auto-login for FB and comment this out
         // sign out Facebook user
         let loginManager = LoginManager()
         loginManager.logOut()
