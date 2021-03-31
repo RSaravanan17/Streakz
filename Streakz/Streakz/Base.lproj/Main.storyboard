@@ -1232,23 +1232,41 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QEg-mf-U4b">
+                                <rect key="frame" x="159.66666666666666" y="387" width="95" height="30"/>
+                                <state key="normal" title="Upload Image"/>
+                                <connections>
+                                    <action selector="uploadImagePressed:" destination="ea5-xK-ZCV" eventType="touchUpInside" id="1hl-wy-Y7T"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J22-8J-f5b">
+                                <rect key="frame" x="103" y="425" width="208" height="117"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="R6U-Oh-PIZ"/>
+                                    <constraint firstAttribute="width" constant="208" id="Z51-ir-PDc"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MMy-Py-Zg6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2vb-x5-chZ" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="6sx-Jw-lQX"/>
+                            <constraint firstItem="QEg-mf-U4b" firstAttribute="top" secondItem="2vb-x5-chZ" secondAttribute="bottom" constant="8" symbolic="YES" id="8CV-iw-Jg1"/>
                             <constraint firstItem="RBS-Da-oy6" firstAttribute="centerY" secondItem="U4T-NA-sWj" secondAttribute="centerY" id="B9C-j5-tXa"/>
                             <constraint firstItem="sjb-aZ-6l5" firstAttribute="centerX" secondItem="MMy-Py-Zg6" secondAttribute="centerX" id="Cbc-wX-ASZ"/>
+                            <constraint firstItem="QEg-mf-U4b" firstAttribute="centerX" secondItem="36C-di-1ub" secondAttribute="centerX" id="E9C-2j-FSe"/>
                             <constraint firstItem="Dx6-Ge-w4n" firstAttribute="centerX" secondItem="MMy-Py-Zg6" secondAttribute="centerX" id="FQB-Vt-86c"/>
                             <constraint firstItem="2vb-x5-chZ" firstAttribute="top" secondItem="HQI-li-OlH" secondAttribute="bottom" constant="8" symbolic="YES" id="K5Y-Jl-fPY"/>
                             <constraint firstItem="MMy-Py-Zg6" firstAttribute="trailing" secondItem="2vb-x5-chZ" secondAttribute="trailing" constant="20" id="LuM-8a-8hb"/>
                             <constraint firstItem="sjb-aZ-6l5" firstAttribute="top" secondItem="Dx6-Ge-w4n" secondAttribute="bottom" constant="4" id="RWQ-hb-csk"/>
+                            <constraint firstItem="J22-8J-f5b" firstAttribute="centerX" secondItem="36C-di-1ub" secondAttribute="centerX" id="S72-oM-Efs"/>
                             <constraint firstItem="U4T-NA-sWj" firstAttribute="leading" secondItem="5Gv-gR-uOM" secondAttribute="trailing" constant="5" id="XRN-bm-nTh"/>
                             <constraint firstItem="RBS-Da-oy6" firstAttribute="leading" secondItem="U4T-NA-sWj" secondAttribute="trailing" constant="5" id="Yeq-WB-7JB"/>
                             <constraint firstItem="U4T-NA-sWj" firstAttribute="centerY" secondItem="5Gv-gR-uOM" secondAttribute="centerY" id="ZQv-pb-KoN"/>
                             <constraint firstItem="mKi-pW-JhD" firstAttribute="leading" secondItem="RBS-Da-oy6" secondAttribute="trailing" constant="5" id="ZsQ-YS-Wda"/>
                             <constraint firstItem="5Gv-gR-uOM" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="bCe-uf-ov1"/>
                             <constraint firstItem="Dx6-Ge-w4n" firstAttribute="top" secondItem="MMy-Py-Zg6" secondAttribute="top" constant="10" id="dN4-XT-0L5"/>
+                            <constraint firstItem="J22-8J-f5b" firstAttribute="top" secondItem="QEg-mf-U4b" secondAttribute="bottom" constant="8" symbolic="YES" id="oGZ-Gy-kIl"/>
                             <constraint firstItem="HQI-li-OlH" firstAttribute="leading" secondItem="MMy-Py-Zg6" secondAttribute="leading" constant="20" id="qup-xd-AaW"/>
                             <constraint firstItem="5Gv-gR-uOM" firstAttribute="top" secondItem="sjb-aZ-6l5" secondAttribute="bottom" constant="20" id="r5d-QU-GaC"/>
                             <constraint firstItem="MMy-Py-Zg6" firstAttribute="trailing" secondItem="HQI-li-OlH" secondAttribute="trailing" constant="20" id="rvg-ht-9hO"/>
@@ -1266,6 +1284,7 @@
                     <connections>
                         <outlet property="commentTextView" destination="2vb-x5-chZ" id="55d-Y4-k4a"/>
                         <outlet property="currentDateLabel" destination="sjb-aZ-6l5" id="xLR-24-GNm"/>
+                        <outlet property="imageView" destination="J22-8J-f5b" id="Pxa-g8-lJe"/>
                         <outlet property="newStreakNumberLabel" destination="mKi-pW-JhD" id="yMp-5y-r5Q"/>
                         <outlet property="oldStreakNumberLabel" destination="U4T-NA-sWj" id="Hle-tg-566"/>
                         <outlet property="streakTitleLabel" destination="Dx6-Ge-w4n" id="DwK-o7-vy8"/>

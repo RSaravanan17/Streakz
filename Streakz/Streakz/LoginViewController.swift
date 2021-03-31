@@ -12,8 +12,10 @@ import FBSDKLoginKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
+import FirebaseStorage
 
 let db_firestore = Firestore.firestore()
+let storage = Storage.storage()
 var cur_user_email: String? = nil
 var cur_user_collection: String? = nil
 var cur_user_profile: Profile? = nil

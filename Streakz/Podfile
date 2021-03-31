@@ -11,5 +11,6 @@ target 'Streakz' do
   pod 'FBSDKLoginKit'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift', '~> 7.0-beta'
+  pod 'Firebase/Storage'
 
 end
