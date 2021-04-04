@@ -174,13 +174,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         /* End Input Verification */
         
         // All inputs are valid, so let's create the Streak
-        let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected)
-        
-        // autosubscribe the user
-        let subbedStreak = StreakSubscription(streakInfo: newStreak, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: privacyType)
-        
-        // add streak to user profile
-        curProfile.subscribedStreaks.append(subbedStreak)
+        let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected, viewability: privacyType)
         
         // add user to StreakInfo's list of subscribers
         if cur_user_email != nil && cur_user_collection != nil {
@@ -189,7 +183,29 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
         }
         
-        // if streak privacy is public, add to collection of public streaks
+        // add to proper collection of streaks
+        var streakCollection = "private_streaks"
+        if privacyType == .Friends {
+            streakCollection = "friends_streaks"
+        } else if privacyType == .Public {
+            streakCollection = "public_streaks"
+        }
+        var ref: DocumentReference? = nil
+        do {
+            print("Attempting to add streak:", newStreak.name)
+            ref = try db_firestore.collection(streakCollection).addDocument(from: newStreak)
+            print("streak added with ID: \(ref!.documentID)")
+        } catch let error {
+            print("Error writing streak to Firestore: \(error)")
+            return
+        }
+        
+        // autosubscribe the user
+        let subbedStreak = StreakSubscription(streakInfoId: ref!.documentID, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: newStreak.viewability, reminderDays: newStreak.reminderDays, name: newStreak.name)
+        
+        // add streak to user profile
+        curProfile.subscribedStreaks.append(subbedStreak)
+
         
         // update firebase
         do {

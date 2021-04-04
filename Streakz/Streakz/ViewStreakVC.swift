@@ -26,10 +26,14 @@ class ViewStreakVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        streakTitleDisplay.text = streakSub.streakInfo.name
+
+        streakSub.listenStreakInfo { (streakInfo: StreakInfo?) in
+            self.descriptionDisplay.text = streakInfo?.description
+        }
+        
+        streakTitleDisplay.text = streakSub.name
         streakNumberDisplay.text = String(streakSub.streakNumber)
         subscribedDateDisplay.text = streakSub.subscriptionStartDate.shortDate
-        descriptionDisplay.text = streakSub.streakInfo.description
         
         if streakSub.canBeCompletedToday() {
             markDoneButton.isEnabled = true

@@ -16,12 +16,12 @@ class StreakInfo : Codable {
     var subscribers: [BaseProfile]
     var viewability: StreakSubscription.PrivacyType
     
-    init(owner: String, name: String, description: String, reminderDays: [Bool]) {
+    init(owner: String, name: String, description: String, reminderDays: [Bool], viewability: StreakSubscription.PrivacyType) {
         self.owner = owner
         self.name = name
         self.description = description
         self.reminderDays = reminderDays
         self.subscribers = []
-        self.viewability = .Private // everything private for alpha release
+        self.viewability = viewability
     }
 }

@@ -49,7 +49,7 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
         commentTextView.layer.borderWidth = 0.5
         commentTextView.clipsToBounds = true
         
-        streakTitleLabel.text = streakSub.streakInfo.name
+        streakTitleLabel.text = streakSub.name
         currentDateLabel.text = Date().fullDate
         oldStreakNumberLabel.text = String(streakSub.streakNumber)
         newStreakNumberLabel.text = String(streakSub.streakNumber + 1)

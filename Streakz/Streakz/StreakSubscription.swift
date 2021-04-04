@@ -11,6 +11,8 @@ import Foundation
  StreakSubscription objects keep track statistics for a user's currently active streak.
  StreakSubscriptions will store a StreakInfo object, so they still contain the information about a streak.
  */
+
+
 class StreakSubscription : Codable {
     
     enum PrivacyType : String, Codable {
@@ -21,16 +23,54 @@ class StreakSubscription : Codable {
     var reminderTime: Date
     var subscriptionStartDate: Date
     var privacy: PrivacyType
-    var streakInfo: StreakInfo
+    var streakInfoId: String
     var lastStreakUpdate: Date
+    var reminderDays: [Bool]
+    var name: String
     
-    init(streakInfo: StreakInfo, reminderTime: Date, subscriptionStartDate: Date, privacy: PrivacyType) {
-        self.streakInfo = streakInfo
+    enum StreakSubscriptionError: Error {
+        case invalidStreakId
+    }
+    
+    init(streakInfoId: String, reminderTime: Date, subscriptionStartDate: Date, privacy: PrivacyType, reminderDays: [Bool], name: String) {
+        self.streakInfoId = streakInfoId
         self.streakNumber = 0
         self.reminderTime = reminderTime
         self.subscriptionStartDate = subscriptionStartDate
         self.privacy = privacy
         self.lastStreakUpdate = Date()
+        self.reminderDays = reminderDays
+        self.name = name
+    }
+    
+    // Creates a listener for this streak's StreakInfo object in the database
+    // callback is ran whenever the streakInfo is updated
+    func listenStreakInfo(callback: @escaping (StreakInfo?) -> Void) {
+        var collection = "private_streaks"
+        if privacy == .Friends {
+            collection = "friends_streaks"
+        } else if privacy == .Public {
+            collection = "public_streaks"
+        }
+        
+        db_firestore.collection(collection).document(streakInfoId)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("error fetching StreakInfo: \(error!)")
+                    return
+                }
+                guard document.data() != nil else {
+                    print("StreakInfo fetch - document data was empty.")
+                    return
+                }
+                do {
+                    let streakInfo = try document.data(as: StreakInfo.self)
+                    print("StreakInfo successfully fetched")
+                    callback(streakInfo)
+                } catch let error {
+                    print("Error deserializing StreakInfo data", error)
+                }
+        }
     }
     
     // Returns the next deadline from today
@@ -48,7 +88,7 @@ class StreakSubscription : Codable {
     // Helper function used by nextDeadline and streakExpired
     private func nextDeadlineFromDate(startDate: Date, needsToBeCompletedOnThatDate: Bool) -> Date {
         //pre-condition needed to avoid infinite loop due to bad data
-        assert(streakInfo.reminderDays.contains(true))
+        assert(reminderDays.contains(true))
 
         let calendar = Calendar.current
         
@@ -67,7 +107,7 @@ class StreakSubscription : Codable {
             nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
 
-        while (!streakInfo.reminderDays[nextStreakDay - 1]) {
+        while (!reminderDays[nextStreakDay - 1]) {
             nextStreakDay = incrementDayInt(day: nextStreakDay)
         }
 
@@ -85,7 +125,7 @@ class StreakSubscription : Codable {
         let calendar = Calendar.current
         
         let weekdayToday = calendar.component(.weekday, from: Date()) // 1 is Sunday, ..., 7 is Saturday
-        let streakDayToday = streakInfo.reminderDays[weekdayToday - 1]
+        let streakDayToday = reminderDays[weekdayToday - 1]
         
         return streakDayToday && !wasCompletedToday()
     }

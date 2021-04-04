@@ -121,9 +121,9 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                         if let posts = userProfile?.streakPosts {
                             self.streakPosts = posts
                         } else {
-                            let dummyInfo = StreakInfo(owner: "Dummy", name: "Dummy streak", description: "", reminderDays: [false, false, false, false, false, false, false])
-                            let dummyStreak = StreakSubscription(streakInfo: dummyInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
-                            self.streakPosts = [StreakPost(for: dummyStreak, postText: "Error fetching streak posts", image: "")]
+//                            let dummyInfo = StreakInfo(owner: "Dummy", name: "Dummy streak", description: "", reminderDays: [false, false, false, false, false, false, false], viewability: .Private)
+//                            let dummyStreak = StreakSubscription(streakInfo: dummyInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
+//                            self.streakPosts = [StreakPost(for: dummyStreak, postText: "Error fetching streak posts", image: "")]
                         }
                         self.streakPostsTable.reloadData()
 
@@ -181,7 +181,7 @@ class StreakPostCell: UITableViewCell {
     @IBOutlet weak var postComment: UILabel!
     
     func styleView(streakPost: StreakPost) {
-        titleLabel?.text = streakPost.streak.streakInfo.name
+        titleLabel?.text = streakPost.streak.name
         streakNumberLabel?.text = "Streak: \(streakPost.achievedStreak)"
         view.layer.cornerRadius = 20
         postComment.text = streakPost.postText

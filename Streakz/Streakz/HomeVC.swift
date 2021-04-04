@@ -137,7 +137,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 // However, this will reset their streak back to zero once they reset their device to actual time
                 
                 // In any case, we need to reset the streak back to zero
-                print("Streak Expired:", streakSub.streakInfo.name)
+                print("Streak Expired:", streakSub.name)
                 streakSub.resetStreak()
                 needToUpdateDB = true
             }
@@ -162,7 +162,7 @@ class StreakCell: UITableViewCell {
     @IBOutlet weak var streakNumber: UILabel!
     
     func styleView(streak: StreakSubscription) {
-        title?.text = streak.streakInfo.name
+        title?.text = streak.name
         streakNumber?.text = String(streak.streakNumber)
         view.layer.cornerRadius = 20
         
