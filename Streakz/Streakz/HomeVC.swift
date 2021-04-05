@@ -145,7 +145,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         if needToUpdateDB,
            let curProfile = userProfile {
-            // update firebase
+            // update Firebase
             do {
                 print("Some streaks have expired, updating database")
                 try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)
