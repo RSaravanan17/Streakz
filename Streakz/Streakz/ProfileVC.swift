@@ -26,7 +26,6 @@ extension UIImageView {
 }
 
 protocol ProfileDelegate {
-    func updateProfile(firstName: String, lastName: String)
     func getProfile() -> Profile?
 }
 
@@ -131,15 +130,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                         print("Error deserializing data", error)
                     }
                 }
-        }
-    }
-    
-    func updateProfile(firstName: String, lastName: String) {
-        // Update profile in Firebase
-        if let owner = cur_user_email,
-           let collection = cur_user_collection {
-            let newData = ["firstName": firstName, "lastName": lastName]
-            db_firestore.collection(collection).document(owner).setData(newData, merge: true)
         }
     }
     

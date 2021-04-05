@@ -9,7 +9,7 @@ import Foundation
 
 class Profile : Codable {
     
-    let firstName: String
+    var firstName: String
     var lastName: String
     var profilePicture: String = "" // set this to link to some default profile picture
     var friends: [Profile] = []

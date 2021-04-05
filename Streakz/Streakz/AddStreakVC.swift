@@ -108,7 +108,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     func textViewDidBeginEditing(_ textView: UITextView) {
         if descTextView.textColor == textFieldGray {
             descTextView.text = nil
-            descTextView.textColor = UIColor.black
+            descTextView.textColor = .label
         }
     }
     

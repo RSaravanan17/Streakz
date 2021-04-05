@@ -18,6 +18,7 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var finalReminderPickerLabel: UILabel!
     
     var profileDelegate: ProfileDelegate! = nil
+    var userProfile: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
         lastNameTextField.delegate = self
         
         // Set the initial text of each naem field to the user's names
-        let userProfile = self.profileDelegate.getProfile()
+        userProfile = self.profileDelegate.getProfile()
         firstNameTextField.text = userProfile?.firstName
         lastNameTextField.text = userProfile?.lastName
         if let userReminderTime = userProfile?.finalReminderTime {
@@ -59,19 +60,29 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
     // Save user data upon screen dismissing
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        if let firstName = firstNameTextField.text, let lastName = lastNameTextField.text {
+            if finalReminderToggle.isOn {
+                userProfile?.finalReminderTime = finalReminderPicker.date
+            } else {
+                userProfile?.finalReminderTime = nil
+            }
+            userProfile?.firstName = firstName
+            userProfile?.lastName = lastName
+        } else {
+            print("Failed to get text from text fields (should not happen because they're always set")
+        }
         
-        // Check to see if the text fields are changed and not empty
-        guard !firstNameTextField.text!.isEmpty,
-              !lastNameTextField.text!.isEmpty
-        else { return }
-        guard !(firstNameTextField.text! == self.profileDelegate.getProfile()?.firstName &&
-              lastNameTextField.text! == self.profileDelegate.getProfile()?.lastName)
-        else { return }
-        
-        // Update the user's info with new names
-        let firstName = firstNameTextField.text!
-        let lastName = lastNameTextField.text!
-        self.profileDelegate.updateProfile(firstName: firstName, lastName: lastName)
+        guard let email = cur_user_email,
+              let collection = cur_user_collection
+        else {
+            return
+        }
+        do {
+            try db_firestore.collection(collection).document(email).setData(from: userProfile)
+        } catch let error {
+            print("Error writing user profile settings to database in SettingsVC - \(error)")
+        }
     }
     
     func addBottomBorder(view: UIView) {
