@@ -13,6 +13,9 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastNameTextView: UIView!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var finalReminderToggle: UISwitch!
+    @IBOutlet weak var finalReminderPicker: UIDatePicker!
+    @IBOutlet weak var finalReminderPickerLabel: UILabel!
     
     var profileDelegate: ProfileDelegate! = nil
     
@@ -31,6 +34,26 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
         let userProfile = self.profileDelegate.getProfile()
         firstNameTextField.text = userProfile?.firstName
         lastNameTextField.text = userProfile?.lastName
+        if let userReminderTime = userProfile?.finalReminderTime {
+            finalReminderToggle.isOn = true
+            finalReminderPicker.isEnabled = true
+            finalReminderPickerLabel.isEnabled = true
+            finalReminderPicker.date = userReminderTime
+        } else {
+            finalReminderToggle.isOn = false
+            finalReminderPicker.isEnabled = false
+            finalReminderPickerLabel.isEnabled = false
+        }
+    }
+    
+    @IBAction func finalReminderToggled(_ sender: Any) {
+        if finalReminderToggle.isOn {
+            finalReminderPickerLabel.isEnabled = true
+            finalReminderPicker.isEnabled = true
+        } else {
+            finalReminderPickerLabel.isEnabled = false
+            finalReminderPicker.isEnabled = false
+        }
     }
     
     // Save user data upon screen dismissing

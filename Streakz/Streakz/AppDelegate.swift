@@ -20,6 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {
+            (success, error) in
+            if success {
+                print("Notification permissions granted")
+            } else {
+                print("Problem occured with notification permissions")
+            }
+        })
+        
         GIDSignIn.sharedInstance().clientID = "999899369890-vpqevtjrvnktmgb4dn65ucpeqg31e20i.apps.googleusercontent.com"
         
         ApplicationDelegate.shared.application(
