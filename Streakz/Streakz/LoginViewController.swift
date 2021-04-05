@@ -304,17 +304,68 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                         return
                     }
                     guard document.data() != nil else {
-                        print("cur_user_profile fetch - ocument data was empty.")
+                        print("cur_user_profile fetch - document data was empty.")
                         return
                     }
                     do {
                         cur_user_profile = try document.data(as: Profile.self)
                         print("cur_user_profile successfully set")
+                        self.setupNotifications(profile: cur_user_profile!)
+                        print("notifications reset")
                     } catch let error {
                         print("Error deserializing data", error)
                     }
                 }
             }
+    }
+    
+    func setupNotifications(profile: Profile) {
+        let notifCenter = UNUserNotificationCenter.current()
+        // remove existing notifications in case any settings changed
+        notifCenter.removeAllPendingNotificationRequests()
+        
+        var needFinalReminder = false
+        for streak in profile.subscribedStreaks {
+            if streak.canBeCompletedToday() {
+                needFinalReminder = true
+                let request = newStreakNotification(streak: streak)
+                notifCenter.add(request)
+            }
+        }
+        
+        // add final reminder notification if there are outstanding streaks and the user wants final reminders
+        if let finalReminderTime = profile.finalReminderTime, needFinalReminder {
+            let request = newFinalReminderNotification(finalReminderTime: finalReminderTime)
+            notifCenter.add(request)
+        }
+    }
+    
+    func newStreakNotification(streak: StreakSubscription) -> UNNotificationRequest {
+        let calendar = Calendar.current
+        let content = UNMutableNotificationContent()
+        content.title = "Streak reminder"
+        content.body = "Remember to complete your \(streak.name) streak"
+        
+        var reminderTime = DateComponents()
+        reminderTime.hour = calendar.component(.hour, from: streak.reminderTime)
+        reminderTime.minute = calendar.component(.minute, from: streak.reminderTime)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime, repeats: false)
+        
+        return UNNotificationRequest(identifier: streak.name, content: content, trigger: trigger)
+    }
+    
+    func newFinalReminderNotification(finalReminderTime: Date) -> UNNotificationRequest {
+        let calendar = Calendar.current
+        let content = UNMutableNotificationContent()
+        content.title = "Last call!"
+        content.body = "Final reminder to complete any outstanding streaks for the day"
+        
+        var reminderTime = DateComponents()
+        reminderTime.hour = calendar.component(.hour, from: finalReminderTime)
+        reminderTime.minute = calendar.component(.minute, from: finalReminderTime)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime, repeats: false)
+        
+        return UNNotificationRequest(identifier: "final reminder", content: content, trigger: trigger)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
