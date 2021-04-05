@@ -15,6 +15,7 @@ class Profile : Codable {
     var friends: [Profile] = []
     var subscribedStreaks: [StreakSubscription] = []
     var streakPosts: [StreakPost] = []
+    var finalReminderTime: Date?
     
     init(firstName: String, lastName: String) {
         self.firstName = firstName
