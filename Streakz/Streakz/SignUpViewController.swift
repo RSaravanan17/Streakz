@@ -102,7 +102,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     // directly sign in the newly created user
                     Auth.auth().signIn(withEmail: email,
                                        password: password)
-                    // create the user a profile and push it to firebase
+                    // create the user a profile and push it to Firebase
                     let newProfile = Profile(firstName: firstName, lastName: lastName)
                     do {
                         try db_firestore.collection("profiles_email").document(email).setData(from: newProfile, merge: true)

@@ -128,7 +128,7 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
         let streakPost = StreakPost(for: streakSub, postText: postText, image: imageLink)
         
         if let curProfile = curUserProfile {
-            // update firebase
+            // update Firebase
             curProfile.streakPosts.append(streakPost)
             do {
                 try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)

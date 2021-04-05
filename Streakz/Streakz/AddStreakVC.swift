@@ -207,7 +207,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         curProfile.subscribedStreaks.append(subbedStreak)
 
         
-        // update firebase
+        // update Firebase
         do {
             print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
             try db_firestore.collection(collection).document(owner).setData(from: curProfile)

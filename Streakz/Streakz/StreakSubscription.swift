@@ -16,7 +16,9 @@ import Foundation
 class StreakSubscription : Codable {
     
     enum PrivacyType : String, Codable {
-        case Private, Friends, Public
+        case Private
+        case Friends
+        case Public
     }
     
     var streakNumber: Int
@@ -56,7 +58,7 @@ class StreakSubscription : Codable {
         db_firestore.collection(collection).document(streakInfoId)
             .addSnapshotListener { documentSnapshot, error in
                 guard let document = documentSnapshot else {
-                    print("error fetching StreakInfo: \(error!)")
+                    print("Error fetching StreakInfo: \(error!)")
                     return
                 }
                 guard document.data() != nil else {

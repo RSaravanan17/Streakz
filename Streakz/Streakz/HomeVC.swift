@@ -29,7 +29,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
-        // fetch profile for current list of streaks from firebase
+        // fetch profile for current list of streaks from Firebase
         if let collection = cur_user_collection, let user = cur_user_email {
             db_firestore.collection(collection).document(user)
                 .addSnapshotListener { documentSnapshot, error in
@@ -71,7 +71,20 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             if let owner = cur_user_email,
                let collection = cur_user_collection,
-               let curProfile = self.userProfile {
+               let curProfile = self.userProfile,
+               let streakId = self.userProfile?.subscribedStreaks[indexPath.row].streakInfoId,
+               let streakCollectionType = self.userProfile?.subscribedStreaks[indexPath.row].privacy {
+                var streakCollection: String?
+                switch streakCollectionType {
+                    case .Private:
+                        streakCollection = "private_streaks"
+                    case .Friends:
+                        streakCollection = "friends_streaks"
+                    case .Public:
+                        streakCollection = "public_streaks"
+                }
+                
+                // remove streak from user profile subscription list
                 self.subscribedStreaks.remove(at: indexPath.row)
                 self.userProfile?.subscribedStreaks = subscribedStreaks
                 
@@ -79,10 +92,33 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 // can add animation if desired but need to fix TableCell corner rounding
                 //tableView.deleteRows(at: [indexPath], with: .fade)
                 
-                // update firebase
+                // update Firebase
                 do {
                     print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
+                    // update the user's profile in Firebase
                     try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                    
+                    // retrieve StreakInfo object
+                    var cur_public_streak: StreakInfo?
+                    db_firestore.collection(streakCollection!).document(streakId).getDocument { (document, error) in
+                        do {
+                            if let document = document, document.exists {
+                                // deserialize retrieved object into StreakInfo object
+                                cur_public_streak = try document.data(as: StreakInfo.self)
+                                
+                                // remove current user from the streak's subscriber list
+                                cur_public_streak?.subscribers.removeAll{$0.email == owner && $0.profileType == collection}
+                                
+                                // update the StreakInfo object in Firebase
+                                try db_firestore.collection(streakCollection!).document(streakId).setData(from: cur_public_streak!)
+                            } else {
+                                print("Document does not exist")
+                            }
+                        } catch let error {
+                            print("Error deserializing data while deleting user from public streak", error)
+                        }
+                    }
+                    
                     navigationController?.popViewController(animated: true)
                 } catch let error {
                     print("Error writing profile to Firestore: \(error)")

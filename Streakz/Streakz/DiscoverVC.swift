@@ -38,7 +38,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func loadPublicStreakz() {
-        // fetch profile for current list of streaks from firebase
+        // fetch profile for current list of streaks from Firebase
         if let collection = cur_user_collection, let user = cur_user_email {
             db_firestore.collection("public_streaks").whereField("viewability", isEqualTo: "Public")
                 .addSnapshotListener { querySnapshot, error in

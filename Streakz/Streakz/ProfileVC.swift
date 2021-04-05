@@ -135,7 +135,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     }
     
     func updateProfile(firstName: String, lastName: String) {
-        // Update profile in firebase
+        // Update profile in Firebase
         if let owner = cur_user_email,
            let collection = cur_user_collection {
             let newData = ["firstName": firstName, "lastName": lastName]
