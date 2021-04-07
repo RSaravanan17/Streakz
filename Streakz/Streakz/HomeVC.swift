@@ -78,7 +78,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
+        return self.sections[section].count > 0 ? sectionTitles[section] : nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,7 +162,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
            let nextVC = segue.destination as? ViewStreakVC,
            let streakSubIndexPath = tableView.indexPathForSelectedRow {
             
-            nextVC.streakSub = subscribedStreaks[streakSubIndexPath.row]
+            nextVC.streakSub = sections[streakSubIndexPath.section][streakSubIndexPath.row]
             nextVC.curUserProfile = userProfile
             tableView.deselectRow(at: streakSubIndexPath, animated: false)
             
