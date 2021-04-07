@@ -17,11 +17,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var userProfile: Profile?
     var subscribedStreaks: [StreakSubscription] = []
-//    var debugSubscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Debug Streak", description: "a test streak", reminderDays: [true, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "If you see this something went wrong getting your profile's streaks", description: "another test streak", reminderDays: [false, false, false, true, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
-    
+    var sections: [[StreakSubscription]] = [[]]
+    let sectionTypes = [true, false] // true is an incomplete streak (it CAN be completed today) false is a complete streak (can't be completed today)
+    let sectionTitles = ["Incomplete", "Complete"]
     var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
     var addStreakSegueIdentifier = "AddStreakSegueIdentifier"
+    
+//    var debugSubscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Debug Streak", description: "a test streak", reminderDays: [true, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "If you see this something went wrong getting your profile's streaks", description: "another test streak", reminderDays: [false, false, false, true, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.userProfile = userProfile
                         self.subscribedStreaks = userProfile!.subscribedStreaks
                         self.verifyStreaks(streakSubs: self.subscribedStreaks)
+                        
+                        // split table view into sections (complete and incomplete streaks sorted by name)
+                        self.sections = self.sectionTypes.map { type in
+                            return self.subscribedStreaks
+                                .filter { $0.canBeCompletedToday() == type }
+                                .sorted { $0.name < $1.name }
+                        }
+                        
                         self.tableView.reloadData()
                     } catch let error {
                         print("Error deserializing data", error)
@@ -59,7 +70,22 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subscribedStreaks.count
+        return sections[section].count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+        
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: streakCellIdentifier, for: indexPath as IndexPath) as! StreakCell
+        let streakSub = sections[indexPath.section][indexPath.row]
+        cell.styleView(streak: streakSub)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -129,14 +155,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: streakCellIdentifier, for: indexPath as IndexPath) as! StreakCell
-        let row = indexPath.row
-        let streakSub = subscribedStreaks[row]
-        cell.styleView(streak: streakSub)
-        return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
