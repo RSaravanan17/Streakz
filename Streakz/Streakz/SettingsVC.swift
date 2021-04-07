@@ -23,10 +23,6 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Add red border to bottom of each name input text field
-        self.addBottomBorder(view: firstNameTextView)
-        self.addBottomBorder(view: lastNameTextView)
-        
         // Set text field delegates to this VC to control keyboard dismiss functionality
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
@@ -83,13 +79,6 @@ class SettingsVC: UIViewController, UITextFieldDelegate {
         } catch let error {
             print("Error writing user profile settings to database in SettingsVC - \(error)")
         }
-    }
-    
-    func addBottomBorder(view: UIView) {
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x:0, y: view.frame.height, width: view.frame.size.width-16, height:1)
-        bottomBorder.backgroundColor = UIColor(named: "Streakz_DarkRed")?.cgColor
-        view.layer.addSublayer(bottomBorder)
     }
     
     // Dismiss keyboards on touch outside of keyboard

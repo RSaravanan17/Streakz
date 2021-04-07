@@ -1041,31 +1041,34 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9D-DE-Hpi" userLabel="ReminderTimeLabel">
-                                <rect key="frame" x="16.000000000000007" y="491" width="114.66666666666669" height="20"/>
+                                <rect key="frame" x="16" y="491" width="288" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="114.66666666666669" id="nFc-qb-jqR"/>
+                                    <constraint firstAttribute="width" constant="288" id="nFc-qb-jqR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="7y1-vS-4am" userLabel="ReminderTimePicker">
-                                <rect key="frame" x="254" y="479" width="144" height="46"/>
+                                <rect key="frame" x="302" y="479" width="96" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="IAe-aI-vh6"/>
-                                    <constraint firstAttribute="width" constant="144" id="QpU-WD-08Z"/>
+                                    <constraint firstAttribute="height" constant="48" id="IAe-aI-vh6"/>
+                                    <constraint firstAttribute="width" constant="96" id="QpU-WD-08Z"/>
                                 </constraints>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who can see this streak?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rro-tM-RRB" userLabel="VisibilityLabel">
-                                <rect key="frame" x="16" y="557" width="190" height="21"/>
+                                <rect key="frame" x="16" y="559" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="Sbs-3c-hfJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uld-qH-Jl1" userLabel="VisibilityPicker">
-                                <rect key="frame" x="250" y="535" width="144" height="64"/>
+                                <rect key="frame" x="292" y="537" width="112" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="144" id="SF6-Dc-jS0"/>
+                                    <constraint firstAttribute="width" constant="112" id="SF6-Dc-jS0"/>
                                     <constraint firstAttribute="height" constant="64" id="dFv-dY-Ddr"/>
                                 </constraints>
                             </pickerView>
@@ -1088,7 +1091,7 @@
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="lVl-8q-aRW" secondAttribute="trailing" constant="16" id="Nf2-r5-aJS"/>
                             <constraint firstItem="lnL-Az-QqR" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="OJd-sC-LeH"/>
                             <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="tKy-mu-ynR" secondAttribute="trailing" constant="16" id="PjU-oZ-xp1"/>
-                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="uld-qH-Jl1" secondAttribute="trailing" constant="20" id="Rh5-gU-riQ"/>
+                            <constraint firstItem="FTz-2r-r4r" firstAttribute="trailing" secondItem="uld-qH-Jl1" secondAttribute="trailing" constant="10" id="Rh5-gU-riQ"/>
                             <constraint firstItem="Wl5-Rl-0jE" firstAttribute="top" secondItem="tKy-mu-ynR" secondAttribute="bottom" constant="32" id="WL1-Pg-FzO"/>
                             <constraint firstItem="ENq-0T-ecY" firstAttribute="leading" secondItem="FTz-2r-r4r" secondAttribute="leading" constant="16" id="YCw-2i-wFc"/>
                             <constraint firstItem="y1L-V5-16l" firstAttribute="top" secondItem="ENq-0T-ecY" secondAttribute="bottom" constant="8" id="YcQ-cb-8sj"/>
@@ -1394,15 +1397,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jF-tV-6Ol">
+                                        <rect key="frame" x="0.0" y="43" width="382" height="1"/>
+                                        <color key="backgroundColor" name="Streakz_DarkRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="XZh-7w-B7b"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="AfG-NZ-CkF" secondAttribute="bottom" id="0PI-af-McL"/>
                                     <constraint firstAttribute="height" constant="44" id="4mZ-Hj-Ygo"/>
+                                    <constraint firstAttribute="bottom" secondItem="9jF-tV-6Ol" secondAttribute="bottom" id="TSX-UB-b8h"/>
                                     <constraint firstItem="AfG-NZ-CkF" firstAttribute="top" secondItem="5Wd-rn-zvZ" secondAttribute="top" id="Xg2-IH-ikD"/>
                                     <constraint firstItem="DzF-t4-esB" firstAttribute="leading" secondItem="5Wd-rn-zvZ" secondAttribute="leading" id="cZY-KB-CCl"/>
                                     <constraint firstAttribute="trailing" secondItem="AfG-NZ-CkF" secondAttribute="trailing" id="eK5-VH-bHm"/>
                                     <constraint firstItem="AfG-NZ-CkF" firstAttribute="leading" secondItem="DzF-t4-esB" secondAttribute="trailing" constant="32" id="fwb-II-5gG"/>
+                                    <constraint firstAttribute="trailing" secondItem="9jF-tV-6Ol" secondAttribute="trailing" id="k7D-oI-daQ"/>
+                                    <constraint firstItem="9jF-tV-6Ol" firstAttribute="leading" secondItem="5Wd-rn-zvZ" secondAttribute="leading" id="pe1-Pe-TQI"/>
                                     <constraint firstItem="DzF-t4-esB" firstAttribute="centerY" secondItem="5Wd-rn-zvZ" secondAttribute="centerY" id="ySV-D2-qIt"/>
                                 </constraints>
                             </view>
@@ -1420,11 +1433,22 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMA-g6-OAm">
+                                        <rect key="frame" x="0.0" y="43.000000000000028" width="382" height="1"/>
+                                        <color key="backgroundColor" name="Streakz_DarkRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="MfT-3d-0SH"/>
+                                            <constraint firstAttribute="height" constant="1" id="wDg-vG-8Xi"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="wMA-g6-OAm" firstAttribute="leading" secondItem="qi7-yl-auN" secondAttribute="leading" id="AAa-XO-Hdq"/>
                                     <constraint firstAttribute="trailing" secondItem="13J-kK-4Gb" secondAttribute="trailing" id="DOB-1P-hRb"/>
                                     <constraint firstItem="13J-kK-4Gb" firstAttribute="top" secondItem="qi7-yl-auN" secondAttribute="top" id="Ngi-xG-3pX"/>
+                                    <constraint firstAttribute="bottom" secondItem="wMA-g6-OAm" secondAttribute="bottom" id="Pi7-Oj-UDK"/>
+                                    <constraint firstAttribute="trailing" secondItem="wMA-g6-OAm" secondAttribute="trailing" id="U4B-XU-UGb"/>
                                     <constraint firstItem="13J-kK-4Gb" firstAttribute="leading" secondItem="xcI-CG-OUO" secondAttribute="trailing" constant="32" id="mEb-XI-6YM"/>
                                     <constraint firstItem="xcI-CG-OUO" firstAttribute="centerY" secondItem="qi7-yl-auN" secondAttribute="centerY" id="oaQ-oM-Q49"/>
                                     <constraint firstItem="xcI-CG-OUO" firstAttribute="leading" secondItem="qi7-yl-auN" secondAttribute="leading" id="sgr-rm-Uns"/>
@@ -1450,9 +1474,9 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final Reminder Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt2-5p-ag8">
-                                <rect key="frame" x="16" y="344.66666666666669" width="155" height="44"/>
+                                <rect key="frame" x="16" y="344.66666666666669" width="288" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="155" id="EWe-a9-yA2"/>
+                                    <constraint firstAttribute="width" constant="288" id="EWe-a9-yA2"/>
                                     <constraint firstAttribute="height" constant="44" id="mmR-JY-ysH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1460,10 +1484,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="RNI-wO-Qzu" userLabel="Final Reminder Time Picker">
-                                <rect key="frame" x="254" y="344" width="144" height="46"/>
+                                <rect key="frame" x="302" y="344" width="96" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="144" id="fIR-TL-8Vy"/>
-                                    <constraint firstAttribute="height" constant="46" id="gps-Cb-C4Q"/>
+                                    <constraint firstAttribute="width" constant="96" id="fIR-TL-8Vy"/>
+                                    <constraint firstAttribute="height" constant="48" id="gps-Cb-C4Q"/>
                                 </constraints>
                             </datePicker>
                         </subviews>
@@ -1474,7 +1498,6 @@
                             <constraint firstItem="qi7-yl-auN" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="6gl-ZT-PA5"/>
                             <constraint firstItem="qi7-yl-auN" firstAttribute="top" secondItem="5Wd-rn-zvZ" secondAttribute="bottom" constant="16" id="EIX-JU-XXU"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="RNI-wO-Qzu" secondAttribute="trailing" constant="16" id="Ezw-5Q-F53"/>
-                            <constraint firstItem="RNI-wO-Qzu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tt2-5p-ag8" secondAttribute="trailing" constant="8" symbolic="YES" id="H2C-av-OQX"/>
                             <constraint firstItem="HVL-Vf-YwR" firstAttribute="top" secondItem="qi7-yl-auN" secondAttribute="bottom" constant="22.329999999999998" id="I8I-S6-BsU"/>
                             <constraint firstItem="0Cz-RX-Iyt" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="Khh-s3-J3W"/>
                             <constraint firstItem="1ov-0q-0i1" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="Lsm-HF-96J"/>
