@@ -79,9 +79,9 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
         if let image = uploadedImage {
             // user uploaded an image
             // file the image in cloud storage under user's streakposts with a randomly generated string
-            let streakPostFile = collection + "/" + email + "/StreakPosts/" + UUID().uuidString + ".png"
+            let streakPostFile = collection + "/" + email + "/StreakPosts/" + UUID().uuidString + ".jpeg"
             let storageRef = storage.reference().child(streakPostFile)
-            storageRef.putData(image.pngData()!, metadata: nil) { (metadata, error) in
+            storageRef.putData(image.jpegData(compressionQuality: 0.5)!, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
                     var imageLink = ""
                     if let downloadURL = url {

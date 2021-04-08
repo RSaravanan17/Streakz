@@ -117,7 +117,8 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                             self.userInfoLabel.text = "EMAIL: " + email
                         }
                         // Set the streakPosts table
-                        if let posts = userProfile?.streakPosts {
+                        if var posts = userProfile?.streakPosts {
+                            posts.sort(by: { $0.datePosted > $1.datePosted })
                             self.streakPosts = posts
                         } else {
 //                            let dummyInfo = StreakInfo(owner: "Dummy", name: "Dummy streak", description: "", reminderDays: [false, false, false, false, false, false, false], viewability: .Private)

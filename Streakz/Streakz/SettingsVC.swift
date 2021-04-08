@@ -74,14 +74,6 @@ class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         self.present(image, animated: true)
     }
     
-    func imageClicked() {
-        let image = UIImagePickerController()
-        image.delegate = self
-        image.sourceType = UIImagePickerController.SourceType.photoLibrary
-        image.allowsEditing = true
-        self.present(image, animated: true)
-    }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.dismiss(animated: true, completion: nil)
         guard let image = info[.editedImage] as? UIImage else { return }
@@ -115,9 +107,9 @@ class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         
         if let newPic = newProfilePic {
             // user uploaded new profile picture, need to store it and create download link before writing update to firebase
-            let profilePicFile = collection + "/" + email + "/ProfilePictures/" + UUID().uuidString + ".png"
+            let profilePicFile = collection + "/" + email + "/ProfilePictures/" + UUID().uuidString + ".jpeg"
             let storageRef = storage.reference().child(profilePicFile)
-            storageRef.putData(newPic.pngData()!, metadata: nil) { (metadata, error) in
+            storageRef.putData(newPic.jpegData(compressionQuality: 0.5)!, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
                     if let downloadURL = url {
                         self.userProfile?.profilePicture = downloadURL.absoluteString
