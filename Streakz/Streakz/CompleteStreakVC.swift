@@ -8,18 +8,6 @@
 import UIKit
 import FirebaseStorage
 
-extension String {
-    
-    func randomString(of length: Int) -> String {
-         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-         var s = ""
-         for _ in 0 ..< length {
-             s.append(letters.randomElement()!)
-         }
-         return s
-    }
-}
-
 class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var streakTitleLabel: UILabel!
@@ -91,7 +79,7 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
         if let image = uploadedImage {
             // user uploaded an image
             // file the image in cloud storage under user's streakposts with a randomly generated string
-            let streakPostFile = collection + "/" + email + "/StreakPosts/" + String().randomString(of: 10) + ".png"
+            let streakPostFile = collection + "/" + email + "/StreakPosts/" + UUID().uuidString + ".png"
             let storageRef = storage.reference().child(streakPostFile)
             storageRef.putData(image.pngData()!, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
