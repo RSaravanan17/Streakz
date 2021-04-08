@@ -54,7 +54,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         // Round the profile image view
         userImageView.layer.borderWidth = 1.0
         userImageView.layer.masksToBounds = false
-        userImageView.layer.borderColor = UIColor.white.cgColor
+        userImageView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
     }

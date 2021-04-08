@@ -28,7 +28,7 @@ class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         // round profile picture
         profilePicView.layer.borderWidth = 1.0
         profilePicView.layer.masksToBounds = false
-        profilePicView.layer.borderColor = UIColor.white.cgColor
+        profilePicView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
         profilePicView.layer.cornerRadius = profilePicView.frame.size.width / 2
         profilePicView.clipsToBounds = true
         profilePicView.image = UIImage(named: "ProfileImageBlank")
