@@ -1747,14 +1747,13 @@
                             <constraint firstItem="1ov-0q-0i1" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="Lsm-HF-96J"/>
                             <constraint firstItem="1ov-0q-0i1" firstAttribute="top" secondItem="qi7-yl-auN" secondAttribute="bottom" constant="16" id="OHz-R5-gO7"/>
                             <constraint firstItem="5Wd-rn-zvZ" firstAttribute="top" secondItem="0Cz-RX-Iyt" secondAttribute="bottom" constant="146" id="PHk-9g-UdH"/>
-                            <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="jWQ-FJ-8Q8" secondAttribute="trailing" constant="157" id="QLg-LY-lFF"/>
+                            <constraint firstItem="jWQ-FJ-8Q8" firstAttribute="centerX" secondItem="uwi-N2-fHa" secondAttribute="centerX" id="QfU-s8-Fkx"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="5Wd-rn-zvZ" secondAttribute="trailing" constant="16" id="Rt8-pR-DlC"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="qi7-yl-auN" secondAttribute="trailing" constant="16" id="RvE-XI-eoM"/>
                             <constraint firstItem="Tt2-5p-ag8" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="TCB-f0-byz"/>
                             <constraint firstItem="RNI-wO-Qzu" firstAttribute="top" secondItem="HVL-Vf-YwR" secondAttribute="bottom" constant="22" id="Wic-i3-eqM"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="HVL-Vf-YwR" secondAttribute="trailing" constant="18" id="WsE-3J-0dC"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="RNI-wO-Qzu" secondAttribute="trailing" constant="16" id="c5B-0A-OTr"/>
-                            <constraint firstItem="jWQ-FJ-8Q8" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="157" id="fF1-PI-a5A"/>
                             <constraint firstItem="Tt2-5p-ag8" firstAttribute="top" secondItem="1ov-0q-0i1" secondAttribute="bottom" constant="16" id="gHk-M3-RDe"/>
                             <constraint firstItem="1f7-6e-foc" firstAttribute="trailing" secondItem="0Cz-RX-Iyt" secondAttribute="trailing" constant="16" id="nVo-pO-IXv"/>
                             <constraint firstItem="5Wd-rn-zvZ" firstAttribute="leading" secondItem="1f7-6e-foc" secondAttribute="leading" constant="16" id="y3c-SA-gfc"/>
