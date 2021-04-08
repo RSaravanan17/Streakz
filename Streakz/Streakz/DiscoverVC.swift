@@ -12,6 +12,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var discoverTableView: UITableView!
     
     let discoverStreakCellIdentifier = "DiscoverStreakCellIdentifier"
+    let viewPublicStreakSegueIdentifier = "ViewPublicStreakSegueIdentifier"
     
     var publicStreakz: [StreakInfo] = []
     
@@ -39,7 +40,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func loadPublicStreakz() {
         // fetch profile for current list of streaks from Firebase
-        if let collection = cur_user_collection, let user = cur_user_email {
+        if let _ = cur_user_collection, let _ = cur_user_email {
             db_firestore.collection("public_streaks").whereField("viewability", isEqualTo: "Public")
                 .addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
@@ -57,15 +58,19 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == self.viewPublicStreakSegueIdentifier,
+           let nextVC = segue.destination as? ViewPublicStreakVC,
+           let indexPath = discoverTableView.indexPathForSelectedRow {
+            let row = indexPath.row
+            nextVC.publicStreak = publicStreakz[row]
+            discoverTableView.deselectRow(at: indexPath, animated: false)
+        }
     }
-    */
+ 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

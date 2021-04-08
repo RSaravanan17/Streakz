@@ -34,6 +34,7 @@
 		CE9890F8260282AD00E3E44E /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890F7260282AD00E3E44E /* FriendsVC.swift */; };
 		CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890FA260282C000E3E44E /* DiscoverVC.swift */; };
 		CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9890FD260282E300E3E44E /* ProfileVC.swift */; };
+		CEC53812261E19C900938677 /* ViewPublicStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		CE9890F7260282AD00E3E44E /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		CE9890FA260282C000E3E44E /* DiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
 		CE9890FD260282E300E3E44E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPublicStreakVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
+				CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */,
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -299,6 +302,7 @@
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE55CBDA260ECBBD00FA8A6E /* SettingsVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
+				CEC53812261E19C900938677 /* ViewPublicStreakVC.swift in Sources */,
 				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,
 				388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */,
 				765132612607F75600D3E202 /* AddStreakVC.swift in Sources */,
