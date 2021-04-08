@@ -78,16 +78,15 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: self.publicSubscriberCellIdentifier, for: indexPath as IndexPath) as! PublicSubscriberCell
         let row = indexPath.row
         let profile = self.publicSubscribers[row]
-        cell.styleViewWith(profile)
+        cell.styleViewWith(profile, publicStreak: self.publicStreak)
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
         let sectionName: String
         switch section {
             case 0:
-                sectionName = "Public Subscribers"
+                sectionName = "\(self.publicStreak.subscribers.count) Public Subscribers"
             default:
                 sectionName = ""
         }
@@ -182,8 +181,9 @@ class PublicSubscriberCell: UITableViewCell {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var streakCountLabel: UILabel!
     
-    func styleViewWith(_ profile: Profile) {
+    func styleViewWith(_ profile: Profile, publicStreak: StreakInfo) {
         // Style image view
         self.profileImageView.layer.borderWidth = 1.0
         self.profileImageView.layer.masksToBounds = false
@@ -199,5 +199,13 @@ class PublicSubscriberCell: UITableViewCell {
             self.profileImageView.load(url: URL(string: imageURL)!)
         }
         self.nameLabel.text = "\(profile.firstName) \(profile.lastName)"
+        
+        let streaks = profile.subscribedStreaks.filter({(streak: StreakSubscription) -> Bool in return streak.name == publicStreak.name})
+        var streakCount = 0
+        if streaks.count > 0 {
+            streakCount = streaks[0].streakNumber
+        }
+        self.streakCountLabel.textColor = UIColor(named: "Streakz_Grey")
+        self.streakCountLabel.text = "Streak: \(streakCount)"
     }
 }

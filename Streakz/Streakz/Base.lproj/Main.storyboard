@@ -1546,8 +1546,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPG-0G-B42" userLabel="NameLabel">
-                                                    <rect key="frame" x="88" y="35" width="310" height="24"/>
+                                                    <rect key="frame" x="88" y="35" width="49" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak: 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bg-Wq-26V" userLabel="StreakCountLabel">
+                                                    <rect key="frame" x="313.66666666666669" y="36.666666666666664" width="64.333333333333314" height="20.666666666666664"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1555,15 +1561,18 @@
                                             <constraints>
                                                 <constraint firstItem="bGw-g1-OoC" firstAttribute="top" secondItem="KSk-FE-4ph" secondAttribute="topMargin" constant="8" id="AU7-3p-2tf"/>
                                                 <constraint firstItem="bGw-g1-OoC" firstAttribute="leading" secondItem="KSk-FE-4ph" secondAttribute="leading" constant="16" id="DMt-S6-0SM"/>
+                                                <constraint firstAttribute="trailing" secondItem="0bg-Wq-26V" secondAttribute="trailing" constant="36" id="SUC-gR-yHn"/>
                                                 <constraint firstItem="IPG-0G-B42" firstAttribute="leading" secondItem="bGw-g1-OoC" secondAttribute="trailing" constant="16" id="Y5o-F1-rNP"/>
+                                                <constraint firstItem="0bg-Wq-26V" firstAttribute="centerY" secondItem="KSk-FE-4ph" secondAttribute="centerY" id="cAk-AX-yMu"/>
+                                                <constraint firstItem="0bg-Wq-26V" firstAttribute="top" secondItem="KSk-FE-4ph" secondAttribute="topMargin" constant="25.666666666666664" id="cGw-Jg-lGv"/>
                                                 <constraint firstItem="IPG-0G-B42" firstAttribute="centerY" secondItem="KSk-FE-4ph" secondAttribute="centerY" id="nxW-3J-fgw"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="bGw-g1-OoC" secondAttribute="bottom" constant="8" id="rhh-gJ-Qah"/>
-                                                <constraint firstAttribute="trailing" secondItem="IPG-0G-B42" secondAttribute="trailing" constant="16" id="vUX-zJ-W81"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="IPG-0G-B42" id="vSZ-Gg-UQD"/>
                                             <outlet property="profileImageView" destination="bGw-g1-OoC" id="YeK-cd-Lp8"/>
+                                            <outlet property="streakCountLabel" destination="0bg-Wq-26V" id="Uwu-Jl-qlc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
