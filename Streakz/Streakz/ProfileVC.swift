@@ -84,6 +84,41 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         return view
     }
     
+    // allows rows to be deleted from the table
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let owner = cur_user_email,
+               let collection = cur_user_collection,
+               let curProfile = self.userProfile {
+               
+                let streakPost = self.streakPosts[indexPath.row]
+                
+                // remove current streak post from local list and user profile
+                self.streakPosts.remove(at: indexPath.row)
+                self.userProfile?.streakPosts = self.streakPosts
+                
+                // deletes the row in the tableView
+                // can add animation if desired but need to fix TableCell corner rounding
+                //tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                // update Firebase
+                do {
+                    print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
+                    // update the user's profile in Firebase
+                    try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                    
+                    navigationController?.popViewController(animated: true)
+                } catch let error {
+                    print("Error writing profile to Firestore: \(error)")
+                }
+            } else {
+                print("Could not delete Streak \(indexPath.row)")
+            }
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+    
     func setCurrentUser() {
         if let collection = cur_user_collection, let user = cur_user_email {
             db_firestore.collection(collection).document(user)

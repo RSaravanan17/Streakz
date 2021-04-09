@@ -118,7 +118,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                self.subscribedStreaks.remove(at: indexPath.row)
 //                self.userProfile?.subscribedStreaks = subscribedStreaks
                 
-                // remove streak from user profile subscription sectioned list
+                // remove streak from local list and user profile subscription sectioned list
                 self.sections[indexPath.section].remove(at: indexPath.row)
                 self.userProfile?.subscribedStreaks = []
                 for section in self.sections {
