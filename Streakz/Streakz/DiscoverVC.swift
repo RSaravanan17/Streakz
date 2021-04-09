@@ -7,35 +7,26 @@
 
 import UIKit
 
-class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    @IBOutlet weak var discoverSearchBar: UISearchBar!
     @IBOutlet weak var discoverTableView: UITableView!
     
     let discoverStreakCellIdentifier = "DiscoverStreakCellIdentifier"
     let viewPublicStreakSegueIdentifier = "ViewPublicStreakSegueIdentifier"
     
     var publicStreakz: [StreakInfo] = []
+    var filteredPublicStreakz: [StreakInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.discoverSearchBar.delegate = self
         self.discoverTableView.delegate = self
         self.discoverTableView.dataSource = self
 
         // Do any additional setup after loading the view.
         loadPublicStreakz()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return publicStreakz.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.discoverStreakCellIdentifier, for: indexPath as IndexPath) as! DiscoverStreakCell
-        let row = indexPath.row
-        let streak = self.publicStreakz[row]
-        cell.styleView(streakInfo: streak)
-        return cell
     }
     
     func loadPublicStreakz() {
@@ -52,11 +43,42 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         return try? QueryDocumentSnapshot.data(as: StreakInfo.self)
                     })
                     
+                    self.filteredPublicStreakz = self.publicStreakz
+                    
                     self.discoverTableView.reloadData()
                 }
         }
     }
     
+    // filters the table according to the search text
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            // filter all public streakz that contain the search text (case-insensitive) in the name or description
+            self.filteredPublicStreakz = self.publicStreakz.filter { (streak: StreakInfo) -> Bool in
+                let containedInStrealName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                let containedInStreakDesc = streak.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                
+                return containedInStrealName || containedInStreakDesc
+            }
+        } else {
+            // when search text is empty, display all streakz
+            self.filteredPublicStreakz = self.publicStreakz
+        }
+        
+        self.discoverTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredPublicStreakz.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.discoverStreakCellIdentifier, for: indexPath as IndexPath) as! DiscoverStreakCell
+        let row = indexPath.row
+        let streak = self.filteredPublicStreakz[row]
+        cell.styleView(streakInfo: streak)
+        return cell
+    }
 
     // MARK: - Navigation
 
@@ -66,7 +88,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
            let nextVC = segue.destination as? ViewPublicStreakVC,
            let indexPath = discoverTableView.indexPathForSelectedRow {
             let row = indexPath.row
-            nextVC.publicStreak = publicStreakz[row]
+            nextVC.publicStreak = self.filteredPublicStreakz[row]
             discoverTableView.deselectRow(at: indexPath, animated: false)
         }
     }
