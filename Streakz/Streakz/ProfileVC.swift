@@ -39,9 +39,11 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     
     let signOutSegue = "SignOutSegue"
     let settingsSegue = "SettingsSegue"
+    let streakPostSegue = "StreakPostIdentifier"
     let streakPostCell = "StreakPostCellIdentifier"
     var streakPosts: [StreakPost] = []
     var userProfile: Profile?
+    var currentStreakPost: StreakPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         userImageView.clipsToBounds = true
         
         // TODO: remove this if we want to be able to select streakPosts and go to a ViewStreakPostVC
-        streakPostsTable.allowsSelection = false
+        //streakPostsTable.allowsSelection = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,6 +85,11 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         view.contentView.backgroundColor = UIColor.systemBackground
         return view
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("clicked here")
+//        self.selectedPostIndex = indexPath
+//    }
     
     // allows rows to be deleted from the table
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -196,6 +203,13 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         } else if segue.identifier == settingsSegue {
             if let destination = segue.destination as? SettingsVC {
                 destination.profileDelegate = self as ProfileDelegate
+            }
+        } else if segue.identifier == streakPostSegue {
+            let selectedIndex = self.streakPostsTable.indexPath(for: sender as! UITableViewCell)
+            if let destination = segue.destination as? StreakPostScreenViewController {
+                // set the current selected streak post
+                self.currentStreakPost = self.streakPosts[selectedIndex!.row]
+                destination.streakPostDelegate = self as ProfileVC
             }
         }
     }
