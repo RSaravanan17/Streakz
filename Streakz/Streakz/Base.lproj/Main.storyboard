@@ -1555,7 +1555,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsA-dH-Bge" userLabel="SubscribeButton">
-                                            <rect key="frame" x="16" y="229" width="362" height="50"/>
+                                            <rect key="frame" x="16" y="229" width="382" height="50"/>
                                             <color key="backgroundColor" name="Streakz_DarkRed"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="xa9-ff-549"/>
@@ -1581,12 +1581,12 @@
                                         <constraint firstItem="xk6-BT-u8x" firstAttribute="top" secondItem="DOP-nU-MJY" secondAttribute="bottom" constant="16" id="84j-bu-trC"/>
                                         <constraint firstAttribute="bottom" secondItem="xsA-dH-Bge" secondAttribute="bottom" constant="32" id="ChH-eX-JHQ"/>
                                         <constraint firstItem="Q7O-pS-f5F" firstAttribute="top" secondItem="h1N-0m-9oc" secondAttribute="top" constant="16" id="Ls6-ew-Luj"/>
+                                        <constraint firstItem="xsA-dH-Bge" firstAttribute="leading" secondItem="h1N-0m-9oc" secondAttribute="leading" constant="16" id="Oyc-Yn-fyp"/>
                                         <constraint firstAttribute="trailing" secondItem="hEX-Kp-RBf" secondAttribute="trailing" constant="16" id="RSN-Co-XRP"/>
                                         <constraint firstItem="xsA-dH-Bge" firstAttribute="top" secondItem="xk6-BT-u8x" secondAttribute="bottom" constant="32" id="Rz9-6g-yc5"/>
-                                        <constraint firstItem="xsA-dH-Bge" firstAttribute="leading" secondItem="h1N-0m-9oc" secondAttribute="leading" constant="16" id="URd-FR-tVh"/>
                                         <constraint firstItem="Q7O-pS-f5F" firstAttribute="leading" secondItem="h1N-0m-9oc" secondAttribute="leading" constant="16" id="YPz-br-1TS"/>
                                         <constraint firstAttribute="trailing" secondItem="xk6-BT-u8x" secondAttribute="trailing" constant="16" id="cMh-On-1gb"/>
-                                        <constraint firstAttribute="trailing" secondItem="xsA-dH-Bge" secondAttribute="trailing" constant="36" id="eZx-yH-cn7"/>
+                                        <constraint firstAttribute="trailing" secondItem="xsA-dH-Bge" secondAttribute="trailing" constant="16" id="huY-EM-nCS"/>
                                         <constraint firstItem="DOP-nU-MJY" firstAttribute="leading" secondItem="h1N-0m-9oc" secondAttribute="leading" constant="16" id="jCn-oG-Y3p"/>
                                         <constraint firstItem="xk6-BT-u8x" firstAttribute="leading" secondItem="h1N-0m-9oc" secondAttribute="leading" constant="16" id="k7u-2d-kts"/>
                                         <constraint firstItem="hEX-Kp-RBf" firstAttribute="top" secondItem="Q7O-pS-f5F" secondAttribute="bottom" constant="16" id="m8b-Tc-T8Q"/>

@@ -93,7 +93,7 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
         return sectionName
     }
     
-    func subscribeToStreak() {
+    func subscribeToStreak(reminderTime: Date) {
         // TODO: Guard against resubbing to this streak
         
         // add user to StreakInfo's list of subscribers
@@ -113,7 +113,7 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 for document in querySnapshot!.documents {
                     // autosubscribe the user
-                    let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: cur_user_profile?.finalReminderTime ?? Date(), subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
+                    let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: reminderTime, subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
                     // add streak to user profile
                     cur_user_profile!.subscribedStreaks.append(subbedStreak)
                     // update public streak in Firebase
@@ -138,7 +138,40 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func onSubscribeButtonPressed(_ sender: Any) {
-        self.subscribeToStreak()
+        // set bounds for picker within alert
+        let vcWidth = 250
+        let vcHeight = 100
+        let pickerWidth = 96
+        let pickerHeight = 48
+        // create view to store picker
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: vcWidth, height: vcHeight)
+        // center picker within the alert view
+        let pickerX = (vcWidth / 2) - (pickerWidth / 2)
+        let pickerY = (vcHeight / 2) - (pickerHeight / 2)
+        let pickerView = UIDatePicker(frame: CGRect(x: pickerX, y: pickerY, width: pickerWidth, height: pickerHeight))
+        pickerView.datePickerMode = .time
+        pickerView.minuteInterval = 15
+        // add picker to view
+        vc.view.addSubview(pickerView)
+        // create alert and embed view in it
+        let streakTimeAlert = UIAlertController(title: "Choose a reminder time",
+                                                message: "When would you like to be reminded to complete this streak?",
+                                                preferredStyle: UIAlertController.Style.alert)
+        streakTimeAlert.view.tintColor = UIColor(named: "Streakz_DarkRed")
+        streakTimeAlert.setValue(vc, forKey: "contentViewController")
+        streakTimeAlert.addAction(UIAlertAction(title: "Subscribe",
+                                                style: .default,
+                                                handler: { _ in
+                                                    print("User is subscribing to public streak")
+                                                    self.subscribeToStreak(reminderTime: pickerView.date)
+                                                }))
+        streakTimeAlert.addAction(UIAlertAction(title: "Cancel",
+                                                style: .cancel,
+                                                handler: { _ in
+                                                    print("Public streak subscribe cancelled")
+                                                }))
+        self.present(streakTimeAlert, animated: true)
     }
     
     func checkIfAlreadySubbed() {
