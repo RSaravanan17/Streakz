@@ -113,7 +113,7 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 for document in querySnapshot!.documents {
                     // autosubscribe the user
-                    let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: (cur_user_profile?.finalReminderTime)!, subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
+                    let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: cur_user_profile?.finalReminderTime ?? Date(), subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
                     // add streak to user profile
                     cur_user_profile!.subscribedStreaks.append(subbedStreak)
                     // update public streak in Firebase
