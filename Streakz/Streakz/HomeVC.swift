@@ -97,9 +97,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             if let owner = cur_user_email,
                let collection = cur_user_collection,
-               let curProfile = self.userProfile,
-               let streakId = self.userProfile?.subscribedStreaks[indexPath.row].streakInfoId,
-               let streakCollectionType = self.userProfile?.subscribedStreaks[indexPath.row].privacy {
+               let curProfile = self.userProfile {
+               //let streakId = self.userProfile?.subscribedStreaks[indexPath.row].streakInfoId,
+               //let streakCollectionType = self.userProfile?.subscribedStreaks[indexPath.row].privacy
+                
+                let streakId = self.sections[indexPath.section][indexPath.row].streakInfoId
+                let streakCollectionType = self.sections[indexPath.section][indexPath.row].privacy
+                
                 var streakCollection: String?
                 switch streakCollectionType {
                     case .Private:
@@ -111,8 +115,15 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 // remove streak from user profile subscription list
-                self.subscribedStreaks.remove(at: indexPath.row)
-                self.userProfile?.subscribedStreaks = subscribedStreaks
+//                self.subscribedStreaks.remove(at: indexPath.row)
+//                self.userProfile?.subscribedStreaks = subscribedStreaks
+                
+                // remove streak from user profile subscription sectioned list
+                self.sections[indexPath.section].remove(at: indexPath.row)
+                self.userProfile?.subscribedStreaks = []
+                for section in self.sections {
+                    self.userProfile?.subscribedStreaks += section
+                }
                 
                 // deletes the row in the tableView
                 // can add animation if desired but need to fix TableCell corner rounding
