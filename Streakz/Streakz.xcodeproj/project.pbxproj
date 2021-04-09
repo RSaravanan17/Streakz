@@ -138,7 +138,6 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
-				CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */,
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -151,6 +150,7 @@
 				388BA726260671A90091F905 /* Streakz.entitlements */,
 				CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */,
 				CE9890E0260271D800E3E44E /* ViewController.swift */,
+				CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */,
 				AF62F20726095B040077EE03 /* ViewStreakVC.swift */,
 			);
 			path = Streakz;

@@ -329,7 +329,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIZ-k3-Idf">
-                                                    <rect key="frame" x="66.333333333333329" y="19.666666666666668" width="86.999999999999986" height="21.000000000000004"/>
+                                                    <rect key="frame" x="71.333333333333329" y="19.666666666666668" width="86.999999999999986" height="21.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -341,7 +341,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yzx-WT-U8g" secondAttribute="trailing" id="Bl6-bi-z4T"/>
                                                 <constraint firstItem="yIZ-k3-Idf" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="YCC-8E-D1b"/>
-                                                <constraint firstItem="yIZ-k3-Idf" firstAttribute="leading" secondItem="33A-4F-6um" secondAttribute="trailing" constant="15" id="hPD-7V-7oq"/>
+                                                <constraint firstItem="yIZ-k3-Idf" firstAttribute="leading" secondItem="33A-4F-6um" secondAttribute="trailing" constant="20" id="hPD-7V-7oq"/>
                                                 <constraint firstItem="yzx-WT-U8g" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="wD9-w0-Ib5"/>
                                                 <constraint firstItem="33A-4F-6um" firstAttribute="centerY" secondItem="LPe-vZ-XBi" secondAttribute="centerY" id="xfh-gB-QYJ"/>
                                                 <constraint firstItem="33A-4F-6um" firstAttribute="leading" secondItem="LPe-vZ-XBi" secondAttribute="leadingMargin" id="xhn-kY-Yze"/>
@@ -1141,8 +1141,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Title..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuW-EF-PlC">
-                                <rect key="frame" x="20" y="108" width="301" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Title..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuW-EF-PlC">
+                                <rect key="frame" x="20" y="108" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1227,6 +1227,7 @@
                             <constraint firstItem="c9C-7S-BW8" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="b0T-5A-sHO"/>
                             <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" constant="20" id="bkL-8O-cOQ"/>
                             <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="5" id="iLN-LN-aNL"/>
+                            <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="DuW-EF-PlC" secondAttribute="trailing" constant="20" id="mQM-AD-v3c"/>
                             <constraint firstItem="Ozp-hc-HRc" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="mXf-w1-wui"/>
                             <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="c9C-7S-BW8" secondAttribute="trailing" constant="20" id="okJ-EM-dJM"/>
                         </constraints>
@@ -1395,7 +1396,7 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Loading Description..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEX-Kp-RBf" userLabel="DescriptionLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Loading Description..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEX-Kp-RBf" userLabel="DescriptionLabel">
                                             <rect key="frame" x="16" y="68" width="382" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>

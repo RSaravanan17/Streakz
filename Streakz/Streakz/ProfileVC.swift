@@ -57,6 +57,9 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         userImageView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
+        
+        // TODO: remove this if we want to be able to select streakPosts and go to a ViewStreakPostVC
+        streakPostsTable.allowsSelection = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
