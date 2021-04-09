@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B60E0F8CD7518FAE2B82E51 /* Pods_Streakz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */; };
+		384D2C392620E9C100769C79 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384D2C382620E9C100769C79 /* SearchFriendsViewController.swift */; };
 		38602AA32620306900BD1879 /* StreakPostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38602AA22620306900BD1879 /* StreakPostScreenViewController.swift */; };
 		388BA71926066DF80091F905 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71826066DF80091F905 /* LoginViewController.swift */; };
 		388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		384D2C382620E9C100769C79 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
 		38602AA22620306900BD1879 /* StreakPostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakPostScreenViewController.swift; sourceTree = "<group>"; };
 		388BA71826066DF80091F905 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */,
 				AF62F20A2609808E0077EE03 /* DateExtensions.swift */,
 				CE9890FA260282C000E3E44E /* DiscoverVC.swift */,
+				384D2C382620E9C100769C79 /* SearchFriendsViewController.swift */,
 				388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */,
 				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
 				388BA72C260672310091F905 /* GoogleService-Info.plist */,
@@ -295,6 +298,7 @@
 				76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */,
 				CE9890E7260271D800E3E44E /* Streakz.xcdatamodeld in Sources */,
 				76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */,
+				384D2C392620E9C100769C79 /* SearchFriendsViewController.swift in Sources */,
 				AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */,
 				CE9890FB260282C000E3E44E /* DiscoverVC.swift in Sources */,
 				AF3D0AF5260A90D000E7C32C /* CompleteStreakVC.swift in Sources */,

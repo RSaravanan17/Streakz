@@ -9,6 +9,9 @@ import UIKit
 
 class FriendsVC: UIViewController {
 
+    
+    let searchFriendsSegueIdentifier = "SearchFriendsSegueIdentifier"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

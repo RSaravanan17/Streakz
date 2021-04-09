@@ -11,14 +11,16 @@ class Profile : Codable {
     
     var firstName: String
     var lastName: String
+    var accountType: String
     var profilePicture: String = "" // set this to link to some default profile picture
     var friends: [Profile] = []
     var subscribedStreaks: [StreakSubscription] = []
     var streakPosts: [StreakPost] = []
     var finalReminderTime: Date?
     
-    init(firstName: String, lastName: String) {
+    init(firstName: String, lastName: String, accountType: String) {
         self.firstName = firstName
         self.lastName = lastName
+        self.accountType = accountType
     }
 }

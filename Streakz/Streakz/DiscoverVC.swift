@@ -25,7 +25,6 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.discoverTableView.delegate = self
         self.discoverTableView.dataSource = self
 
-        // Do any additional setup after loading the view.
         loadPublicStreakz()
     }
     
@@ -55,10 +54,10 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if !searchText.isEmpty {
             // filter all public streakz that contain the search text (case-insensitive) in the name or description
             self.filteredPublicStreakz = self.publicStreakz.filter { (streak: StreakInfo) -> Bool in
-                let containedInStrealName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                let containedInStreakName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 let containedInStreakDesc = streak.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 
-                return containedInStrealName || containedInStreakDesc
+                return containedInStreakName || containedInStreakDesc
             }
         } else {
             // when search text is empty, display all streakz
