@@ -167,7 +167,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                     print("User exists, no need to make new profile")
                 } else {
                     print("New google user. Creating new profile")
-                    let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!, accountType: "google")                    // TODO: get user profile picture
+                    let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)                    // TODO: get user profile picture
                     do {
                         try db_firestore.collection("profiles_google").document(user.profile.email).setData(from: userProfile, merge: true)
                     } catch let error {
@@ -213,7 +213,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                                 print("User exists, no need to make new profile")
                             } else {
                                 print("New facebook user. Creating new profile")
-                                let userProfile = Profile(firstName: firstName, lastName: lastName, accountType: "facebook")
+                                let userProfile = Profile(firstName: firstName, lastName: lastName)
                                 // TODO: get user profile picture
                                 do {
                                     try db_firestore.collection("profiles_facebook").document(email).setData(from: userProfile, merge: true)

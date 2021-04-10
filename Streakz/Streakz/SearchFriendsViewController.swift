@@ -118,6 +118,6 @@ class UserStreakCell: UITableViewCell {
     }
     
     @IBAction func sendFriendRequestButtonPressed(_ sender: Any) {
-        print("Just sent a friend request from \(cur_user_profile!.firstName) \(cur_user_profile!.lastName) [\(cur_user_profile!.accountType)] to \(self.userProfile!.firstName) \(self.userProfile!.lastName) [\(self.userProfile!.accountType)]")
+        print("Just sent a friend request from \(cur_user_profile!.firstName) \(cur_user_profile!.lastName) to \(self.userProfile!.firstName) \(self.userProfile!.lastName)")
     }
 }
