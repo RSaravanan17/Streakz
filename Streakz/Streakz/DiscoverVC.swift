@@ -15,8 +15,8 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     let discoverStreakCellIdentifier = "DiscoverStreakCellIdentifier"
     let viewPublicStreakSegueIdentifier = "ViewPublicStreakSegueIdentifier"
     
-    var publicStreakz: [StreakInfo] = []
-    var filteredPublicStreakz: [StreakInfo] = []
+    var publicStreakz: [(String, StreakInfo)] = []
+    var filteredPublicStreakz: [(String, StreakInfo)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +37,11 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         print("Error fetching documents: \(error!)")
                         return
                     }
-                    
-                    self.publicStreakz = documents.compactMap({ (QueryDocumentSnapshot) -> StreakInfo? in
-                        return try? QueryDocumentSnapshot.data(as: StreakInfo.self)
+
+                    self.publicStreakz = documents.compactMap({ (queryDocumentSnapshot) -> (String, StreakInfo)? in
+                        let documentID: String = queryDocumentSnapshot.documentID
+                        let streak: StreakInfo? = try? queryDocumentSnapshot.data(as: StreakInfo.self)
+                        return (documentID, streak) as? (String, StreakInfo)
                     })
                     
                     self.filteredPublicStreakz = self.publicStreakz
@@ -53,7 +55,8 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
             // filter all public streakz that contain the search text (case-insensitive) in the name or description
-            self.filteredPublicStreakz = self.publicStreakz.filter { (streak: StreakInfo) -> Bool in
+            self.filteredPublicStreakz = self.publicStreakz.filter { (streakWithID: (String, StreakInfo)) -> Bool in
+                let streak = streakWithID.1
                 let containedInStreakName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 let containedInStreakDesc = streak.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 
@@ -74,8 +77,8 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.discoverStreakCellIdentifier, for: indexPath as IndexPath) as! DiscoverStreakCell
         let row = indexPath.row
-        let streak = self.filteredPublicStreakz[row]
-        cell.styleView(streakInfo: streak)
+        let streakWithID = self.filteredPublicStreakz[row]
+        cell.styleView(streakWithID: streakWithID)
         return cell
     }
 
@@ -87,7 +90,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
            let nextVC = segue.destination as? ViewPublicStreakVC,
            let indexPath = discoverTableView.indexPathForSelectedRow {
             let row = indexPath.row
-            nextVC.publicStreak = self.filteredPublicStreakz[row]
+            nextVC.publicStreak = self.filteredPublicStreakz[row].1
             discoverTableView.deselectRow(at: indexPath, animated: false)
         }
     }
@@ -104,13 +107,28 @@ class DiscoverStreakCell: UITableViewCell {
     @IBOutlet weak var numParticipantsLabel: UILabel!
     @IBOutlet weak var numFriendsLabel: UILabel!
     
-    func styleView(streakInfo: StreakInfo) {
+    func styleView(streakWithID: (String, StreakInfo)) {
         self.backgroundColor = UIColor(named: "Streakz_Background")
         self.layer.cornerRadius = 20
         self.accessoryType = .disclosureIndicator
         
+        let streakID = streakWithID.0
+        let streakInfo = streakWithID.1
+        
         self.titleLabel.text = streakInfo.name
         self.numParticipantsLabel.text = "\(streakInfo.subscribers.count) Participants"
-        self.numFriendsLabel.text = "100 friends"
+        
+        var numFriends = 0
+        
+        // count how many friends are subbed
+        for friend in cur_user_profile?.friends ?? [] {
+            for streak in friend.subscribedStreaks {
+                if streak.streakInfoId == streakID {
+                    numFriends += 1
+                }
+            }
+        }
+        
+        self.numFriendsLabel.text = String(numFriends) + " friends"
     }
 }
