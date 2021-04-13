@@ -1222,109 +1222,138 @@
         <!--View Streak-->
         <scene sceneID="CQj-HX-bS2">
             <objects>
-                <viewController id="eCe-TN-ij1" customClass="ViewStreakVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="eCe-TN-ij1" customClass="ViewStreakVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LeG-KE-9Yz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Title..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuW-EF-PlC">
-                                <rect key="frame" x="20" y="108" width="374" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8U-xk-MqF">
-                                <rect key="frame" x="20" y="154" width="54" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed since:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPP-QX-Srh">
-                                <rect key="frame" x="20" y="185" width="136" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ln5-Mb-f16" userLabel="StreakNumberDisplay">
-                                <rect key="frame" x="79" y="154" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX/XX/XXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-hc-HRc" userLabel="SubscribedSinceDisplay">
-                                <rect key="frame" x="161" y="185" width="98" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRp-cO-MXK">
-                                <rect key="frame" x="50" y="266.5" width="314" height="50"/>
-                                <color key="backgroundColor" name="Streakz_DarkRed"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fb7-uo-1YV">
+                                <rect key="frame" x="0.0" y="88" width="414" height="663"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpY-aj-yTN" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="279.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Title..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuW-EF-PlC">
+                                                <rect key="frame" x="20" y="20" width="374" height="36"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streak:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8U-xk-MqF">
+                                                <rect key="frame" x="20" y="66" width="54" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed since:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPP-QX-Srh">
+                                                <rect key="frame" x="20" y="97" width="136" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ln5-Mb-f16" userLabel="StreakNumberDisplay">
+                                                <rect key="frame" x="79" y="66" width="21" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX/XX/XXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-hc-HRc" userLabel="SubscribedSinceDisplay">
+                                                <rect key="frame" x="161" y="97" width="98" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRp-cO-MXK">
+                                                <rect key="frame" x="50" y="178.5" width="314" height="50"/>
+                                                <color key="backgroundColor" name="Streakz_DarkRed"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="ASg-dj-DqI"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" title="Mark done for today">
+                                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="signInButtonPressed:" destination="iS4-ET-bJB" eventType="touchUpInside" id="hLe-ko-gDQ"/>
+                                                    <segue destination="ea5-xK-ZCV" kind="show" identifier="ViewStreakSegueIdentifier" id="fYH-w9-ykp"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htb-tk-7M6">
+                                                <rect key="frame" x="20" y="238.5" width="374" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Description..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9C-7S-BW8">
+                                                <rect key="frame" x="20" y="128" width="374" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="S8U-xk-MqF" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="10" id="0Xe-bv-ed9"/>
+                                            <constraint firstItem="S8U-xk-MqF" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="20" id="3wa-fe-fHu"/>
+                                            <constraint firstAttribute="trailing" secondItem="PRp-cO-MXK" secondAttribute="trailing" constant="50" id="5l1-b5-3Ya"/>
+                                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="CRu-hw-DgV"/>
+                                            <constraint firstItem="htb-tk-7M6" firstAttribute="top" secondItem="PRp-cO-MXK" secondAttribute="bottom" constant="10" id="CwI-QD-rXM"/>
+                                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="leading" secondItem="TPP-QX-Srh" secondAttribute="trailing" constant="5" id="PVp-cj-43x"/>
+                                            <constraint firstAttribute="trailing" secondItem="c9C-7S-BW8" secondAttribute="trailing" constant="20" id="S5a-6j-sOo"/>
+                                            <constraint firstItem="c9C-7S-BW8" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="10" id="T32-vV-i7S"/>
+                                            <constraint firstItem="htb-tk-7M6" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="20" id="UVE-lB-yo5"/>
+                                            <constraint firstItem="PRp-cO-MXK" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="50" id="Z1l-pE-3fH"/>
+                                            <constraint firstItem="c9C-7S-BW8" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="20" id="eOn-t5-Y33"/>
+                                            <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="xpY-aj-yTN" secondAttribute="top" constant="20" id="eXW-Th-6Wk"/>
+                                            <constraint firstItem="TPP-QX-Srh" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="gQO-ks-4EL"/>
+                                            <constraint firstAttribute="trailing" secondItem="htb-tk-7M6" secondAttribute="trailing" constant="20" id="jFg-gW-7n7"/>
+                                            <constraint firstItem="DuW-EF-PlC" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="20" id="jkM-jI-O5m"/>
+                                            <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="5" id="lDM-R3-UBA"/>
+                                            <constraint firstItem="TPP-QX-Srh" firstAttribute="leading" secondItem="xpY-aj-yTN" secondAttribute="leading" constant="20" id="sCe-kc-JbM"/>
+                                            <constraint firstItem="ln5-Mb-f16" firstAttribute="centerY" secondItem="S8U-xk-MqF" secondAttribute="centerY" id="vby-9g-uGe"/>
+                                            <constraint firstAttribute="trailing" secondItem="DuW-EF-PlC" secondAttribute="trailing" constant="20" id="veF-H0-MJL"/>
+                                            <constraint firstAttribute="bottom" secondItem="htb-tk-7M6" secondAttribute="bottom" constant="20" id="vky-Iw-Iel"/>
+                                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="c9C-7S-BW8" secondAttribute="bottom" constant="30" id="z4l-VL-xLc"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ASg-dj-DqI"/>
+                                    <constraint firstItem="xpY-aj-yTN" firstAttribute="width" secondItem="c7X-6h-eTh" secondAttribute="width" id="9aY-dh-bdH"/>
+                                    <constraint firstItem="xpY-aj-yTN" firstAttribute="trailing" secondItem="GFp-QW-TmF" secondAttribute="trailing" id="DnN-6U-lNF"/>
+                                    <constraint firstItem="xpY-aj-yTN" firstAttribute="bottom" secondItem="GFp-QW-TmF" secondAttribute="bottom" id="La5-50-kcy"/>
+                                    <constraint firstItem="xpY-aj-yTN" firstAttribute="leading" secondItem="GFp-QW-TmF" secondAttribute="leading" id="ZCd-4U-kPq"/>
+                                    <constraint firstItem="xpY-aj-yTN" firstAttribute="top" secondItem="GFp-QW-TmF" secondAttribute="top" id="zii-JX-giK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Mark done for today">
-                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="25"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signInButtonPressed:" destination="iS4-ET-bJB" eventType="touchUpInside" id="hLe-ko-gDQ"/>
-                                    <segue destination="ea5-xK-ZCV" kind="show" identifier="ViewStreakSegueIdentifier" id="fYH-w9-ykp"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htb-tk-7M6">
-                                <rect key="frame" x="177.5" y="326.5" width="59" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Description..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9C-7S-BW8">
-                                <rect key="frame" x="20" y="216" width="374" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <viewLayoutGuide key="contentLayoutGuide" id="GFp-QW-TmF"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="c7X-6h-eTh"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tpE-N6-mo9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="leading" secondItem="TPP-QX-Srh" secondAttribute="trailing" constant="5" id="2cC-oJ-Tgf"/>
-                            <constraint firstItem="S8U-xk-MqF" firstAttribute="top" secondItem="DuW-EF-PlC" secondAttribute="bottom" constant="10" id="6Wq-o0-jA7"/>
-                            <constraint firstItem="S8U-xk-MqF" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="8C9-Fc-6kn"/>
-                            <constraint firstItem="TPP-QX-Srh" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="AJE-Fg-Mh0"/>
-                            <constraint firstItem="PRp-cO-MXK" firstAttribute="centerX" secondItem="tpE-N6-mo9" secondAttribute="centerX" id="ARj-YG-dUL"/>
-                            <constraint firstItem="htb-tk-7M6" firstAttribute="centerX" secondItem="tpE-N6-mo9" secondAttribute="centerX" id="Apn-tV-YK0"/>
-                            <constraint firstItem="DuW-EF-PlC" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="HAM-zE-ir5"/>
-                            <constraint firstItem="ln5-Mb-f16" firstAttribute="centerY" secondItem="S8U-xk-MqF" secondAttribute="centerY" id="IhO-u6-Qdp"/>
-                            <constraint firstItem="htb-tk-7M6" firstAttribute="top" secondItem="PRp-cO-MXK" secondAttribute="bottom" constant="10" id="LKn-NN-xag"/>
-                            <constraint firstItem="PRp-cO-MXK" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="50" id="My7-wS-Lfk"/>
-                            <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="PRp-cO-MXK" secondAttribute="trailing" constant="50" id="OdO-tR-P5Q"/>
-                            <constraint firstItem="PRp-cO-MXK" firstAttribute="top" secondItem="c9C-7S-BW8" secondAttribute="bottom" constant="30" id="XJO-0X-1Gy"/>
-                            <constraint firstItem="c9C-7S-BW8" firstAttribute="top" secondItem="TPP-QX-Srh" secondAttribute="bottom" constant="10" id="ZSA-C5-N3y"/>
-                            <constraint firstItem="TPP-QX-Srh" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="abP-Xd-WxN"/>
-                            <constraint firstItem="c9C-7S-BW8" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" constant="20" id="b0T-5A-sHO"/>
-                            <constraint firstItem="DuW-EF-PlC" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" constant="20" id="bkL-8O-cOQ"/>
-                            <constraint firstItem="ln5-Mb-f16" firstAttribute="leading" secondItem="S8U-xk-MqF" secondAttribute="trailing" constant="5" id="iLN-LN-aNL"/>
-                            <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="DuW-EF-PlC" secondAttribute="trailing" constant="20" id="mQM-AD-v3c"/>
-                            <constraint firstItem="Ozp-hc-HRc" firstAttribute="top" secondItem="S8U-xk-MqF" secondAttribute="bottom" constant="10" id="mXf-w1-wui"/>
-                            <constraint firstItem="tpE-N6-mo9" firstAttribute="trailing" secondItem="c9C-7S-BW8" secondAttribute="trailing" constant="20" id="okJ-EM-dJM"/>
+                            <constraint firstItem="fb7-uo-1YV" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" id="2X0-WI-dRx"/>
+                            <constraint firstItem="tpE-N6-mo9" firstAttribute="bottom" secondItem="fb7-uo-1YV" secondAttribute="bottom" id="FAT-RL-IHQ"/>
+                            <constraint firstItem="fb7-uo-1YV" firstAttribute="leading" secondItem="tpE-N6-mo9" secondAttribute="leading" id="KcV-Xx-4vh"/>
+                            <constraint firstItem="fb7-uo-1YV" firstAttribute="trailing" secondItem="tpE-N6-mo9" secondAttribute="trailing" id="a34-6X-pss"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="View Streak" id="uyI-7z-pNs"/>
+                    <size key="freeformSize" width="414" height="800"/>
                     <connections>
                         <outlet property="StreakNumberDisplay" destination="ln5-Mb-f16" id="h99-DF-0D2"/>
                         <outlet property="SubscribedDateDisplay" destination="Ozp-hc-HRc" id="ZaS-sa-Fg7"/>
                         <outlet property="buttonSubText" destination="htb-tk-7M6" id="0UF-ye-maQ"/>
                         <outlet property="descriptionDisplay" destination="c9C-7S-BW8" id="mNu-C0-MyR"/>
                         <outlet property="markDoneButton" destination="PRp-cO-MXK" id="3Bl-sP-Sbt"/>
+                        <outlet property="scrollView" destination="fb7-uo-1YV" id="7iR-Ci-crb"/>
                         <outlet property="streakNumberDisplay" destination="ln5-Mb-f16" id="51P-uB-JeU"/>
                         <outlet property="streakTitleDisplay" destination="DuW-EF-PlC" id="q7S-PZ-U8m"/>
                         <outlet property="subscribedDateDisplay" destination="Ozp-hc-HRc" id="5Fw-vv-6mN"/>
@@ -1332,7 +1361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGp-ra-GBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471" y="2431"/>
+            <point key="canvasLocation" x="-1472" y="2398"/>
         </scene>
         <!--Search Friends View Controller-->
         <scene sceneID="xoh-Wb-5cW">
@@ -1359,13 +1388,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-Pi-LFK">
                                                             <rect key="frame" x="0.0" y="0.0" width="187" height="45.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-20-V2w">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-20-V2w">
                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di5-6e-Q5N">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di5-6e-Q5N">
                                                                     <rect key="frame" x="0.0" y="28.5" width="187" height="17"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <nil key="textColor"/>
@@ -1555,7 +1584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X3w-7A-NeM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471" y="3132"/>
+            <point key="canvasLocation" x="-1471" y="3090"/>
         </scene>
         <!--View Public Streak-->
         <scene sceneID="WYc-Sd-1TL">
