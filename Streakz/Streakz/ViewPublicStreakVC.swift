@@ -93,6 +93,25 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
         return sectionName
     }
     
+    // This function is needed to ensure the tableview's header resizes properly once the streak data is fetched
+    // Code mostly taken from https://useyourloaf.com/blog/variable-height-table-view-header/
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard let headerView = tableView.tableHeaderView else {
+           return
+        }
+        
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        
+        // Trigger a new layout only if the height has changed, otherwise it'd get stuck in a loop
+        if headerView.frame.size.height != size.height {
+           headerView.frame.size.height = size.height
+           tableView.tableHeaderView = headerView
+           tableView.layoutIfNeeded()
+        }
+    }
+    
     func subscribeToStreak(reminderTime: Date) {
         // TODO: Guard against resubbing to this streak
         
