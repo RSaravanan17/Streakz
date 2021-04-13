@@ -15,6 +15,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     let discoverStreakCellIdentifier = "DiscoverStreakCellIdentifier"
     let viewPublicStreakSegueIdentifier = "ViewPublicStreakSegueIdentifier"
     
+    // Store lists of tuples so we can map Streak ID to StreakInfo object
     var publicStreakz: [(String, StreakInfo)] = []
     var filteredPublicStreakz: [(String, StreakInfo)] = []
     
@@ -125,6 +126,7 @@ class DiscoverStreakCell: UITableViewCell {
             for streak in friend.subscribedStreaks {
                 if streak.streakInfoId == streakID {
                     numFriends += 1
+                    break
                 }
             }
         }

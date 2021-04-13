@@ -98,7 +98,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                let collection = cur_user_collection,
                let curProfile = self.userProfile {
                
-                let streakPost = self.streakPosts[indexPath.row]
+//                let streakPost = self.streakPosts[indexPath.row]
                 
                 // remove current streak post from local list and user profile
                 self.streakPosts.remove(at: indexPath.row)
@@ -205,11 +205,16 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                 destination.profileDelegate = self as ProfileDelegate
             }
         } else if segue.identifier == streakPostSegue {
-            let selectedIndex = self.streakPostsTable.indexPath(for: sender as! UITableViewCell)
-            if let destination = segue.destination as? StreakPostScreenViewController {
+            
+            if let destination = segue.destination as? StreakPostScreenViewController,
+               let selectedIndex = self.streakPostsTable.indexPath(for: sender as! UITableViewCell) {
+            
                 // set the current selected streak post
-                self.currentStreakPost = self.streakPosts[selectedIndex!.row]
+                self.currentStreakPost = self.streakPosts[selectedIndex.row]
                 destination.streakPostDelegate = self as ProfileVC
+                
+                // Deselect the chosen StreakPost to get rid of the weird grey highlight
+                self.streakPostsTable.deselectRow(at: selectedIndex, animated: false)
             }
         }
     }
