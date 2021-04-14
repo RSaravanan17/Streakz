@@ -52,6 +52,10 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        discoverSearchBar.setShowsCancelButton(true, animated: true)
+    }
+    
     // filters the table according to the search text
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
@@ -69,6 +73,11 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         
         self.discoverTableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        discoverSearchBar.setShowsCancelButton(false, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
