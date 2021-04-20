@@ -210,24 +210,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                         db_firestore.collection("profiles_facebook").document(email).getDocument {
                             (document, error) in
                             if let document = document, document.exists {
-                                print("User exists, no need to make new profile")
+                                print("Facebook User exists, no need to make new profile")
+                                self.loginSuccessful = true
                             } else {
                                 print("New facebook user. Creating new profile")
                                 let userProfile = Profile(firstName: firstName, lastName: lastName)
                                 // TODO: get user profile picture
                                 do {
                                     try db_firestore.collection("profiles_facebook").document(email).setData(from: userProfile, merge: true)
+                                    self.loginSuccessful = true
                                 } catch let error {
                                     print("Error adding new user to database", error)
+                                    self.loginSuccessful = false
                                 }
+                            }
+                            
+                            if self.shouldPerformSegue(withIdentifier: self.signInSegue, sender: self) {
+                                self.performSegue(withIdentifier: self.signInSegue, sender: nil)
                             }
                         }
                     }
                 }
             }
             
-            loginSuccessful = true
-            self.performSegue(withIdentifier: self.signInSegue, sender: nil)
+            
         }
     }
     
@@ -316,7 +322,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                         print("Error deserializing data", error)
                     }
                 }
-            }
+        }
     }
     
     func setupNotifications(profile: Profile) {
