@@ -150,10 +150,10 @@ class DiscoverStreakCell: UITableViewCell {
                 case .failure(let error):
                     print("Error fetching a profile on discover screen: \(error)")
                 }
+                self.numFriendsLabel.text = String(numFriends) + " friends"
             }
 
         }
         
-        self.numFriendsLabel.text = String(numFriends) + " friends"
     }
 }
