@@ -122,7 +122,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
 
+    
 }
+
+
 
 let SEND_REQUEST_TEXT = "Send Request"
 let CANCEL_REQUEST_TEXT = "Cancel Request"
@@ -184,6 +187,9 @@ class UserStreakCell: UITableViewCell {
     enum MyError: Error {
         case FoundNil;
     }
+    
+    
+    
     
     @IBAction func sendFriendRequestButtonPressed(_ sender: Any) {
         
