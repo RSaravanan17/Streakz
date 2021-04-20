@@ -7,6 +7,29 @@
 
 import UIKit
 
+class ProfileContainer {
+    let baseProfile: BaseProfile
+    let profile: Profile
+    
+    init(baseProfile: BaseProfile, profile: Profile) {
+        self.baseProfile = baseProfile
+        self.profile = profile
+    }
+}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if parentResponder is UIViewController {
+                return parentResponder as? UIViewController
+            }
+        }
+        return nil
+    }
+}
+
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var usersSearchBar: UISearchBar!
@@ -14,8 +37,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     
     let userCellIdentifier = "UserCellIdentifier"
     
-    var users: [Profile] = []
-    var filteredUsers: [Profile] = []
+    var profiles: [BaseProfile: Profile] = [:]
+    var filteredProfiles: [BaseProfile: Profile] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +57,32 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         for profile_type in profile_types {
             if let _ = cur_user_collection, let _ = cur_user_email {
                 db_firestore.collection(profile_type).addSnapshotListener { querySnapshot, error in
-                        guard let documents = querySnapshot?.documents else {
-                            print("Error fetching documents: \(error!)")
-                            return
-                        }
-                        
-                        self.users += documents.compactMap({ (QueryDocumentSnapshot) -> Profile? in
-                            return try? QueryDocumentSnapshot.data(as: Profile.self)
-                        })
-                        
-                        self.filteredUsers = self.users
-                        
-                        self.usersTableView.reloadData()
+                    guard let documents = querySnapshot?.documents else {
+                        print("Error fetching documents: \(error!)")
+                        return
                     }
+                    
+                    // clear profiles to rid of any stale data
+//                    self.profiles = []
+//                    self.filteredProfiles = []
+                    
+                    // first three lists, hashmap, or just check list
+                    
+                    for document in documents {
+                        let baseProf = BaseProfile(profileType: profile_type, email: document.documentID)
+                        do {
+                            let profile = try document.data(as: Profile.self)
+                            let profileContainer = ProfileContainer(baseProfile: baseProf, profile: profile!)
+                            self.profiles.append(profileContainer)
+                        } catch {
+                            print("Error deserializing profile in add friends screen")
+                        }
+                    }
+                    
+                    self.filteredProfiles = self.profiles
+                    
+                    self.usersTableView.reloadData()
+                }
             }
         }
     }
@@ -55,41 +91,33 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
             // filter all user profiles that contain the search text (case-insensitive) in the first or last name
-            self.filteredUsers = self.users.filter { (profile: Profile) -> Bool in
-                let containedInFirstName = profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-                let containedInLastName = profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+            self.filteredProfiles = self.profiles.filter { (profileContainer: ProfileContainer) -> Bool in
+                let containedInFirstName = profileContainer.profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                let containedInLastName = profileContainer.profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 
                 return containedInFirstName || containedInLastName
             }
         } else {
             // when search text is empty, display all users
-            self.filteredUsers = self.users
+            self.filteredProfiles = self.profiles
         }
         
         self.usersTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredUsers.count
+        return self.filteredProfiles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.userCellIdentifier, for: indexPath as IndexPath) as! UserStreakCell
         let row = indexPath.row
-        let curProfile = self.filteredUsers[row]
-        cell.styleView(profile: curProfile)
+        let array = filteredProfiles.keys.sorted(by: { $0.email < $1.email })
+        let baseProfile = array[row]
+        let curProfileContainer = ProfileContainer(baseProfile: baseProfile, profile: self.filteredProfiles[baseProfile]!)
+        cell.styleView(profileContainer: curProfileContainer)
         return cell
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -99,17 +127,17 @@ class UserStreakCell: UITableViewCell {
     @IBOutlet weak var mutualFriendCount: UILabel!
     @IBOutlet weak var sendFriendRequestButton: UIButton!
     
-    var userProfile: Profile?
+    var userProfileContainer: ProfileContainer?
     
-    func styleView(profile: Profile) {
-        self.userProfile = profile
+    func styleView(profileContainer: ProfileContainer) {
+        self.userProfileContainer = profileContainer
         
         self.backgroundColor = UIColor(named: "Streakz_Background")
         self.layer.cornerRadius = 20
         self.accessoryType = .disclosureIndicator
         
-        self.userName.text = profile.firstName + " " + profile.lastName
-        self.mutualFriendCount.text = "Friends: \(profile.friends.count)"
+        self.userName.text = profileContainer.profile.firstName + " " + profileContainer.profile.lastName
+        self.mutualFriendCount.text = "Friends: \(profileContainer.profile.friends.count)"
         
         self.sendFriendRequestButton.setTitle("Send Friend Request", for: .normal)
         self.sendFriendRequestButton.backgroundColor = UIColor.green
@@ -118,6 +146,37 @@ class UserStreakCell: UITableViewCell {
     }
     
     @IBAction func sendFriendRequestButtonPressed(_ sender: Any) {
-        print("Just sent a friend request from \(cur_user_profile!.firstName) \(cur_user_profile!.lastName) to \(self.userProfile!.firstName) \(self.userProfile!.lastName)")
+//        if let profileType = cur_user_collection, let email = cur_user_email, let container = userProfileContainer {
+//            let requestSender = BaseProfile(profileType: profileType, email: email)
+//            let destination = container.profile
+//            let destCollection = container.baseProfile.profileType
+//            let destEmail = container.baseProfile.email
+//            destination.friendRequests.append(requestSender)
+//            do {
+//                print("Sending friend request")
+//                try db_firestore.collection(destCollection).document(destEmail).setData(from: destination)
+//            } catch let error {
+//                print("Error sending friend request: \(error)")
+//                if let parent = self.parentViewController {
+//                    let alert = UIAlertController(
+//                        title: "Friend Request Error",
+//                        message: "We ran into issues sending your friend request. Try again later",
+//                        preferredStyle: .alert
+//                    )
+//                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//                    parent.present(alert, animated: true, completion: nil)
+//                }
+//            }
+//        } else {
+//            if let parent = self.parentViewController {
+//                let alert = UIAlertController(
+//                    title: "Invalid Session",
+//                    message: "We're having trouble finding out who you are, please try signing out and signing back in",
+//                    preferredStyle: .alert
+//                )
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//                parent.present(alert, animated: true, completion: nil)
+//            }
+//        }
     }
 }

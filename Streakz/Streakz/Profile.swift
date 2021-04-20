@@ -12,7 +12,8 @@ class Profile : Codable {
     var firstName: String
     var lastName: String
     var profilePicture: String = "" // set this to link to some default profile picture
-    var friends: [Profile] = []
+    var friends: [BaseProfile] = []
+//    var friendRequests: [BaseProfile] = []
     var subscribedStreaks: [StreakSubscription] = []
     var streakPosts: [StreakPost] = []
     var finalReminderTime: Date?

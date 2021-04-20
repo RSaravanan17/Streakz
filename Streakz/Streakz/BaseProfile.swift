@@ -7,7 +7,8 @@
 
 import UIKit
 
-class BaseProfile: Codable {
+class BaseProfile: Codable, Hashable {
+    
     var profileType: String // profiles_email, profiles_google, or profiles_facebook
     var email: String
     
@@ -16,4 +17,12 @@ class BaseProfile: Codable {
         self.email = email
     }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(profileType)
+        hasher.combine(email)
+    }
+    
+    static func == (lhs: BaseProfile, rhs: BaseProfile) -> Bool {
+        return (lhs.email == rhs.email) && (rhs.profileType == rhs.profileType)
+    }
 }

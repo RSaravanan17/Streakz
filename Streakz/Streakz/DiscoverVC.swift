@@ -132,12 +132,26 @@ class DiscoverStreakCell: UITableViewCell {
         
         // count how many friends are subbed
         for friend in cur_user_profile?.friends ?? [] {
-            for streak in friend.subscribedStreaks {
-                if streak.streakInfoId == streakID {
-                    numFriends += 1
-                    break
+            db_firestore.collection(friend.profileType).document(friend.email).getDocument {
+                (document, error) in
+                let result = Result {
+                    try document?.data(as: Profile.self)
+                }
+                switch result {
+                case .success(let fetchedProfile):
+                    if let fetchedProfile = fetchedProfile {
+                        for streak in fetchedProfile.subscribedStreaks {
+                            if streak.streakInfoId == streakID {
+                                numFriends += 1
+                                break
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print("Error fetching a profile on discover screen: \(error)")
                 }
             }
+
         }
         
         self.numFriendsLabel.text = String(numFriends) + " friends"
