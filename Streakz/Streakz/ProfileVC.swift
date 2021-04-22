@@ -94,7 +94,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     // allows rows to be deleted from the table
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let owner = cur_user_email,
+            if let email = cur_user_email,
                let collection = cur_user_collection,
                let curProfile = self.userProfile {
                
@@ -112,7 +112,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                 do {
                     print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
                     // update the user's profile in Firebase
-                    try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                    try db_firestore.collection(collection).document(email).setData(from: curProfile)
                     
                     navigationController?.popViewController(animated: true)
                 } catch let error {

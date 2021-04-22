@@ -22,4 +22,12 @@ class Profile : Codable {
         self.firstName = firstName
         self.lastName = lastName
     }
+    
+    func getBasicFriendsList() -> [[String]] {
+        var friendsBasic: [[String]] = []
+        for friend in self.friends {
+            friendsBasic.append([friend.email, friend.profileType])
+        }
+        return friendsBasic
+    }
 }

@@ -125,32 +125,66 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
             print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
         }
         
-        db_firestore.collection("public_streaks").whereField("name", isEqualTo: publicStreak.name).getDocuments() {
-            (querySnapshot, err) in
-            if let err = err {
-                print("Error fetching documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    // autosubscribe the user
-                    let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: reminderTime, subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
-                    // add streak to user profile
-                    cur_user_profile!.subscribedStreaks.append(subbedStreak)
-                    // update public streak in Firebase
+        if (publicStreak.viewability == .Friends) {
+            db_firestore.collection("friends_streaks").whereField("name", isEqualTo: publicStreak.name).getDocuments() {
+                (querySnapshot, err) in
+                if let err = err {
+                    print("Error fetching documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        // autosubscribe the user
+                        let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: reminderTime, subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
+                        
+                        // add streak to user profile
+                        cur_user_profile!.subscribedStreaks.append(subbedStreak)
+                        
+                        // update friends streak in Firebase
+                        do {
+                            try db_firestore.collection("friends_streaks").document(document.documentID).setData(from: self.publicStreak)
+                        } catch let error {
+                            print("Error writing profile to Firestore: \(error)")
+                        }
+                    }
+                    
+                    // update user profile in Firebase
                     do {
-                        try db_firestore.collection("public_streaks").document(document.documentID).setData(from: self.publicStreak)
+                        print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
+                        try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: cur_user_profile)
+                        self.navigationController?.popViewController(animated: true)
                     } catch let error {
                         print("Error writing profile to Firestore: \(error)")
                     }
-                    
                 }
-                
-                // update user profile in Firebase
-                do {
-                    print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
-                    try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: cur_user_profile)
-                    self.navigationController?.popViewController(animated: true)
-                } catch let error {
-                    print("Error writing profile to Firestore: \(error)")
+            }
+        } else if(publicStreak.viewability == .Public) {
+            db_firestore.collection("public_streaks").whereField("name", isEqualTo: publicStreak.name).getDocuments() {
+                (querySnapshot, err) in
+                if let err = err {
+                    print("Error fetching documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        // autosubscribe the user
+                        let subbedStreak = StreakSubscription(streakInfoId: document.documentID, reminderTime: reminderTime, subscriptionStartDate: Date(), privacy: self.publicStreak.viewability, reminderDays: self.publicStreak.reminderDays, name: self.publicStreak.name)
+                        
+                        // add streak to user profile
+                        cur_user_profile!.subscribedStreaks.append(subbedStreak)
+                        
+                        // update public streak in Firebase
+                        do {
+                            try db_firestore.collection("public_streaks").document(document.documentID).setData(from: self.publicStreak)
+                        } catch let error {
+                            print("Error writing profile to Firestore: \(error)")
+                        }
+                    }
+                    
+                    // update user profile in Firebase
+                    do {
+                        print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
+                        try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: cur_user_profile)
+                        self.navigationController?.popViewController(animated: true)
+                    } catch let error {
+                        print("Error writing profile to Firestore: \(error)")
+                    }
                 }
             }
         }

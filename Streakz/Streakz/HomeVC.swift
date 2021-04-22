@@ -95,7 +95,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // allows rows to be deleted from the table
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let owner = cur_user_email,
+            if let email = cur_user_email,
                let collection = cur_user_collection,
                let curProfile = self.userProfile {
                //let streakId = self.userProfile?.subscribedStreaks[indexPath.row].streakInfoId,
@@ -133,7 +133,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 do {
                     print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
                     // update the user's profile in Firebase
-                    try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+                    try db_firestore.collection(collection).document(email).setData(from: curProfile)
                     
                     // retrieve StreakInfo object
                     var cur_public_streak: StreakInfo?
@@ -144,7 +144,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 cur_public_streak = try document.data(as: StreakInfo.self)
                                 
                                 // remove current user from the streak's subscriber list
-                                cur_public_streak?.subscribers.removeAll{$0.email == owner && $0.profileType == collection}
+                                cur_public_streak?.subscribers.removeAll{$0.email == email && $0.profileType == collection}
                                 
                                 // update the StreakInfo object in Firebase
                                 try db_firestore.collection(streakCollection!).document(streakId).setData(from: cur_public_streak!)

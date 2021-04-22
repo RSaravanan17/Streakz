@@ -158,7 +158,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             return
         }
         
-        guard let owner = cur_user_email,
+        guard let email = cur_user_email,
               let collection = cur_user_collection,
               let curProfile = curUserProfile
         else {
@@ -173,7 +173,10 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         }
         /* End Input Verification */
         
-        // All inputs are valid, so let's create the Streak
+        // create BaseProfile object of current user
+        let owner: [String] = [email, collection]
+        
+        // create streak with given inputs
         let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected, viewability: privacyType)
         
         // add user to StreakInfo's list of subscribers
@@ -210,7 +213,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         // update Firebase
         do {
             print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
-            try db_firestore.collection(collection).document(owner).setData(from: curProfile)
+            try db_firestore.collection(collection).document(email).setData(from: curProfile)
             navigationController?.popViewController(animated: true)
         } catch let error {
             print("Error writing profile to Firestore: \(error)")

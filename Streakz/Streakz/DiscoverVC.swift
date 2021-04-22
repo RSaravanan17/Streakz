@@ -14,10 +14,14 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     let discoverStreakCellIdentifier = "DiscoverStreakCellIdentifier"
     let viewPublicStreakSegueIdentifier = "ViewPublicStreakSegueIdentifier"
+    let sectionTitles = ["Friends", "Friends' Public", "Public"]
     
     // Store lists of tuples so we can map Streak ID to StreakInfo object
-    var publicStreakz: [(String, StreakInfo)] = []
-    var filteredPublicStreakz: [(String, StreakInfo)] = []
+    // First list contains Friends-related Streakz
+    // Second list contains Friends-related Public Streakz
+    // Third list contains remaining Public Streakz
+    var publicStreakz: [[(String, StreakInfo)]] = [[], [], []]
+    var filteredPublicStreakz: [[(String, StreakInfo)]] = [[], [], []]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +34,32 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func loadPublicStreakz() {
-        // fetch profile for current list of streaks from Firebase
+        // fetch current list of friend's streaks from Firebase
+        if let _ = cur_user_collection, let _ = cur_user_email {
+            db_firestore.collection("friends_streaks").whereField("owner", in: cur_user_profile!.getBasicFriendsList())
+                .addSnapshotListener { querySnapshot, error in
+                    guard let documents = querySnapshot?.documents else {
+                        print("Error fetching documents: \(error!)")
+                        return
+                    }
+
+                    // clear out all Friends streakz
+                    self.publicStreakz[0].removeAll()
+                    
+                    // add each streak to the Friends section
+                    self.publicStreakz[0] = documents.compactMap({ (queryDocumentSnapshot) -> (String, StreakInfo)? in
+                        let documentID: String = queryDocumentSnapshot.documentID
+                        let streak: StreakInfo? = try? queryDocumentSnapshot.data(as: StreakInfo.self)
+                        return (documentID, streak) as? (String, StreakInfo)
+                    })
+
+                    self.filteredPublicStreakz = self.publicStreakz
+
+                    self.discoverTableView.reloadData()
+                }
+        }
+        
+        // fetch current list of public streaks from Firebase
         if let _ = cur_user_collection, let _ = cur_user_email {
             db_firestore.collection("public_streaks").whereField("viewability", isEqualTo: "Public")
                 .addSnapshotListener { querySnapshot, error in
@@ -38,12 +67,28 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         print("Error fetching documents: \(error!)")
                         return
                     }
-
-                    self.publicStreakz = documents.compactMap({ (queryDocumentSnapshot) -> (String, StreakInfo)? in
-                        let documentID: String = queryDocumentSnapshot.documentID
-                        let streak: StreakInfo? = try? queryDocumentSnapshot.data(as: StreakInfo.self)
-                        return (documentID, streak) as? (String, StreakInfo)
-                    })
+                    
+                    // clear out all Public streakz
+                    self.publicStreakz[1].removeAll()
+                    self.publicStreakz[2].removeAll()
+                    
+                    let cur_user_base_profile = BaseProfile(profileType: cur_user_collection!, email: cur_user_email!)
+                    
+                    for document in documents {
+                        let documentID: String = document.documentID
+                        let streak: StreakInfo? = try? document.data(as: StreakInfo.self)
+                        
+                        let cur_owner = BaseProfile(profileType: streak!.owner[1], email: streak!.owner[0])
+                        
+                        // add each streak to the appropriate section based on whether the owner is in the friend's list of the current user
+                        if (cur_owner != cur_user_base_profile) {
+                            if (cur_user_profile!.friends.contains(cur_owner)) {
+                                self.publicStreakz[1].append(((documentID, streak) as? (String, StreakInfo))!)
+                            } else {
+                                self.publicStreakz[2].append(((documentID, streak) as? (String, StreakInfo))!)
+                            }
+                        }
+                    }
                     
                     self.filteredPublicStreakz = self.publicStreakz
                     
@@ -59,13 +104,15 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     // filters the table according to the search text
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            // filter all public streakz that contain the search text (case-insensitive) in the name or description
-            self.filteredPublicStreakz = self.publicStreakz.filter { (streakWithID: (String, StreakInfo)) -> Bool in
-                let streak = streakWithID.1
-                let containedInStreakName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-                let containedInStreakDesc = streak.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-                
-                return containedInStreakName || containedInStreakDesc
+            // filter all streakz in all 3 sections streakz that contain the search text (case-insensitive) in the name or description
+            for i in 0...2 {
+                self.filteredPublicStreakz[i] = self.publicStreakz[i].filter { (streakWithID: (String, StreakInfo)) -> Bool in
+                    let streak = streakWithID.1
+                    let containedInStreakName = streak.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                    let containedInStreakDesc = streak.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                    
+                    return containedInStreakName || containedInStreakDesc
+                }
             }
         } else {
             // when search text is empty, display all streakz
@@ -81,13 +128,20 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredPublicStreakz[section].count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return filteredPublicStreakz.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.filteredPublicStreakz[section].count > 0 ? sectionTitles[section] : nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.discoverStreakCellIdentifier, for: indexPath as IndexPath) as! DiscoverStreakCell
-        let row = indexPath.row
-        let streakWithID = self.filteredPublicStreakz[row]
+        let streakWithID = self.filteredPublicStreakz[indexPath.section][indexPath.row]
         cell.styleView(streakWithID: streakWithID)
         return cell
     }
@@ -99,8 +153,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if segue.identifier == self.viewPublicStreakSegueIdentifier,
            let nextVC = segue.destination as? ViewPublicStreakVC,
            let indexPath = discoverTableView.indexPathForSelectedRow {
-            let row = indexPath.row
-            nextVC.publicStreak = self.filteredPublicStreakz[row].1
+            nextVC.publicStreak = self.filteredPublicStreakz[indexPath.section][indexPath.row].1
             discoverTableView.deselectRow(at: indexPath, animated: false)
         }
     }
