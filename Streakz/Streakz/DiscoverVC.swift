@@ -35,8 +35,8 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func loadPublicStreakz() {
         // fetch current list of friend's streaks from Firebase
-        if let _ = cur_user_collection, let _ = cur_user_email {
-            db_firestore.collection("friends_streaks").whereField("owner", in: cur_user_profile!.getBasicFriendsList())
+        if let profile = cur_user_profile, profile.friends.count > 0 {
+            db_firestore.collection("friends_streaks").whereField("owner", in: profile.getBasicFriendsList())
                 .addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
                         print("Error fetching documents: \(error!)")
@@ -60,7 +60,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         
         // fetch current list of public streaks from Firebase
-        if let _ = cur_user_collection, let _ = cur_user_email {
+        if let profile = cur_user_profile {
             db_firestore.collection("public_streaks").whereField("viewability", isEqualTo: "Public")
                 .addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
@@ -76,11 +76,15 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         let documentID: String = document.documentID
                         let streak: StreakInfo? = try? document.data(as: StreakInfo.self)
                         
-                        // add each streak to the appropriate section based on whether the owner is in the friend's list of the current user
-                        if (cur_user_profile!.friends.contains(BaseProfile(profileType: streak!.owner[1], email: streak!.owner[0]))) {
-                            self.publicStreakz[1].append(((documentID, streak) as? (String, StreakInfo))!)
+                        if let streak = streak {
+                            // add each streak to the appropriate section based on whether the owner is in the friend's list of the current user
+                            if (profile.friends.contains(BaseProfile(profileType: streak.owner[1], email: streak.owner[0]))) {
+                                self.publicStreakz[1].append((documentID, streak))
+                            } else {
+                                self.publicStreakz[2].append((documentID, streak))
+                            }
                         } else {
-                            self.publicStreakz[2].append(((documentID, streak) as? (String, StreakInfo))!)
+                            print("Error deserializing streak on discover page")
                         }
                     }
                     
