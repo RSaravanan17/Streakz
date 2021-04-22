@@ -112,7 +112,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search Public Streaks" translatesAutoresizingMaskIntoConstraints="NO" id="ICj-Ni-f7l">
+                            <searchBar contentMode="redraw" placeholder="Search Public Streakz" translatesAutoresizingMaskIntoConstraints="NO" id="ICj-Ni-f7l">
                                 <rect key="frame" x="0.0" y="88" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -426,9 +426,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bmf-f2-XGd">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search My Streakz" id="DV5-Ew-PXo" userLabel="Home Search Bar">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StreakCellIdentifier" id="aWE-40-dPF" userLabel="StreakCell" customClass="StreakCell" customModule="Streakz" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="62.5"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="62.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWE-40-dPF" id="LPe-vZ-XBi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="62.5"/>
@@ -483,10 +488,10 @@
                         <viewLayoutGuide key="safeArea" id="aMl-6X-uxS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="leading" secondItem="aMl-6X-uxS" secondAttribute="leading" id="4s1-cl-qpN"/>
-                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="trailing" secondItem="aMl-6X-uxS" secondAttribute="trailing" id="GWn-06-raV"/>
-                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="bottom" secondItem="aMl-6X-uxS" secondAttribute="bottom" id="gRh-f2-Jky"/>
-                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="top" secondItem="aMl-6X-uxS" secondAttribute="top" id="yeF-Dw-X9v"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="leading" secondItem="aMl-6X-uxS" secondAttribute="leading" id="EzC-ot-IKm"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="trailing" secondItem="aMl-6X-uxS" secondAttribute="trailing" id="U4K-4J-shj"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="top" secondItem="aMl-6X-uxS" secondAttribute="top" id="cvE-Fb-Ezi"/>
+                            <constraint firstItem="Bmf-f2-XGd" firstAttribute="bottom" secondItem="aMl-6X-uxS" secondAttribute="bottom" id="x3p-lO-zeS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="iV0-Uf-8Pz">
@@ -497,6 +502,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="homeSearchBar" destination="DV5-Ew-PXo" id="Jke-hH-InN"/>
                         <outlet property="tableView" destination="Bmf-f2-XGd" id="3tb-qn-TVh"/>
                     </connections>
                 </viewController>

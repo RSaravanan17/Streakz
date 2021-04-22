@@ -11,8 +11,9 @@ import FBSDKLoginKit
 import Firebase
 import FirebaseFirestoreSwift
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    @IBOutlet weak var homeSearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var userProfile: Profile?
@@ -29,8 +30,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.homeSearchBar.delegate = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         // fetch profile for current list of streaks from Firebase
         if let collection = cur_user_collection, let user = cur_user_email {
@@ -67,6 +69,43 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.homeSearchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    // filters the table according to the search text
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            // filter all streakz in both sections that contain the search text (case-insensitive) in the name
+            self.sections = self.sectionTypes.map { type in
+                return self.subscribedStreaks
+                    .filter { $0.canBeCompletedToday() == type }
+                    .sorted { $0.name < $1.name }
+                    .filter { (streakSub: StreakSubscription) -> Bool in
+                        let containedInStreakName = streakSub.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+    //                    let containedInStreakDesc = streakSub.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                        
+                        return containedInStreakName // || containedInStreakDesc
+                    }
+            }
+        } else {
+            // when search text is empty, display all streakz
+            // split table view into sections (complete and incomplete streaks sorted by name)
+            self.sections = self.sectionTypes.map { type in
+                return self.subscribedStreaks
+                    .filter { $0.canBeCompletedToday() == type }
+                    .sorted { $0.name < $1.name }
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        self.homeSearchBar.setShowsCancelButton(false, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
