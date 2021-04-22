@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseProfile: Codable, Hashable {
+class BaseProfile: Codable, Hashable, Equatable {
     
     var profileType: String // profiles_email, profiles_google, or profiles_facebook
     var email: String
@@ -23,6 +23,6 @@ class BaseProfile: Codable, Hashable {
     }
     
     static func == (lhs: BaseProfile, rhs: BaseProfile) -> Bool {
-        return (lhs.email == rhs.email) && (rhs.profileType == rhs.profileType)
+        return (lhs.email == rhs.email) && (lhs.profileType == rhs.profileType)
     }
 }

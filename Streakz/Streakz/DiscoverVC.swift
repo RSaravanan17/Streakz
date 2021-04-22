@@ -72,21 +72,15 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.publicStreakz[1].removeAll()
                     self.publicStreakz[2].removeAll()
                     
-                    let cur_user_base_profile = BaseProfile(profileType: cur_user_collection!, email: cur_user_email!)
-                    
                     for document in documents {
                         let documentID: String = document.documentID
                         let streak: StreakInfo? = try? document.data(as: StreakInfo.self)
                         
-                        let cur_owner = BaseProfile(profileType: streak!.owner[1], email: streak!.owner[0])
-                        
                         // add each streak to the appropriate section based on whether the owner is in the friend's list of the current user
-                        if (cur_owner != cur_user_base_profile) {
-                            if (cur_user_profile!.friends.contains(cur_owner)) {
-                                self.publicStreakz[1].append(((documentID, streak) as? (String, StreakInfo))!)
-                            } else {
-                                self.publicStreakz[2].append(((documentID, streak) as? (String, StreakInfo))!)
-                            }
+                        if (cur_user_profile!.friends.contains(BaseProfile(profileType: streak!.owner[1], email: streak!.owner[0]))) {
+                            self.publicStreakz[1].append(((documentID, streak) as? (String, StreakInfo))!)
+                        } else {
+                            self.publicStreakz[2].append(((documentID, streak) as? (String, StreakInfo))!)
                         }
                     }
                     
@@ -104,7 +98,7 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     // filters the table according to the search text
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            // filter all streakz in all 3 sections streakz that contain the search text (case-insensitive) in the name or description
+            // filter all streakz in all 3 sections that contain the search text (case-insensitive) in the name or description
             for i in 0...2 {
                 self.filteredPublicStreakz[i] = self.publicStreakz[i].filter { (streakWithID: (String, StreakInfo)) -> Bool in
                     let streak = streakWithID.1
