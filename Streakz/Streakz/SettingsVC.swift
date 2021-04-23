@@ -9,6 +9,10 @@ import UIKit
 
 class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var accountTypeTextView: UIView!
+    @IBOutlet weak var userAccountTypeLabel: UILabel!
+    @IBOutlet weak var emailTextView: UIView!
+    @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var firstNameTextView: UIView!
     @IBOutlet weak var lastNameTextView: UIView!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -32,6 +36,20 @@ class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         profilePicView.layer.cornerRadius = profilePicView.frame.size.width / 2
         profilePicView.clipsToBounds = true
         profilePicView.image = UIImage(named: "ProfileImageBlank")
+        
+        // Set user account type and email fields
+        if let type = cur_user_collection,
+           let email = cur_user_email {
+            if (type == "profiles_email") {
+                self.userAccountTypeLabel.text = "Email"
+            } else if (type == "profiles_google") {
+                self.userAccountTypeLabel.text = "Google"
+            } else if (type == "profiles_facebook") {
+                self.userAccountTypeLabel.text = "Facebook"
+            }
+            
+            self.userEmailLabel.text = email
+        }
         
         // Set text field delegates to this VC to control keyboard dismiss functionality
         firstNameTextField.delegate = self

@@ -33,7 +33,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userInfoLabel: UILabel!
     @IBOutlet weak var userFriendsLabel: UILabel!
     @IBOutlet weak var streakPostsTable: UITableView!
     
@@ -157,9 +156,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                             self.userFriendsLabel.text = "\(friendsCount)"
                         } else {
                             self.userFriendsLabel.text = "0"
-                        }
-                        if let email = cur_user_email {
-                            self.userInfoLabel.text = "EMAIL: " + email
                         }
                         // Set the streakPosts table
                         if var posts = userProfile?.streakPosts {
