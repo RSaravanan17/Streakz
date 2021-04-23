@@ -217,11 +217,33 @@ class RequestTableViewCell: UITableViewCell {
         self.declineButton.layer.borderColor = UIColor(named: "Streakz_DarkRed")?.cgColor
     }
     
-    @IBAction func onPressAccept(_ sender: Any) {
+    @IBAction func onPressAccept(_ sender: UIButton) {
+        sender.alpha = 0.5
+        
+        /*
+        Code should execute after 0.2 second delay.
+        You can change delay by editing 0.2.
+        */
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          // Bring's sender's opacity back up to fully opaque
+          sender.alpha = 1.0
+        }
+        
         self.onAcceptFriendRequest()
     }
     
-    @IBAction func onPressDecline(_ sender: Any) {
+    @IBAction func onPressDecline(_ sender: UIButton) {
+        sender.alpha = 0.5
+        
+        /*
+        Code should execute after 0.2 second delay.
+        You can change delay by editing 0.2.
+        */
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          // Bring's sender's opacity back up to fully opaque
+          sender.alpha = 1.0
+        }
+        
         self.onDeclineFriendRequest()
     }
 }
