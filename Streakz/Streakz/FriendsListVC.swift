@@ -15,6 +15,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let friendCellIdentifier = "FriendCellIdentifier"
     
     var friends: [Profile] = []
+    var filteredFriends: [Profile] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 switch result {
                 case .success(let fetchedProfile):
                     self.friends.append(fetchedProfile!)
+                    self.filteredFriends = self.friends
                     self.tableView.reloadData()
                 case .failure(let error):
                     print("Error fetching a profile on discover screen: \(error)")
@@ -51,19 +53,25 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            
+            self.filteredFriends = self.friends.filter{(profile: Profile) -> Bool in
+                let containedInFirstName = profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                let containedInLastName = profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                return containedInFirstName || containedInLastName
+            }
+        } else {
+            self.filteredFriends = self.friends
         }
         self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return filteredFriends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.friendCellIdentifier, for: indexPath as IndexPath) as! FriendTableViewCell
         let row = indexPath.row
-        let friend = self.friends[row]
+        let friend = self.filteredFriends[row]
         cell.styleViewWith(friend)
         return cell
     }
