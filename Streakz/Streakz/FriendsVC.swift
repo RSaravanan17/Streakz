@@ -7,25 +7,117 @@
 
 import UIKit
 
-class FriendsVC: UIViewController {
+class FriendPostContainer {
+    
+    let friendName: String
+    let streakPost: StreakPost
+    
+    init(friendName: String, streakPost: StreakPost) {
+        self.friendName = friendName
+        self.streakPost = streakPost
+    }
+}
 
+extension UITableView {
+
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .label
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel
+        self.separatorStyle = .none
+    }
+
+    func restore() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
+}
+
+class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var friendsFeedTable: UITableView!
     
     let searchFriendsSegueIdentifier = "SearchFriendsSegueIdentifier"
+    let streakPostCell = "FriendStreakPostCellIdentifier"
+    let streakPostSegue = "StreakPostIdentifier"
+    var streakPosts: [FriendPostContainer] = []
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        friendsFeedTable.delegate = self
+        friendsFeedTable.dataSource = self
+        
+        friendsFeedTable.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        
+        loadPosts()
     }
     
-    @IBAction func buttonPressed(_ sender: UIButton) {
-        guard let curProfile = cur_user_profile else {
-            return
+    func loadPosts() {
+        if let profile = cur_user_profile {
+            for friend in profile.friends {
+                db_firestore.collection(friend.profileType).document(friend.email).getDocument {
+                    (document, error) in
+                    let result = Result {
+                        try document?.data(as: Profile.self)
+                    }
+                    switch result {
+                    case .success(let fetchedProfile):
+                        if let friendProfile = fetchedProfile {
+                            for post in friendProfile.streakPosts.filter( { $0.streak.privacy != .Private } ) {
+                                let name = "\(friendProfile.firstName) \(friendProfile.lastName)"
+                                self.streakPosts.append(FriendPostContainer(friendName: name, streakPost: post))
+                            }
+                            self.streakPosts.sort(by: { $0.streakPost.datePosted > $1.streakPost.datePosted })
+                            self.friendsFeedTable.reloadData()
+                        }
+                    case .failure(let error):
+                        print("Error fetching a friend's profile for friends feed: \(error)")
+                    }
+                }
+            }
+        } else {
+            let alert = UIAlertController(
+                title: "Invalid Session",
+                message: "We're having trouble finding out who you are, please try signing out and signing back in",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
-        
-        for newFriend in curProfile.friendRequests {
-            acceptFriendRequest(otherBaseProf: newFriend)
+    }
+    
+    // function for refreshing table view with new data
+    @objc func refresh(_ sender: UIRefreshControl) {
+        streakPosts = []
+        loadPosts()
+        sender.endRefreshing()
+        friendsFeedTable.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if streakPosts.count == 0 {
+            friendsFeedTable.setEmptyMessage("Your friends haven't made any\npublic or friend's-only posts!")
+        } else {
+            friendsFeedTable.restore()
         }
+        return streakPosts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: streakPostCell, for: indexPath as IndexPath) as! FriendStreakPostCell
+        let row = indexPath.row
+        let postContainer = streakPosts[row]
+        cell.styleView(postContainer: postContainer)
+        return cell
     }
     
     func acceptFriendRequest(otherBaseProf: BaseProfile) {
@@ -91,7 +183,31 @@ class FriendsVC: UIViewController {
                 print("Error fetching document")
             }
         }
-        
     }
+}
 
+class FriendStreakPostCell: UITableViewCell {
+    
+    @IBOutlet weak var view: UIView!
+    @IBOutlet weak var posterLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var postImage: UIImageView!
+    
+    func styleView(postContainer: FriendPostContainer) {
+        let streakPost = postContainer.streakPost
+        view.layer.cornerRadius = 20
+        posterLabel.text = postContainer.friendName
+        titleLabel.text = streakPost.streak.name
+        numberLabel.text = "Streak: \(streakPost.achievedStreak)"
+        descriptionLabel.text = streakPost.postText
+        descriptionLabel.numberOfLines = 4
+        
+        if streakPost.image.isEmpty {
+            self.postImage.image = UIImage(named: "StreakzLogo")
+        } else {
+            self.postImage.load(url: URL(string: streakPost.image)!)
+        }
+    }
 }
