@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Friends-->
+        <!--Friends Feed-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="FriendsVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,8 +29,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Friends" id="dn8-zh-xWn">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.2.fill" catalog="system" id="akR-1Y-6ys">
+                    <navigationItem key="navigationItem" title="Friends Feed" id="dn8-zh-xWn">
+                        <barButtonItem key="leftBarButtonItem" image="person.2.fill" catalog="system" id="7bZ-EW-9qs">
+                            <connections>
+                                <segue destination="Vuj-Zg-eq6" kind="show" id="RZq-p2-WcN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="akR-1Y-6ys">
                             <connections>
                                 <segue destination="Get-Gf-gem" kind="show" identifier="SearchFriendsSegueIdentifier" id="rdG-fq-w6k"/>
                             </connections>
@@ -1405,6 +1410,39 @@
             </objects>
             <point key="canvasLocation" x="-1472" y="2398"/>
         </scene>
+        <!--Friend InfoVC-->
+        <scene sceneID="wKH-I7-JCg">
+            <objects>
+                <viewController id="Vuj-Zg-eq6" customClass="FriendInfoVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IM2-8O-Qi5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LjZ-jV-il5" userLabel="segmentedController">
+                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Friends List"/>
+                                    <segment title="Friend Requests"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ygq-zY-pg7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LjZ-jV-il5" firstAttribute="top" secondItem="ygq-zY-pg7" secondAttribute="top" id="UMf-i8-g3x"/>
+                            <constraint firstItem="LjZ-jV-il5" firstAttribute="leading" secondItem="ygq-zY-pg7" secondAttribute="leading" id="lr0-S9-g4S"/>
+                            <constraint firstItem="LjZ-jV-il5" firstAttribute="trailing" secondItem="ygq-zY-pg7" secondAttribute="trailing" id="qRp-kg-UbZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2gj-Qt-HOJ"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="LjZ-jV-il5" id="Hv7-ZA-TCh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H6M-mh-e2M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-814.49275362318849" y="2412.7232142857142"/>
+        </scene>
         <!--Search Friends View Controller-->
         <scene sceneID="xoh-Wb-5cW">
             <objects>
@@ -1501,7 +1539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x4X-3l-Quq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-481.15942028985512" y="2412.7232142857142"/>
+            <point key="canvasLocation" x="-168" y="2413"/>
         </scene>
         <!--Complete Streak-->
         <scene sceneID="LkE-Fz-1oW">
@@ -1627,6 +1665,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X3w-7A-NeM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1471" y="3090"/>
+        </scene>
+        <!--Friends ListVC-->
+        <scene sceneID="noz-7Z-Do5">
+            <objects>
+                <viewController id="6z1-jg-xrL" customClass="FriendsListVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lrs-yh-6Oy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="h3p-vt-1sZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sSL-cS-cje" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-814" y="3090"/>
+        </scene>
+        <!--Friend RequestsVC-->
+        <scene sceneID="8NF-41-arJ">
+            <objects>
+                <viewController id="52q-DM-ERz" customClass="FriendRequestsVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ngN-kj-zyb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mXV-g2-8UF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TKZ-U1-pwt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-168" y="3090"/>
         </scene>
         <!--View Public Streak-->
         <scene sceneID="WYc-Sd-1TL">
@@ -2061,6 +2129,7 @@
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="person.and.person" catalog="system" width="128" height="81"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="Streakz_Background">
