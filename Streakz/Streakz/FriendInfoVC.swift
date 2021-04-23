@@ -35,13 +35,14 @@ class FriendInfoVC: UIViewController {
     }()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var containerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         self.setupView()
+        self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.systemBackground], for: .selected)
     }
     
     func setupView() {
@@ -76,9 +77,9 @@ class FriendInfoVC: UIViewController {
         // Add Child View Controller
         addChild(viewController)
         
-        view.addSubview(viewController.view)
-        
-        viewController.view.frame = view.bounds
+        self.containerView.addSubview(viewController.view)
+                
+        viewController.view.frame = self.containerView.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         viewController.didMove(toParent: self)

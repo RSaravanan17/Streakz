@@ -86,7 +86,7 @@ class FriendTableViewCell: UITableViewCell {
         // Style image view
         self.profileImage.layer.borderWidth = 1.0
         self.profileImage.layer.masksToBounds = false
-        self.profileImage.layer.borderColor = UIColor.white.cgColor
+        self.profileImage.layer.borderColor = UIColor(named: "Streakz_Grey")?.cgColor
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
         self.profileImage.clipsToBounds = true
         
