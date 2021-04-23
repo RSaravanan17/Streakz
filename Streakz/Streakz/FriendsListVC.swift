@@ -49,6 +49,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
             }
         }
+        self.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -73,6 +74,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let row = indexPath.row
         let friend = self.filteredFriends[row]
         cell.styleViewWith(friend)
+        
         return cell
     }
 }

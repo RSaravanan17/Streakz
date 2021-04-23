@@ -14,8 +14,8 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     let requestCellIdentifier = "RequestCellIdentifier"
 
-    var requestedFriends: [Profile] = []
-    var filteredRequestedFriends: [Profile] = []
+    var requestedFriends: [ProfileContainer] = []
+    var filteredRequestedFriends: [ProfileContainer] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func loadRequests() {
         self.requestedFriends = []
+        self.filteredRequestedFriends = self.requestedFriends
         for requestedFriend in cur_user_profile?.friendRequests ?? [] {
             db_firestore.collection(requestedFriend.profileType).document(requestedFriend.email).getDocument {
                 (document, error) in
@@ -40,7 +41,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                 }
                 switch result {
                 case .success(let fetchedProfile):
-                    self.requestedFriends.append(fetchedProfile!)
+                    self.requestedFriends.append(ProfileContainer(baseProfile: requestedFriend, profile: fetchedProfile!))
                     self.filteredRequestedFriends = self.requestedFriends
                     self.tableView.reloadData()
                 case .failure(let error):
@@ -48,6 +49,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                 }
             }
         }
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,30 +60,109 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: self.requestCellIdentifier, for: indexPath as IndexPath) as! RequestTableViewCell
         let row = indexPath.row
         let requestedFriend = self.filteredRequestedFriends[row]
-        cell.styleViewWith(requestedFriend)
+        cell.styleViewWith(requestedFriend.profile)
         
         // Set appropriate button function to handle friend request actions
         cell.onAcceptFriendRequest = {() in
-            return self.onAcceptFriendRequest(newFriend: requestedFriend)
+            return self.onAcceptFriendRequest(acceptedFriend: requestedFriend)
         }
         cell.onDeclineFriendRequest = {() in
-            return self.onDeclineFriendRequest(newFriend: requestedFriend)
+            return self.onDeclineFriendRequest(declinedFriend: requestedFriend)
         }
         
         return cell
     }
     
-    func onAcceptFriendRequest(newFriend: Profile) {
-        print("Accepting Friend Request from \(newFriend.firstName)")
+    func onAcceptFriendRequest(acceptedFriend: ProfileContainer) {
+        guard let profileType = cur_user_collection, let email = cur_user_email else {
+            let alert = UIAlertController(
+                title: "Invalid Session",
+                message: "We're having trouble finding out who you are, please try signing out and signing back in",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        print("Accepting Friend Request from \(acceptedFriend.profile.firstName)")
+        do {
+            // Add friend to this user's list of friends
+            let requestSender = BaseProfile(profileType: profileType, email: email)
+            let updateUserProfile: Profile = cur_user_profile!
+            updateUserProfile.friends.append(acceptedFriend.baseProfile)
+            // Remove friend request from this users list of friend requests
+            if let index = updateUserProfile.friendRequests.firstIndex(of: acceptedFriend.baseProfile) {
+                updateUserProfile.friendRequests.remove(at: index)
+            } else {
+                throw MyError.FoundNil
+            }
+            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile)
+            
+            // Add this user to the other users list of friends
+            let destination = acceptedFriend.profile
+            let destCollection = acceptedFriend.baseProfile.profileType
+            let destEmail = acceptedFriend.baseProfile.email
+            destination.friends.append(requestSender)
+            try db_firestore.collection(destCollection).document(destEmail).setData(from: destination)
+            
+            // Refresh list of friend requests
+            self.loadRequests()
+        } catch let error {
+            print("Error accepting friend request: \(error)")
+            let alert = UIAlertController(
+                title: "Friend Request Error",
+                message: "We ran into issues accepting the friend request. Try again later",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
     
-    func onDeclineFriendRequest(newFriend: Profile) {
-        print("Declining Friend Request from \(newFriend.firstName)")
+    func onDeclineFriendRequest(declinedFriend: ProfileContainer) {
+        guard let profileType = cur_user_collection, let email = cur_user_email else {
+            let alert = UIAlertController(
+                title: "Invalid Session",
+                message: "We're having trouble finding out who you are, please try signing out and signing back in",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        print("Declining Friend Request from \(declinedFriend.profile.firstName)")
+        do {
+            let updateUserProfile: Profile = cur_user_profile!
+            // Remove friend request from this users list of friend requests
+            if let index = updateUserProfile.friendRequests.firstIndex(of: declinedFriend.baseProfile) {
+                updateUserProfile.friendRequests.remove(at: index)
+            } else {
+                throw MyError.FoundNil
+            }
+            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile)
+                        
+            // Refresh list of friend requests
+            self.loadRequests()
+        } catch let error {
+            print("Error declining friend request: \(error)")
+            let alert = UIAlertController(
+                title: "Friend Request Error",
+                message: "We ran into issues declining the friend request. Try again later",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            self.filteredRequestedFriends = self.requestedFriends.filter{(profile: Profile) -> Bool in
+            self.filteredRequestedFriends = self.requestedFriends.filter{(profileContainer: ProfileContainer) -> Bool in
+                let profile = profileContainer.profile
                 let containedInFirstName = profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 let containedInLastName = profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 return containedInFirstName || containedInLastName
@@ -90,6 +171,10 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             self.filteredRequestedFriends = self.requestedFriends
         }
         self.tableView.reloadData()
+    }
+    
+    enum MyError: Error {
+        case FoundNil;
     }
 }
 
