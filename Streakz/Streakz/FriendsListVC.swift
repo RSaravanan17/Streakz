@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -20,14 +20,18 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.loadFriends()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Fetch friends list and populate table
         self.loadFriends()
     }
     
     func loadFriends() {
+        self.friends = []
         for friend in cur_user_profile?.friends ?? [] {
             db_firestore.collection(friend.profileType).document(friend.email).getDocument {
                 (document, error) in
@@ -37,11 +41,17 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 switch result {
                 case .success(let fetchedProfile):
                     self.friends.append(fetchedProfile!)
+                    self.tableView.reloadData()
                 case .failure(let error):
                     print("Error fetching a profile on discover screen: \(error)")
                 }
             }
-            self.tableView.reloadData()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            
         }
         self.tableView.reloadData()
     }
@@ -54,8 +64,6 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: self.friendCellIdentifier, for: indexPath as IndexPath) as! FriendTableViewCell
         let row = indexPath.row
         let friend = self.friends[row]
-        print(friend.firstName)
-        print(friend.lastName)
         cell.styleViewWith(friend)
         return cell
     }
@@ -83,7 +91,7 @@ class FriendTableViewCell: UITableViewCell {
         }
         self.nameLabel.text = "\(profile.firstName) \(profile.lastName)"
         
-        let activeStreakCount = profile.subscribedStreaks
+        let activeStreakCount = profile.subscribedStreaks.count
         self.streakLabel.textColor = UIColor(named: "Streakz_Grey")
         self.streakLabel.text = "\(activeStreakCount) Active Streakz"
     }

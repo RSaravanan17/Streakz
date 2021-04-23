@@ -35,7 +35,6 @@ class FriendInfoVC: UIViewController {
     }()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var containerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +74,14 @@ class FriendInfoVC: UIViewController {
     
     func add(asChildViewController viewController: UIViewController) {
         // Add Child View Controller
-        self.containerView.addSubview(viewController.view)
+        addChild(viewController)
+        
+        view.addSubview(viewController.view)
+        
+        viewController.view.frame = view.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        viewController.didMove(toParent: self)
     }
     
     private func remove(asChildViewController viewController: UIViewController) {
