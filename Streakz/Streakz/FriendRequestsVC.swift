@@ -60,6 +60,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: self.requestCellIdentifier, for: indexPath as IndexPath) as! RequestTableViewCell
         let row = indexPath.row
         let requestedFriend = self.filteredRequestedFriends[row]
+        cell.mutualFriendsCount = self.getMutualFriends(cur_user_profile!, requestedFriend.profile)
         cell.styleViewWith(requestedFriend.profile)
         
         // Set appropriate button function to handle friend request actions
@@ -173,6 +174,12 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.tableView.reloadData()
     }
     
+    func getMutualFriends(_ profile1: Profile, _ profile2: Profile) -> Int {
+        let friendsSet1: Set<BaseProfile> = Set(profile1.friends)
+        let friendsSet2: Set<BaseProfile> = Set(profile2.friends)
+        return (friendsSet1.intersection(friendsSet2)).count
+    }
+    
     enum MyError: Error {
         case FoundNil;
     }
@@ -187,6 +194,7 @@ class RequestTableViewCell: UITableViewCell {
         
     var onAcceptFriendRequest: (() -> Void)!
     var onDeclineFriendRequest: (() -> Void)!
+    var mutualFriendsCount: Int = 0
     
     func styleViewWith(_ profile: Profile) {
         // Style image view
@@ -205,9 +213,8 @@ class RequestTableViewCell: UITableViewCell {
         }
         self.nameLabel.text = "\(profile.firstName) \(profile.lastName)"
         
-        let mutualFriendsCount = 0 // TODO: get number of mutual friends
         self.mutualFriendsLabel.textColor = UIColor(named: "Streakz_Grey")
-        self.mutualFriendsLabel.text = "\(mutualFriendsCount) Mutual Friends"
+        self.mutualFriendsLabel.text = "\(self.mutualFriendsCount) Mutual Friends"
         
         // Style accept and decline buttons
         self.acceptButton.layer.cornerRadius = 4
