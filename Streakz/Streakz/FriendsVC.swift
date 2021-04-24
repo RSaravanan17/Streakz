@@ -219,12 +219,10 @@ class FriendStreakPostCell: UITableViewCell {
         descriptionLabel.text = streakPost.postText
         descriptionLabel.numberOfLines = 4
         
-//        if streakPost.image.isEmpty {
-//            self.postImage.image = UIImage(named: "StreakzLogo")
-//        } else {
-//            self.postImage.load(url: URL(string: streakPost.image)!)
-//        }
-        // until bug with image is fixed:
-        self.postImage.image = UIImage(named: "StreakzLogo")
+        if streakPost.image.isEmpty {
+            self.postImage.image = UIImage(named: "StreakzLogo")
+        } else {
+            self.postImage.load(url: URL(string: streakPost.image)!)
+        }
     }
 }
