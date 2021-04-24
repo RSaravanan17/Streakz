@@ -29,6 +29,8 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
         // Fetch friends list and populate table
         self.loadFriends()
+        let pluralString: String = (cur_user_profile?.friends.count ?? 0) == 1 ? "" : "s"
+        self.searchBar.prompt = "\(cur_user_profile?.friends.count ?? 0) Friend\(pluralString)"
     }
     
     func loadFriends() {
