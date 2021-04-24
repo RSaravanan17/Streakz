@@ -1750,7 +1750,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Srn-ug-4g3" userLabel="FriendsSearchBar">
+                            <searchBar contentMode="redraw" placeholder="Search Friends" translatesAutoresizingMaskIntoConstraints="NO" id="Srn-ug-4g3" userLabel="FriendsSearchBar">
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -1776,9 +1776,6 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="sCt-N6-7Et" userLabel="FriendNameLabel">
                                                     <rect key="frame" x="88" y="35" width="48" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="112" id="zqH-WX-zZj"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1795,6 +1792,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="JiN-AU-Qlb" secondAttribute="trailing" constant="16" id="8nD-ld-XvB"/>
                                                 <constraint firstItem="JiN-AU-Qlb" firstAttribute="centerY" secondItem="KPz-3t-Hyh" secondAttribute="centerY" id="BqO-uu-Eym"/>
                                                 <constraint firstAttribute="bottom" secondItem="hWx-MY-IcR" secondAttribute="bottom" constant="19" id="CaI-kj-NhX"/>
+                                                <constraint firstItem="JiN-AU-Qlb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sCt-N6-7Et" secondAttribute="trailing" constant="16" id="NJr-u5-aZL"/>
                                                 <constraint firstItem="hWx-MY-IcR" firstAttribute="centerY" secondItem="KPz-3t-Hyh" secondAttribute="centerY" id="OY0-ly-HXt"/>
                                                 <constraint firstItem="sCt-N6-7Et" firstAttribute="leading" secondItem="hWx-MY-IcR" secondAttribute="trailing" constant="16" id="VWr-f5-YBC"/>
                                                 <constraint firstItem="sCt-N6-7Et" firstAttribute="centerY" secondItem="KPz-3t-Hyh" secondAttribute="centerY" id="W61-oq-FKT"/>
@@ -1817,8 +1815,8 @@
                             <constraint firstItem="Srn-ug-4g3" firstAttribute="trailing" secondItem="h3p-vt-1sZ" secondAttribute="trailing" id="BC4-jt-XT0"/>
                             <constraint firstItem="Srn-ug-4g3" firstAttribute="leading" secondItem="h3p-vt-1sZ" secondAttribute="leading" id="SjB-nk-vug"/>
                             <constraint firstItem="hfr-ot-3b4" firstAttribute="leading" secondItem="Lrs-yh-6Oy" secondAttribute="leading" id="Z3V-Zw-Viz"/>
+                            <constraint firstItem="Srn-ug-4g3" firstAttribute="top" secondItem="h3p-vt-1sZ" secondAttribute="top" id="avV-3S-uPW"/>
                             <constraint firstItem="hfr-ot-3b4" firstAttribute="top" secondItem="Srn-ug-4g3" secondAttribute="bottom" id="ee5-in-ZXO"/>
-                            <constraint firstItem="Srn-ug-4g3" firstAttribute="top" secondItem="h3p-vt-1sZ" secondAttribute="top" id="qtg-4c-eZL"/>
                             <constraint firstAttribute="trailing" secondItem="hfr-ot-3b4" secondAttribute="trailing" id="rXQ-g8-paV"/>
                         </constraints>
                     </view>
@@ -1839,7 +1837,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="WNO-BV-3VF" userLabel="RequestsSearchBar">
+                            <searchBar contentMode="redraw" placeholder="Search Friend Requests" translatesAutoresizingMaskIntoConstraints="NO" id="WNO-BV-3VF" userLabel="RequestsSearchBar">
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -1864,14 +1862,11 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="awu-Ow-mrG" userLabel="NameLabel">
                                                     <rect key="frame" x="88" y="23" width="48" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="112" id="fBs-xr-ET7"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pud-Ei-NZL" userLabel="MutualFriendLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="pud-Ei-NZL" userLabel="MutualFriendLabel">
                                                     <rect key="frame" x="88" y="54" width="35.5" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -1911,6 +1906,7 @@
                                                 <constraint firstItem="8CX-wj-7Gd" firstAttribute="centerY" secondItem="4je-9u-nCw" secondAttribute="centerY" id="Gea-DK-j9a"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ww7-LC-k5m" secondAttribute="bottom" constant="19" id="Ki1-Cc-fTO"/>
                                                 <constraint firstItem="Ww7-LC-k5m" firstAttribute="centerY" secondItem="4je-9u-nCw" secondAttribute="centerY" id="NHy-fM-lWD"/>
+                                                <constraint firstItem="8CX-wj-7Gd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="awu-Ow-mrG" secondAttribute="trailing" constant="16" id="Usb-ZQ-OFG"/>
                                                 <constraint firstItem="awu-Ow-mrG" firstAttribute="top" secondItem="4je-9u-nCw" secondAttribute="top" constant="23" id="Vfh-U2-UWB"/>
                                                 <constraint firstAttribute="bottom" secondItem="pud-Ei-NZL" secondAttribute="bottom" constant="23" id="XyO-UL-drH"/>
                                                 <constraint firstItem="awu-Ow-mrG" firstAttribute="leading" secondItem="Ww7-LC-k5m" secondAttribute="trailing" constant="16" id="Zlu-uO-t1d"/>
@@ -1918,6 +1914,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ibz-xJ-rhb" secondAttribute="trailing" constant="8" id="f84-5p-AHA"/>
                                                 <constraint firstItem="Ww7-LC-k5m" firstAttribute="top" secondItem="4je-9u-nCw" secondAttribute="top" constant="19" id="gJ3-bY-MdT"/>
                                                 <constraint firstItem="ibz-xJ-rhb" firstAttribute="leading" secondItem="8CX-wj-7Gd" secondAttribute="trailing" constant="8" id="kNx-ax-l5B"/>
+                                                <constraint firstItem="8CX-wj-7Gd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pud-Ei-NZL" secondAttribute="trailing" constant="16" id="x1a-i4-QiD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

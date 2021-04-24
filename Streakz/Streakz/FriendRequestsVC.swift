@@ -28,6 +28,8 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewWillAppear(_ animated: Bool) {
         self.loadRequests()
+        let pluralString: String = (cur_user_profile?.friendRequests.count ?? 0) == 1 ? "" : "s"
+        self.searchBar.prompt = "\(cur_user_profile?.friendRequests.count ?? 0) Friend Request\(pluralString)"
     }
     
     func loadRequests() {
