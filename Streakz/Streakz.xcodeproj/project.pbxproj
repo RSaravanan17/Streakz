@@ -16,6 +16,7 @@
 		388BA72D260672310091F905 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388BA72C260672310091F905 /* GoogleService-Info.plist */; };
 		38FF36A52606DB760070E515 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */; };
 		765132612607F75600D3E202 /* AddStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765132602607F75600D3E202 /* AddStreakVC.swift */; };
+		769344552634ADD200D7DEFD /* ViewStreakPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769344542634ADD200D7DEFD /* ViewStreakPostVC.swift */; };
 		76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89726044678009F6AA9 /* StreakInfo.swift */; };
 		76F7B89B260448C5009F6AA9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89A260448C4009F6AA9 /* Profile.swift */; };
 		76F7B89E26055EB9009F6AA9 /* StreakSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */; };
@@ -54,6 +55,7 @@
 		50AB3777D47DD22B128F0B50 /* Pods-Streakz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Streakz.debug.xcconfig"; path = "Target Support Files/Pods-Streakz/Pods-Streakz.debug.xcconfig"; sourceTree = "<group>"; };
 		6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Streakz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765132602607F75600D3E202 /* AddStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStreakVC.swift; sourceTree = "<group>"; };
+		769344542634ADD200D7DEFD /* ViewStreakPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStreakPostVC.swift; sourceTree = "<group>"; };
 		76F7B89726044678009F6AA9 /* StreakInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakInfo.swift; sourceTree = "<group>"; };
 		76F7B89A260448C4009F6AA9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakSubscription.swift; sourceTree = "<group>"; };
@@ -141,6 +143,9 @@
 				AF62F20A2609808E0077EE03 /* DateExtensions.swift */,
 				CE9890FA260282C000E3E44E /* DiscoverVC.swift */,
 				388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */,
+				CE5944AE26323E6900DE8944 /* FriendInfoVC.swift */,
+				CE5944B4263247BC00DE8944 /* FriendRequestsVC.swift */,
+				CE5944B12632479F00DE8944 /* FriendsListVC.swift */,
 				CE9890F7260282AD00E3E44E /* FriendsVC.swift */,
 				388BA72C260672310091F905 /* GoogleService-Info.plist */,
 				CE9890F42602828F00E3E44E /* HomeVC.swift */,
@@ -148,9 +153,6 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
-				CE5944B12632479F00DE8944 /* FriendsListVC.swift */,
-				CE5944B4263247BC00DE8944 /* FriendRequestsVC.swift */,
-				CE5944AE26323E6900DE8944 /* FriendInfoVC.swift */,
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -166,6 +168,7 @@
 				CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */,
 				CE9890E0260271D800E3E44E /* ViewController.swift */,
 				CEC53811261E19C900938677 /* ViewPublicStreakVC.swift */,
+				769344542634ADD200D7DEFD /* ViewStreakPostVC.swift */,
 				AF62F20726095B040077EE03 /* ViewStreakVC.swift */,
 			);
 			path = Streakz;
@@ -319,6 +322,7 @@
 				CE9890FE260282E400E3E44E /* ProfileVC.swift in Sources */,
 				CE55CBDA260ECBBD00FA8A6E /* SettingsVC.swift in Sources */,
 				CE9890E1260271D800E3E44E /* ViewController.swift in Sources */,
+				769344552634ADD200D7DEFD /* ViewStreakPostVC.swift in Sources */,
 				CE5944B22632479F00DE8944 /* FriendsListVC.swift in Sources */,
 				CEC53812261E19C900938677 /* ViewPublicStreakVC.swift in Sources */,
 				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,

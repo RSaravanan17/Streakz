@@ -45,8 +45,10 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let searchFriendsSegueIdentifier = "SearchFriendsSegueIdentifier"
     let streakPostCell = "FriendStreakPostCellIdentifier"
     let streakPostSegue = "StreakPostIdentifier"
+    let viewStreakPostSegueIdentifier = "ViewStreakPost"
     var streakPosts: [FriendPostContainer] = []
     let refreshControl = UIRefreshControl()
+    var selectedStreakPost: FriendPostContainer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +120,18 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let postContainer = streakPosts[row]
         cell.styleView(postContainer: postContainer)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedStreakPost = streakPosts[indexPath.row]
+        performSegue(withIdentifier: viewStreakPostSegueIdentifier, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == viewStreakPostSegueIdentifier, let destVC = segue.destination as? ViewStreakPostVC {
+            destVC.streakPost = selectedStreakPost?.streakPost
+            destVC.posterNameStr = selectedStreakPost?.friendName
+        }
     }
     
     func acceptFriendRequest(otherBaseProf: BaseProfile) {
@@ -198,16 +212,19 @@ class FriendStreakPostCell: UITableViewCell {
     func styleView(postContainer: FriendPostContainer) {
         let streakPost = postContainer.streakPost
         view.layer.cornerRadius = 20
+        self.selectionStyle = .none
         posterLabel.text = postContainer.friendName
         titleLabel.text = streakPost.streak.name
         numberLabel.text = "Streak: \(streakPost.achievedStreak)"
         descriptionLabel.text = streakPost.postText
         descriptionLabel.numberOfLines = 4
         
-        if streakPost.image.isEmpty {
-            self.postImage.image = UIImage(named: "StreakzLogo")
-        } else {
-            self.postImage.load(url: URL(string: streakPost.image)!)
-        }
+//        if streakPost.image.isEmpty {
+//            self.postImage.image = UIImage(named: "StreakzLogo")
+//        } else {
+//            self.postImage.load(url: URL(string: streakPost.image)!)
+//        }
+        // until bug with image is fixed:
+        self.postImage.image = UIImage(named: "StreakzLogo")
     }
 }
