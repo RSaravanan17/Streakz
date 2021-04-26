@@ -13,6 +13,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var searchBar: UISearchBar!
     
     let friendCellIdentifier = "FriendCellIdentifier"
+    let otherProfileSegue = "ShowOtherProfileSegue"
     
     var friends: [Profile] = []
     var filteredFriends: [Profile] = []
@@ -79,6 +80,16 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  segue.identifier == otherProfileSegue,
+            let destination = segue.destination as? OtherProfileVC,
+            let friendIndex = tableView.indexPathForSelectedRow?.row
+        {
+            destination.otherProfile = filteredFriends[friendIndex]
+        }
+    }
+    
 }
 
 class FriendTableViewCell: UITableViewCell {

@@ -25,6 +25,7 @@
 		AF3D0AF5260A90D000E7C32C /* CompleteStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */; };
 		AF62F20826095B040077EE03 /* ViewStreakVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20726095B040077EE03 /* ViewStreakVC.swift */; };
 		AF62F20B2609808E0077EE03 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62F20A2609808E0077EE03 /* DateExtensions.swift */; };
+		AF8F5C68263764DE00950224 /* OtherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F5C67263764DE00950224 /* OtherProfileVC.swift */; };
 		CE55CBDA260ECBBD00FA8A6E /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55CBD9260ECBBD00FA8A6E /* SettingsVC.swift */; };
 		CE5944AF26323E6900DE8944 /* FriendInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5944AE26323E6900DE8944 /* FriendInfoVC.swift */; };
 		CE5944B22632479F00DE8944 /* FriendsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5944B12632479F00DE8944 /* FriendsListVC.swift */; };
@@ -65,6 +66,7 @@
 		AF3D0AF4260A90D000E7C32C /* CompleteStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20726095B040077EE03 /* ViewStreakVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStreakVC.swift; sourceTree = "<group>"; };
 		AF62F20A2609808E0077EE03 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		AF8F5C67263764DE00950224 /* OtherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileVC.swift; sourceTree = "<group>"; };
 		CE55CBD9260ECBBD00FA8A6E /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		CE5944AE26323E6900DE8944 /* FriendInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInfoVC.swift; sourceTree = "<group>"; };
 		CE5944B12632479F00DE8944 /* FriendsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListVC.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				CE9890EA260271D900E3E44E /* LaunchScreen.storyboard */,
 				388BA71826066DF80091F905 /* LoginViewController.swift */,
 				CE9890E2260271D800E3E44E /* Main.storyboard */,
+				AF8F5C67263764DE00950224 /* OtherProfileVC.swift */,
 				38FF36A42606DB760070E515 /* NavigationMenuViewController.swift */,
 				76F7B89A260448C4009F6AA9 /* Profile.swift */,
 				CE9890FD260282E300E3E44E /* ProfileVC.swift */,
@@ -328,6 +331,7 @@
 				388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */,
 				388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */,
 				765132612607F75600D3E202 /* AddStreakVC.swift in Sources */,
+				AF8F5C68263764DE00950224 /* OtherProfileVC.swift in Sources */,
 				CE9890DD260271D800E3E44E /* AppDelegate.swift in Sources */,
 				76F7B89826044678009F6AA9 /* StreakInfo.swift in Sources */,
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
