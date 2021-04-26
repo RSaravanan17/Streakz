@@ -87,6 +87,7 @@
                                             <outlet property="posterLabel" destination="7IJ-1B-7t7" id="vkw-Ms-DnU"/>
                                             <outlet property="titleLabel" destination="pzP-RK-Zw9" id="CRK-Df-Hdk"/>
                                             <outlet property="view" destination="Ybp-Rp-oah" id="eyQ-ll-B7h"/>
+                                            <segue destination="cfU-W1-Ewq" kind="show" identifier="ViewStreakPost" id="LXC-HA-gwE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -116,7 +117,6 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="friendsFeedTable" destination="Bnn-rV-6Go" id="e4U-KE-N1j"/>
-                        <segue destination="h2f-2F-KGP" kind="show" identifier="ViewStreakPost" id="TGT-zP-jUF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -349,6 +349,7 @@
                                                     <outlet property="streakNumberLabel" destination="y00-mL-i3s" id="ssC-ph-9by"/>
                                                     <outlet property="titleLabel" destination="LDz-UJ-ey6" id="CIz-mH-N9S"/>
                                                     <outlet property="view" destination="Mb6-VY-Jso" id="1EY-eK-xRY"/>
+                                                    <segue destination="cfU-W1-Ewq" kind="show" identifier="ViewStreakPostSegue" id="t13-sr-r6l"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -566,12 +567,12 @@
             </objects>
             <point key="canvasLocation" x="1664" y="1705"/>
         </scene>
-        <!--Streak Post Screen View Controller-->
+        <!--View Streak PostVC-->
         <scene sceneID="2CS-ZR-OAj">
             <objects>
-                <viewController id="cfU-W1-Ewq" customClass="StreakPostScreenViewController" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cfU-W1-Ewq" customClass="ViewStreakPostVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XoL-FM-Zbf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="946"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDZ-tZ-XdJ">
@@ -580,41 +581,59 @@
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIP-ej-VgI">
                                         <rect key="frame" x="0.0" y="8" width="414" height="800"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Profile Name..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-H3-lQm">
+                                                <rect key="frame" x="20" y="20" width="374" height="21"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Post Date..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27Q-7U-jqF">
+                                                <rect key="frame" x="20" y="49" width="374" height="16"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Post Title..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="755-Ow-7nh">
-                                                <rect key="frame" x="20" y="20" width="374" height="36"/>
+                                                <rect key="frame" x="20" y="73" width="374" height="36"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Number..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsG-yC-7nv" userLabel="Streak Number">
-                                                <rect key="frame" x="20" y="76" width="374" height="21"/>
+                                                <rect key="frame" x="20" y="129" width="374" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Streak Post Description..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wX6-jv-5WE" userLabel="StreakPost Description">
-                                                <rect key="frame" x="20" y="117" width="374" height="21"/>
+                                                <rect key="frame" x="20" y="170" width="374" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="40b-iZ-krJ" userLabel="StreakPost Image">
-                                                <rect key="frame" x="20" y="158" width="374" height="547"/>
+                                                <rect key="frame" x="20" y="157" width="374" height="547"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="755-Ow-7nh" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="2hh-tH-rKV"/>
                                             <constraint firstItem="wsG-yC-7nv" firstAttribute="top" secondItem="755-Ow-7nh" secondAttribute="bottom" constant="20" id="6p5-e6-cfA"/>
-                                            <constraint firstItem="755-Ow-7nh" firstAttribute="top" secondItem="IIP-ej-VgI" secondAttribute="topMargin" constant="12" id="J0L-PH-rRj"/>
+                                            <constraint firstItem="IMX-H3-lQm" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="7SV-Gv-FxJ"/>
+                                            <constraint firstItem="755-Ow-7nh" firstAttribute="top" secondItem="27Q-7U-jqF" secondAttribute="bottom" constant="8" id="BOc-QL-TwQ"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="IMX-H3-lQm" secondAttribute="trailing" constant="12" id="H7j-ho-oP4"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="27Q-7U-jqF" secondAttribute="trailing" constant="12" id="P7s-MC-r5R"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="40b-iZ-krJ" secondAttribute="bottom" constant="20" id="UYr-Lr-e8L"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="wsG-yC-7nv" secondAttribute="trailing" constant="12" id="V0V-xw-DV1"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="40b-iZ-krJ" secondAttribute="trailing" constant="12" id="VY9-jC-Ih9"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="755-Ow-7nh" secondAttribute="trailing" constant="12" id="Xtf-El-qWb"/>
+                                            <constraint firstItem="27Q-7U-jqF" firstAttribute="top" secondItem="IMX-H3-lQm" secondAttribute="bottom" constant="8" id="dbI-de-wQK"/>
                                             <constraint firstItem="wsG-yC-7nv" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="dvt-4j-ClP"/>
                                             <constraint firstItem="40b-iZ-krJ" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="f5I-Rl-gb4"/>
                                             <constraint firstItem="wX6-jv-5WE" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="gfK-al-ASU"/>
                                             <constraint firstItem="wX6-jv-5WE" firstAttribute="top" secondItem="wsG-yC-7nv" secondAttribute="bottom" constant="20" id="hno-Ej-Hvl"/>
+                                            <constraint firstItem="27Q-7U-jqF" firstAttribute="leading" secondItem="IIP-ej-VgI" secondAttribute="leadingMargin" constant="12" id="kjI-13-5Tu"/>
+                                            <constraint firstItem="IMX-H3-lQm" firstAttribute="top" secondItem="IIP-ej-VgI" secondAttribute="topMargin" constant="12" id="mPA-Xe-Fwh"/>
                                             <constraint firstItem="40b-iZ-krJ" firstAttribute="top" secondItem="wX6-jv-5WE" secondAttribute="bottom" constant="20" id="rDe-5E-idp"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="wX6-jv-5WE" secondAttribute="trailing" constant="12" id="u7o-sc-ckD"/>
                                         </constraints>
@@ -643,15 +662,17 @@
                     <navigationItem key="navigationItem" id="O6E-NC-LvS"/>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
-                        <outlet property="postImage" destination="40b-iZ-krJ" id="ro5-WD-lMj"/>
-                        <outlet property="postNumber" destination="wsG-yC-7nv" id="5Cc-uD-7HY"/>
-                        <outlet property="streakPostDescription" destination="wX6-jv-5WE" id="rHt-ae-6Yh"/>
-                        <outlet property="streakTitle" destination="755-Ow-7nh" id="aqn-I9-FeB"/>
+                        <outlet property="postDate" destination="27Q-7U-jqF" id="dq4-3t-N6f"/>
+                        <outlet property="postDescription" destination="wX6-jv-5WE" id="Sd4-tc-tNF"/>
+                        <outlet property="postImage" destination="40b-iZ-krJ" id="VIj-U9-wqJ"/>
+                        <outlet property="posterName" destination="IMX-H3-lQm" id="X8x-aQ-tDJ"/>
+                        <outlet property="streakName" destination="755-Ow-7nh" id="GLe-yM-mg0"/>
+                        <outlet property="streakNumber" destination="wsG-yC-7nv" id="GGS-x2-wmi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Efn-f4-z4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2512" y="1739"/>
+            <point key="canvasLocation" x="2511.594202898551" y="1738.3928571428571"/>
         </scene>
         <!--Home-->
         <scene sceneID="KSU-nn-lAI">
@@ -854,7 +875,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHP-I4-52O">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cL-sN-G53">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="399.5"/>
@@ -933,14 +954,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wdB-XM-eZ2"/>
-                    <connections>
-                        <outlet property="postDate" destination="WVh-XX-Fbe" id="f3Q-Xg-7Nt"/>
-                        <outlet property="postDescription" destination="joO-vn-w4z" id="K9n-4r-0bF"/>
-                        <outlet property="postImage" destination="fK8-FT-JZC" id="RFZ-gt-Dkf"/>
-                        <outlet property="posterName" destination="WQ1-AA-bu0" id="g2t-sv-THe"/>
-                        <outlet property="scrollView" destination="PHP-I4-52O" id="3qE-R0-uSL"/>
-                        <outlet property="streakName" destination="uHe-AT-o1a" id="l1P-Me-OU7"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOh-rq-KoX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2700,6 +2713,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="ocQ-1A-0DN"/>
         <segue reference="AcB-c6-j40"/>
+        <segue reference="t13-sr-r6l"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="StreakzLogo" width="256" height="256"/>

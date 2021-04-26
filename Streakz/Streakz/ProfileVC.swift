@@ -202,12 +202,15 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
             }
         } else if segue.identifier == streakPostSegue {
             
-            if let destination = segue.destination as? StreakPostScreenViewController,
+            if let destination = segue.destination as? ViewStreakPostVC,
                let selectedIndex = self.streakPostsTable.indexPath(for: sender as! UITableViewCell) {
             
                 // set the current selected streak post
                 self.currentStreakPost = self.streakPosts[selectedIndex.row]
-                destination.streakPostDelegate = self as ProfileVC
+                
+                destination.streakPost = currentStreakPost
+                
+                // Don't need to set posterNameStr, if left nil it'll use current user which is what we want
                 
                 // Deselect the chosen StreakPost to get rid of the weird grey highlight
                 self.streakPostsTable.deselectRow(at: selectedIndex, animated: false)

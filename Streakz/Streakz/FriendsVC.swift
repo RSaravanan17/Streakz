@@ -124,13 +124,14 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedStreakPost = streakPosts[indexPath.row]
-        performSegue(withIdentifier: viewStreakPostSegueIdentifier, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == viewStreakPostSegueIdentifier, let destVC = segue.destination as? ViewStreakPostVC {
-            destVC.streakPost = selectedStreakPost?.streakPost
-            destVC.posterNameStr = selectedStreakPost?.friendName
+        if segue.identifier == viewStreakPostSegueIdentifier,
+           let destVC = segue.destination as? ViewStreakPostVC,
+           let postIndex = friendsFeedTable.indexPathForSelectedRow?.row {
+            destVC.streakPost = streakPosts[postIndex].streakPost
+            destVC.posterNameStr = streakPosts[postIndex].friendName
         }
     }
     

@@ -9,18 +9,29 @@ import UIKit
 
 class ViewStreakPostVC: UIViewController {
     
+    
     @IBOutlet weak var posterName: UILabel!
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var streakName: UILabel!
+    @IBOutlet weak var streakNumber: UILabel!
     @IBOutlet weak var postDescription: UILabel!
     @IBOutlet weak var postImage: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
     
-    var posterNameStr: String? = nil
+    
     var streakPost: StreakPost? = nil
-    
+    var posterNameStr: String? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // allows for unlimited number of lines for labels
+        self.posterName.numberOfLines = 0
+        self.postDate.numberOfLines = 0
+        self.streakName.numberOfLines = 0
+        self.streakNumber.numberOfLines = 0
+        self.postDescription.numberOfLines = 0
+        
         // Do any additional setup after loading the view.
         if let name = posterNameStr {
             // other person's streak post, show their name
@@ -40,6 +51,7 @@ class ViewStreakPostVC: UIViewController {
         if let post = streakPost {
             postDate.text = post.datePosted.shortDate
             streakName.text = post.streak.name
+            streakNumber.text = "Streak: " + String(post.achievedStreak)
             postDescription.text = post.postText
             if post.image.isEmpty {
                 postImage.image = UIImage(named: "StreakzLogo")

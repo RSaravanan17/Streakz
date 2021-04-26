@@ -18,6 +18,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var otherProfile: Profile? = nil
     
     let streakPostCell = "StreakPostCellIdentifier"
+    let viewStreakPostSegueIdentifier = "ViewStreakPostSegue"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,15 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let streakPost = streakPosts[row]
         cell.styleView(streakPost: streakPost)
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == viewStreakPostSegueIdentifier,
+           let destVC = segue.destination as? ViewStreakPostVC,
+           let postIndex = streakPostTable.indexPathForSelectedRow?.row {
+            destVC.streakPost = streakPosts[postIndex]
+            destVC.posterNameStr = userNameLabel.text
+        }
     }
 
 }
