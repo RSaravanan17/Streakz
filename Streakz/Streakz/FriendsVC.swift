@@ -63,6 +63,13 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loadPosts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        streakPosts = []
+        loadPosts()
+        friendsFeedTable.reloadData()
+    }
+    
     func loadPosts() {
         if let profile = cur_user_profile {
             for friend in profile.friends {
