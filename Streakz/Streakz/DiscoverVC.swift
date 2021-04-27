@@ -34,9 +34,16 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func loadPublicStreakz() {
-        // fetch current list of friend's streaks from Firebase
-        if let profile = cur_user_profile, profile.friends.count > 0 {
-            db_firestore.collection("friends_streaks").whereField("owner", in: profile.getBasicFriendsList())
+        // fetch current list of friend's streaks from Firebase (including current user)
+        if let email = cur_user_email,
+           let collection = cur_user_collection,
+           let profile = cur_user_profile,
+           profile.friends.count > 0 {
+            // retrieve friends of current user and add current user to list
+            var friendsCircle = profile.getBasicFriendsList()
+            friendsCircle.append([email, collection])
+            
+            db_firestore.collection("friends_streaks").whereField("owner", in: friendsCircle)
                 .addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
                         print("Error fetching documents: \(error!)")
@@ -59,8 +66,10 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
         }
         
-        // fetch current list of public streaks from Firebase
-        if let profile = cur_user_profile {
+        // fetch current list of public streaks from Firebase (including current user)
+        if let email = cur_user_email,
+           let collection = cur_user_collection,
+           let profile = cur_user_profile {
             db_firestore.collection("public_streaks").whereField("viewability", isEqualTo: "Public")
                 .addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
@@ -72,13 +81,16 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.publicStreakz[1].removeAll()
                     self.publicStreakz[2].removeAll()
                     
+                    let current_user_base_profile = BaseProfile(profileType: collection, email: email)
+                    
                     for document in documents {
                         let documentID: String = document.documentID
                         let streak: StreakInfo? = try? document.data(as: StreakInfo.self)
                         
                         if let streak = streak {
-                            // add each streak to the appropriate section based on whether the owner is in the friend's list of the current user
-                            if (profile.friends.contains(BaseProfile(profileType: streak.owner[1], email: streak.owner[0]))) {
+                            // add each streak to the appropriate section based on whether the owner is the current user or in the friend's list of the current user
+                            let other_owner = BaseProfile(profileType: streak.owner[1], email: streak.owner[0])
+                            if (other_owner == current_user_base_profile || profile.friends.contains(other_owner)) {
                                 self.publicStreakz[1].append((documentID, streak))
                             } else {
                                 self.publicStreakz[2].append((documentID, streak))
