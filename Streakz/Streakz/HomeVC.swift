@@ -113,6 +113,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if sections.count == 2 && sections[0].count == 0 && sections[1].count == 0 {
+            tableView.setEmptyMessage("No streaks :/\nAdd a new streak to start your collection!")
+        } else {
+            tableView.restore()
+        }
         return sections.count
     }
         

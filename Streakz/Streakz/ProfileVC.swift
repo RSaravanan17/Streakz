@@ -64,6 +64,11 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if streakPosts.count == 0 {
+            streakPostsTable.setEmptyMessage("Complete a streak to add streak posts!")
+        } else {
+            streakPostsTable.restore()
+        }
         return streakPosts.count
     }
     
