@@ -34,9 +34,8 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         profileImage.clipsToBounds = true
         
         if let otherProf = otherProfile {
-            streakPosts = otherProf.streakPosts
-            
             userNameLabel.text = "\(otherProf.firstName) \(otherProf.lastName)"
+            friendCountLabel.text = String(otherProf.friends.count)
 
             if otherProf.profilePicture != "",
                let imageURL = (URL(string: otherProf.profilePicture))  {
@@ -44,6 +43,13 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 profileImage.image = UIImage(named: "ProfileImageBlank")
             }
+            
+            // Don't show private streak posts
+            streakPosts = []
+            for post in otherProf.streakPosts.filter( { $0.streak.privacy != .Private } ) {
+                self.streakPosts.append(post)
+            }
+            self.streakPosts.sort(by: { $0.datePosted > $1.datePosted })
             
         }
         
