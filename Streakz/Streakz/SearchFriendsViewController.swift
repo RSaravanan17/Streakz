@@ -31,6 +31,7 @@ extension UIView {
 }
 
 let showFriendRequestSegue = "ShowRequestSegue"
+let showOtherProfileSegue = "ShowOtherProfileSegue"
 
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
@@ -116,6 +117,11 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showFriendRequestSegue, let destVC = segue.destination as? FriendInfoVC {
             destVC.cameFromSearchFriends = true
+        } else if segue.identifier == showOtherProfileSegue,
+                  let destVC = segue.destination as? OtherProfileVC,
+                  let selectedIndexPath = usersTableView.indexPathForSelectedRow {
+            destVC.otherProfile = filteredProfiles[selectedIndexPath.row].profile
+            usersTableView.deselectRow(at: selectedIndexPath, animated: false)
         }
     }
     
