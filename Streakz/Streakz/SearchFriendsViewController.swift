@@ -152,7 +152,6 @@ class UserStreakCell: UITableViewCell {
     func styleView(profileContainer otherProfileContainer: ProfileContainer) {
         self.userProfileContainer = otherProfileContainer
         
-        self.backgroundColor = UIColor(named: "Streakz_Background")
         self.layer.cornerRadius = 20
         self.accessoryType = .disclosureIndicator
         
@@ -166,13 +165,13 @@ class UserStreakCell: UITableViewCell {
             return
         }
         
-        self.sendFriendRequestButton.setTitleColor(UIColor.label, for: .normal)
+        self.sendFriendRequestButton.setTitleColor(UIColor.black, for: .normal)
         self.sendFriendRequestButton.layer.cornerRadius = 15
         
         if myProfile.friends.contains(otherProfileContainer.baseProfile) {
             // already friends
             self.sendFriendRequestButton.setTitle(ALREADY_FRIENDS_TEXT, for: .normal)
-            self.sendFriendRequestButton.backgroundColor = UIColor.blue
+            self.sendFriendRequestButton.backgroundColor = UIColor(named: "Already_Friends")
             self.sendFriendRequestButton.isEnabled = false
         } else if otherProfileContainer.profile.friendRequests.contains(BaseProfile(profileType: myProfileType, email: myEmail)) {
             // friend request already sent
@@ -187,7 +186,7 @@ class UserStreakCell: UITableViewCell {
         } else {
             // I can send them a request
             self.sendFriendRequestButton.setTitle(SEND_REQUEST_TEXT, for: .normal)
-            self.sendFriendRequestButton.backgroundColor = UIColor.green
+            self.sendFriendRequestButton.backgroundColor = UIColor(named: "Send_Request")
             self.sendFriendRequestButton.isEnabled = true
         }
         

@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -813,7 +814,7 @@
         <scene sceneID="7OM-cQ-2w9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jjk-Rk-9Wz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" selectedImage="person.2.fill" id="I5x-He-Ax2" userLabel="Friends"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.2" catalog="system" selectedImage="person.2.fill" id="I5x-He-Ax2" userLabel="Friends"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPJ-dM-IBS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1715,39 +1716,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbu-ru-Mfp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbu-ru-Mfp">
                                 <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCellIdentifier" rowHeight="90" id="mkM-6v-eAe" customClass="UserStreakCell" customModule="Streakz" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCellIdentifier" rowHeight="50" id="mkM-6v-eAe" customClass="UserStreakCell" customModule="Streakz" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mkM-6v-eAe" id="ASF-Vb-bBc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8fP-S3-ilt">
-                                                    <rect key="frame" x="20" y="22.5" width="374" height="45.5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8fP-S3-ilt">
+                                                    <rect key="frame" x="20" y="6" width="374" height="38.5"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-Pi-LFK">
-                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="45.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-Pi-LFK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="38.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-20-V2w">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di5-6e-Q5N">
-                                                                    <rect key="frame" x="0.0" y="28.5" width="187" height="17"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="183" height="16"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhE-O8-jZi">
-                                                            <rect key="frame" x="187" y="7.5" width="187" height="30"/>
+                                                            <rect key="frame" x="191" y="4" width="183" height="30"/>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
                                                                 <action selector="sendFriendRequestButtonPressed:" destination="mkM-6v-eAe" eventType="touchUpInside" id="L01-nf-Kgi"/>
@@ -2630,6 +2631,7 @@
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
