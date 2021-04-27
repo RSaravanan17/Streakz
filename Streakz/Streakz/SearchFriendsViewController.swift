@@ -30,6 +30,8 @@ extension UIView {
     }
 }
 
+let showFriendRequestSegue = "ShowRequestSegue"
+
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var usersSearchBar: UISearchBar!
@@ -109,6 +111,12 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         self.usersTableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showFriendRequestSegue, let destVC = segue.destination as? FriendInfoVC {
+            destVC.cameFromSearchFriends = true
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -269,7 +277,9 @@ class UserStreakCell: UITableViewCell {
             
         } else if self.sendFriendRequestButton.title(for: .normal) == THEY_WANT_YOU_TEXT {
             // This user already sent us a request, let's segue to friends screen
-            // TODO: segue to friends screen
+            if let parent = self.parentViewController {
+                parent.performSegue(withIdentifier: showFriendRequestSegue, sender: parent)
+            }
         }
     }
 }

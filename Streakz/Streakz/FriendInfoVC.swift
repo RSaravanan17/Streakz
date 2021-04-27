@@ -37,6 +37,8 @@ class FriendInfoVC: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
+    var cameFromSearchFriends: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,7 +58,7 @@ class FriendInfoVC: UIViewController {
         self.segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
 
         // Select First Segment
-        self.segmentedControl.selectedSegmentIndex = 0
+        self.segmentedControl.selectedSegmentIndex = cameFromSearchFriends ? 1 : 0
     }
     
     @objc func selectionDidChange(_ sender: UISegmentedControl) {

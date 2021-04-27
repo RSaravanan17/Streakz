@@ -1670,11 +1670,11 @@
             <objects>
                 <viewController id="Vuj-Zg-eq6" customClass="FriendInfoVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IM2-8O-Qi5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LjZ-jV-il5" userLabel="SegmentedControl">
-                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                                 <segments>
                                     <segment title="Friends List"/>
                                     <segment title="Friend Requests"/>
@@ -1682,7 +1682,7 @@
                                 <color key="selectedSegmentTintColor" name="Streakz_LightRed"/>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYT-HJ-gBQ">
-                                <rect key="frame" x="0.0" y="119" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="31" width="414" height="777"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -1800,6 +1800,7 @@
                     <connections>
                         <outlet property="usersSearchBar" destination="DBt-yv-tV3" id="N6B-ze-nJr"/>
                         <outlet property="usersTableView" destination="Xbu-ru-Mfp" id="P4Z-Wj-xaG"/>
+                        <segue destination="Vuj-Zg-eq6" kind="showDetail" identifier="ShowRequestSegue" id="GQS-b0-9Xj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x4X-3l-Quq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2619,6 +2620,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="GQS-b0-9Xj"/>
         <segue reference="ocQ-1A-0DN"/>
         <segue reference="AcB-c6-j40"/>
         <segue reference="t13-sr-r6l"/>
