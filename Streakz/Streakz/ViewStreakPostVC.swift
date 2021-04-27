@@ -19,7 +19,7 @@ class ViewStreakPostVC: UIViewController {
     
     
     var streakPost: StreakPost? = nil
-    var posterNameStr: String? = nil
+    var posterProfile: Profile? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +33,9 @@ class ViewStreakPostVC: UIViewController {
         self.postDescription.numberOfLines = 0
         
         // Do any additional setup after loading the view.
-        if let name = posterNameStr {
+        if let firstName = posterProfile?.firstName, let lastName = posterProfile?.lastName {
             // other person's streak post, show their name
-            posterName.text = name
+            posterName.text = "\(firstName) \(lastName)"
         } else if let profile = cur_user_profile {
             posterName.text = profile.firstName + " " + profile.lastName
         } else {

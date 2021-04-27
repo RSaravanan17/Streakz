@@ -66,7 +66,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
            let destVC = segue.destination as? ViewStreakPostVC,
            let postIndex = streakPostTable.indexPathForSelectedRow?.row {
             destVC.streakPost = streakPosts[postIndex]
-            destVC.posterNameStr = userNameLabel.text
+            destVC.posterProfile = otherProfile
         }
     }
 

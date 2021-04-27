@@ -9,11 +9,11 @@ import UIKit
 
 class FriendPostContainer {
     
-    let friendName: String
+    let friendProfile: Profile
     let streakPost: StreakPost
     
-    init(friendName: String, streakPost: StreakPost) {
-        self.friendName = friendName
+    init(friendProfile: Profile, streakPost: StreakPost) {
+        self.friendProfile = friendProfile
         self.streakPost = streakPost
     }
 }
@@ -75,8 +75,7 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     case .success(let fetchedProfile):
                         if let friendProfile = fetchedProfile {
                             for post in friendProfile.streakPosts.filter( { $0.streak.privacy != .Private } ) {
-                                let name = "\(friendProfile.firstName) \(friendProfile.lastName)"
-                                self.streakPosts.append(FriendPostContainer(friendName: name, streakPost: post))
+                                self.streakPosts.append(FriendPostContainer(friendProfile: friendProfile, streakPost: post))
                             }
                             self.streakPosts.sort(by: { $0.streakPost.datePosted > $1.streakPost.datePosted })
                             self.friendsFeedTable.reloadData()
@@ -131,7 +130,7 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
            let destVC = segue.destination as? ViewStreakPostVC,
            let postIndex = friendsFeedTable.indexPathForSelectedRow?.row {
             destVC.streakPost = streakPosts[postIndex].streakPost
-            destVC.posterNameStr = streakPosts[postIndex].friendName
+            destVC.posterProfile = streakPosts[postIndex].friendProfile
         }
     }
     
@@ -214,7 +213,8 @@ class FriendStreakPostCell: UITableViewCell {
         let streakPost = postContainer.streakPost
         view.layer.cornerRadius = 20
         self.selectionStyle = .none
-        posterLabel.text = postContainer.friendName
+        let friendName = "\(postContainer.friendProfile.firstName) \(postContainer.friendProfile.lastName)"
+        posterLabel.text = friendName
         titleLabel.text = streakPost.streak.name
         numberLabel.text = "Streak: \(streakPost.achievedStreak)"
         descriptionLabel.text = streakPost.postText
