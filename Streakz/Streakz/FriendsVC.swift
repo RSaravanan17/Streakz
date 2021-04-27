@@ -60,19 +60,20 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         friendsFeedTable.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
-        loadPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         streakPosts = []
         loadPosts()
-        friendsFeedTable.reloadData()
     }
     
     func loadPosts() {
+        
         if let profile = cur_user_profile {
+            let dispatchGroup = DispatchGroup()
             for friend in profile.friends {
+                dispatchGroup.enter()
                 db_firestore.collection(friend.profileType).document(friend.email).getDocument {
                     (document, error) in
                     let result = Result {
@@ -84,14 +85,18 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             for post in friendProfile.streakPosts.filter( { $0.streak.privacy != .Private } ) {
                                 self.streakPosts.append(FriendPostContainer(friendProfile: friendProfile, streakPost: post))
                             }
-                            self.streakPosts.sort(by: { $0.streakPost.datePosted > $1.streakPost.datePosted })
-                            self.friendsFeedTable.reloadData()
                         }
                     case .failure(let error):
                         print("Error fetching a friend's profile for friends feed: \(error)")
                     }
+                    dispatchGroup.leave()
                 }
             }
+            dispatchGroup.notify(queue: .main, execute: {
+                print("Fetched all friends' posts")
+                self.streakPosts.sort(by: { $0.streakPost.datePosted > $1.streakPost.datePosted })
+                self.friendsFeedTable.reloadData()
+            })
         } else {
             let alert = UIAlertController(
                 title: "Invalid Session",
@@ -108,7 +113,6 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         streakPosts = []
         loadPosts()
         sender.endRefreshing()
-        friendsFeedTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
