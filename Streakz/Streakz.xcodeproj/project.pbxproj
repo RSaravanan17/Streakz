@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B60E0F8CD7518FAE2B82E51 /* Pods_Streakz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EBA7495B6C5126460E5D809 /* Pods_Streakz.framework */; };
 		384D2C392620E9C100769C79 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384D2C382620E9C100769C79 /* SearchFriendsViewController.swift */; };
-		38602AA32620306900BD1879 /* StreakPostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38602AA22620306900BD1879 /* StreakPostScreenViewController.swift */; };
 		388BA71926066DF80091F905 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71826066DF80091F905 /* LoginViewController.swift */; };
 		388BA71C26066E300091F905 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */; };
 		388BA71F26066E5F0091F905 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388BA71E26066E5F0091F905 /* SignUpViewController.swift */; };
@@ -46,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		384D2C382620E9C100769C79 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
-		38602AA22620306900BD1879 /* StreakPostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakPostScreenViewController.swift; sourceTree = "<group>"; };
 		388BA71826066DF80091F905 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		388BA71B26066E300091F905 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		388BA71E26066E5F0091F905 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				388BA71E26066E5F0091F905 /* SignUpViewController.swift */,
 				76F7B89726044678009F6AA9 /* StreakInfo.swift */,
 				76F7B8A026056680009F6AA9 /* StreakPost.swift */,
-				38602AA22620306900BD1879 /* StreakPostScreenViewController.swift */,
 				76F7B89D26055EB9009F6AA9 /* StreakSubscription.swift */,
 				388BA726260671A90091F905 /* Streakz.entitlements */,
 				CE9890E5260271D800E3E44E /* Streakz.xcdatamodeld */,
@@ -337,7 +334,6 @@
 				CE9890DF260271D800E3E44E /* SceneDelegate.swift in Sources */,
 				388BA71926066DF80091F905 /* LoginViewController.swift in Sources */,
 				76F7B8A126056680009F6AA9 /* StreakPost.swift in Sources */,
-				38602AA32620306900BD1879 /* StreakPostScreenViewController.swift in Sources */,
 				CE5944B5263247BC00DE8944 /* FriendRequestsVC.swift in Sources */,
 				AF349696260E665A00693574 /* BaseProfile.swift in Sources */,
 			);
