@@ -111,6 +111,15 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         self.usersTableView.reloadData()
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        usersSearchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        usersSearchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filteredProfiles.count
     }
