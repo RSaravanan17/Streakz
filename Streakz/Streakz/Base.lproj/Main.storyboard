@@ -813,7 +813,7 @@
         <scene sceneID="7OM-cQ-2w9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jjk-Rk-9Wz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.and.person" catalog="system" selectedImage="person.3.fill" id="I5x-He-Ax2" userLabel="Friends"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" selectedImage="person.2.fill" id="I5x-He-Ax2" userLabel="Friends"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPJ-dM-IBS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2631,8 +2631,6 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
-        <image name="person.3.fill" catalog="system" width="128" height="61"/>
-        <image name="person.and.person" catalog="system" width="128" height="81"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="star" catalog="system" width="128" height="116"/>
