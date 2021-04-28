@@ -123,16 +123,6 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
                   let cell = usersTableView.cellForRow(at: selectedIndexPath) as? UserStreakCell {
             
             destVC.otherProfileContainer = cell.userProfileContainer
-            
-            if cell.sendFriendRequestButton.title(for: .normal) == SEND_REQUEST_TEXT {
-                destVC.friendStatus = FriendStatus.Nothing
-            } else if cell.sendFriendRequestButton.title(for: .normal) == CANCEL_REQUEST_TEXT {
-                destVC.friendStatus = FriendStatus.FriendRequestSent
-            } else if cell.sendFriendRequestButton.title(for: .normal) == THEY_WANT_YOU_TEXT {
-                destVC.friendStatus = FriendStatus.TheyWantMe
-            } else {
-                destVC.friendStatus = FriendStatus.AlreadyFriends
-            }
 
             usersTableView.deselectRow(at: selectedIndexPath, animated: false)
         }
@@ -158,7 +148,6 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
 
-    
 }
 
 
@@ -222,8 +211,6 @@ class UserStreakCell: UITableViewCell {
     enum MyError: Error {
         case FoundNil;
     }
-    
-    
     
     
     @IBAction func sendFriendRequestButtonPressed(_ sender: Any) {

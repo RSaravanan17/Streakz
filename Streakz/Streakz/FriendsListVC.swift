@@ -36,7 +36,9 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func loadFriends() {
         self.friends = []
+        let dispatchGroup = DispatchGroup()
         for friend in cur_user_profile?.friends ?? [] {
+            dispatchGroup.enter()
             db_firestore.collection(friend.profileType).document(friend.email).getDocument {
                 (document, error) in
                 let result = Result {
@@ -45,18 +47,23 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 switch result {
                 case .success(let fetchedProfile):
                     if let profile = fetchedProfile {
+                        print("DEBUG: I, \(cur_user_profile!.firstName) am friends with \(profile.firstName)")
                         self.friends.append(ProfileContainer(baseProfile: friend, profile: profile))
-                        self.filteredFriends = self.friends
-                        self.tableView.reloadData()
                     } else {
                         print("Error fetching profile on discover screen:")
                     }
                 case .failure(let error):
                     print("Error fetching a profile on discover screen: \(error)")
                 }
+                dispatchGroup.leave()
             }
         }
-        self.tableView.reloadData()
+        dispatchGroup.notify(queue: .main, execute: {
+            print("DEBUG: Fetched all friends")
+            self.filteredFriends = self.friends
+            self.filteredFriends.sort(by: { $0.profile.firstName < $1.profile.firstName })
+            self.tableView.reloadData()
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -92,7 +99,6 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.cellForRow(at: selectedIndexPath) as? FriendTableViewCell {
 
             destination.otherProfileContainer = cell.profileContainer
-            destination.friendStatus = FriendStatus.AlreadyFriends
         }
     }
     
