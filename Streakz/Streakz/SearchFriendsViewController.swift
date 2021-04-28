@@ -119,8 +119,21 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             destVC.cameFromSearchFriends = true
         } else if segue.identifier == showOtherProfileSegue,
                   let destVC = segue.destination as? OtherProfileVC,
-                  let selectedIndexPath = usersTableView.indexPathForSelectedRow {
+                  let selectedIndexPath = usersTableView.indexPathForSelectedRow,
+                  let cell = usersTableView.cellForRow(at: selectedIndexPath) as? UserStreakCell {
+            
             destVC.otherProfile = filteredProfiles[selectedIndexPath.row].profile
+            
+            if cell.sendFriendRequestButton.title(for: .normal) == SEND_REQUEST_TEXT {
+                destVC.friendStatus = FriendStatus.Nothing
+            } else if cell.sendFriendRequestButton.title(for: .normal) == CANCEL_REQUEST_TEXT {
+                destVC.friendStatus = FriendStatus.FriendRequestSent
+            } else if cell.sendFriendRequestButton.title(for: .normal) == THEY_WANT_YOU_TEXT {
+                destVC.friendStatus = FriendStatus.TheyWantMe
+            } else {
+                destVC.friendStatus = FriendStatus.AlreadyFriends
+            }
+
             usersTableView.deselectRow(at: selectedIndexPath, animated: false)
         }
     }

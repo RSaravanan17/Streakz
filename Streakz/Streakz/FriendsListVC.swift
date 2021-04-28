@@ -87,6 +87,7 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let friendIndex = tableView.indexPathForSelectedRow?.row
         {
             destination.otherProfile = filteredFriends[friendIndex]
+            destination.friendStatus = FriendStatus.AlreadyFriends
         }
     }
     

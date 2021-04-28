@@ -233,7 +233,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="C75-S6-C8g" userLabel="HeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="283.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="315"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YCP-mj-urW" userLabel="ProfileImageView">
@@ -244,13 +244,13 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oy0-Tw-fCl" userLabel="UserNameLabel">
-                                            <rect key="frame" x="16" y="132" width="382" height="33.5"/>
+                                            <rect key="frame" x="16" y="132" width="382" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoD-kC-A0s" userLabel="FriendCountView">
-                                            <rect key="frame" x="0.0" y="181.5" width="414" height="48"/>
+                                            <rect key="frame" x="0.0" y="191" width="414" height="48"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI0-kR-T3S">
                                                     <rect key="frame" x="16" y="14" width="56.5" height="20.5"/>
@@ -274,45 +274,70 @@
                                                 <constraint firstAttribute="height" constant="48" id="khH-Gf-daZ"/>
                                             </constraints>
                                         </view>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qOp-GB-Aiy" userLabel="StackView">
-                                            <rect key="frame" x="8" y="245.5" width="398" height="30"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FCH-Eq-MwN">
+                                            <rect key="frame" x="0.0" y="239" width="414" height="76"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are friends!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npc-I7-C8w">
-                                                    <rect key="frame" x="0.0" y="5" width="119" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend Status Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npc-I7-C8w">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rt0-5a-QEv">
-                                                    <rect key="frame" x="119" y="0.0" width="233" height="30"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pf-Tb-dmt">
-                                                    <rect key="frame" x="352" y="0.0" width="46" height="30"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qOp-GB-Aiy" userLabel="StackView">
+                                                    <rect key="frame" x="0.0" y="42" width="414" height="34"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rt0-5a-QEv">
+                                                            <rect key="frame" x="0.0" y="2" width="57.5" height="30"/>
+                                                            <state key="normal" title="Accept"/>
+                                                            <connections>
+                                                                <action selector="acceptFriendRequest:" destination="Xnw-hd-Wt4" eventType="touchUpInside" id="aDx-cy-S7r"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pf-Tb-dmt">
+                                                            <rect key="frame" x="57.5" y="2" width="61.5" height="30"/>
+                                                            <state key="normal" title="Decline"/>
+                                                            <connections>
+                                                                <action selector="declineFriendRequest:" destination="Xnw-hd-Wt4" eventType="touchUpInside" id="o8u-V7-Urs"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqL-EH-wiy">
+                                                            <rect key="frame" x="119" y="2" width="168" height="30"/>
+                                                            <state key="normal" title="Send Friend Request"/>
+                                                            <connections>
+                                                                <action selector="sendFriendRequest:" destination="Xnw-hd-Wt4" eventType="touchUpInside" id="McS-4H-4cC"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QkH-n8-ugY">
+                                                            <rect key="frame" x="287" y="2" width="127" height="30"/>
+                                                            <state key="normal" title="Cancel Request"/>
+                                                            <connections>
+                                                                <action selector="cancelFriendRequest:" destination="Xnw-hd-Wt4" eventType="touchUpInside" id="SBq-ja-aBF"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="FCH-Eq-MwN" secondAttribute="trailing" id="24W-sc-1bX"/>
                                         <constraint firstItem="YCP-mj-urW" firstAttribute="top" secondItem="C75-S6-C8g" secondAttribute="top" constant="16" id="8IC-bL-ox8"/>
                                         <constraint firstAttribute="trailing" secondItem="Oy0-Tw-fCl" secondAttribute="trailing" constant="16" id="8Oj-oi-ekb"/>
+                                        <constraint firstItem="FCH-Eq-MwN" firstAttribute="leading" secondItem="C75-S6-C8g" secondAttribute="leading" id="BwG-jX-qIB"/>
                                         <constraint firstItem="YCP-mj-urW" firstAttribute="centerX" secondItem="YoD-kC-A0s" secondAttribute="centerX" id="HGP-zI-oac"/>
+                                        <constraint firstItem="FCH-Eq-MwN" firstAttribute="top" secondItem="YoD-kC-A0s" secondAttribute="bottom" id="Hy7-lz-9YD"/>
                                         <constraint firstItem="YoD-kC-A0s" firstAttribute="leading" secondItem="C75-S6-C8g" secondAttribute="leading" id="LRx-SX-oUm"/>
                                         <constraint firstItem="Oy0-Tw-fCl" firstAttribute="top" secondItem="YCP-mj-urW" secondAttribute="bottom" constant="16" id="aN7-dI-Sxo"/>
-                                        <constraint firstItem="qOp-GB-Aiy" firstAttribute="top" secondItem="YoD-kC-A0s" secondAttribute="bottom" constant="16" id="ew9-YW-FBT"/>
                                         <constraint firstItem="Oy0-Tw-fCl" firstAttribute="leading" secondItem="C75-S6-C8g" secondAttribute="leading" constant="16" id="giw-qb-qXu"/>
                                         <constraint firstAttribute="trailing" secondItem="YoD-kC-A0s" secondAttribute="trailing" id="ihO-xq-3g6"/>
-                                        <constraint firstAttribute="bottom" secondItem="qOp-GB-Aiy" secondAttribute="bottom" constant="8" id="ohQ-nx-85d"/>
-                                        <constraint firstItem="qOp-GB-Aiy" firstAttribute="leading" secondItem="C75-S6-C8g" secondAttribute="leading" constant="8" id="po1-Mw-xhT"/>
-                                        <constraint firstAttribute="trailing" secondItem="qOp-GB-Aiy" secondAttribute="trailing" constant="8" id="sgR-LS-bSx"/>
+                                        <constraint firstAttribute="bottom" secondItem="FCH-Eq-MwN" secondAttribute="bottom" id="vY7-Ah-oqR"/>
                                         <constraint firstItem="YoD-kC-A0s" firstAttribute="top" secondItem="Oy0-Tw-fCl" secondAttribute="bottom" constant="16" id="yGU-Mc-iM6"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StreakPostCellIdentifier" rowHeight="143" id="j4z-IP-VUZ" userLabel="StreakPostCell" customClass="StreakPostCell" customModule="Streakz" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="308" width="414" height="143"/>
+                                        <rect key="frame" x="0.0" y="339.5" width="414" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j4z-IP-VUZ" id="Mb6-VY-Jso">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="143"/>
@@ -385,11 +410,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="TwA-iR-qel"/>
                     <connections>
+                        <outlet property="acceptFriendButton" destination="Rt0-5a-QEv" id="3yM-FH-P1u"/>
+                        <outlet property="cancelRequestButton" destination="QkH-n8-ugY" id="Nxk-rh-9oY"/>
+                        <outlet property="declineFriendButton" destination="8Pf-Tb-dmt" id="Cs7-fg-0ri"/>
+                        <outlet property="friendButtonStackView" destination="qOp-GB-Aiy" id="CYz-Bd-kmB"/>
                         <outlet property="friendCountLabel" destination="fzo-VM-Fif" id="jy1-3q-qVV"/>
                         <outlet property="friendStatusLabel" destination="npc-I7-C8w" id="xFw-6B-fOQ"/>
-                        <outlet property="negativeFriendButton" destination="8Pf-Tb-dmt" id="aIy-g2-PIx"/>
-                        <outlet property="positiveFriendButton" destination="Rt0-5a-QEv" id="YiK-Ay-UdE"/>
+                        <outlet property="friendsStatusView" destination="FCH-Eq-MwN" id="mpo-rn-sNC"/>
                         <outlet property="profileImage" destination="YCP-mj-urW" id="h4i-Hb-74q"/>
+                        <outlet property="sendRequestButton" destination="MqL-EH-wiy" id="BVC-po-pTw"/>
                         <outlet property="streakPostTable" destination="jsg-ju-IHw" id="ZBq-tP-95k"/>
                         <outlet property="userNameLabel" destination="Oy0-Tw-fCl" id="zI2-WJ-449"/>
                     </connections>
