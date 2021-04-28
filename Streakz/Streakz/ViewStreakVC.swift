@@ -7,22 +7,38 @@
 
 import UIKit
 
-class ViewStreakVC: UIViewController {
-    
+class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var streakNumberDisplay: UILabel!
     @IBOutlet weak var subscribedDateDisplay: UILabel!
     @IBOutlet weak var buttonSubText: UILabel!
     @IBOutlet weak var markDoneButton: UIButton!
     @IBOutlet weak var streakTitleDisplay: UILabel!
     @IBOutlet weak var descriptionDisplay: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var curUserProfile: Profile? = nil
     var streakSub: StreakSubscription!
+    var relatedStreakPosts: [StreakPost]!
     
     var completeStreakSegueIdentifier = "ViewStreakSegueIdentifier"
     
+    let privateStreakPostCellIdentifier = "PrivateStreakPostCellIdentifier"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        // Get streak posts related to this streak subscription
+        self.relatedStreakPosts = []
+        for streakPost in cur_user_profile?.streakPosts ?? [] {
+            if streakPost.streak.streakInfoId == streakSub.streakInfoId {
+                self.relatedStreakPosts.append(streakPost)
+            }
+        }
+        print("Related \(self.streakSub.name) Streak Posts: \(self.relatedStreakPosts.count)")
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,9 +91,36 @@ class ViewStreakVC: UIViewController {
                 buttonSubText.text = "Come back on " + streakSub.nextStreakDate().fullDate
             }
         }
-        
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard let headerView = self.tableView.tableHeaderView else {
+           return
+        }
+        
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        
+        // Trigger a new layout only if the height has changed, otherwise it'd get stuck in a loop
+        if headerView.frame.size.height != size.height {
+           headerView.frame.size.height = size.height
+           tableView.tableHeaderView = headerView
+           tableView.layoutIfNeeded()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.relatedStreakPosts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.privateStreakPostCellIdentifier, for: indexPath as IndexPath) as! PrivateStreakPostCell
+        let row = indexPath.row
+        let streakPost = self.relatedStreakPosts[row]
+        cell.styleCellWith(streakPost)
+        return cell
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == completeStreakSegueIdentifier,
@@ -87,5 +130,36 @@ class ViewStreakVC: UIViewController {
             nextVC.curUserProfile = curUserProfile
         }
     }
+}
 
+class PrivateStreakPostCell: UITableViewCell {
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var countView: UIView!
+    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
+    
+    func styleCellWith(_ streakPost: StreakPost) {
+        containerView.layer.borderWidth = 1.0
+        containerView.layer.masksToBounds = false
+        containerView.layer.borderColor = UIColor(named: "Streakz_LightRed")?.cgColor
+        containerView.layer.cornerRadius = 16
+        containerView.clipsToBounds = true
+
+        countView.layer.borderWidth = 1.0
+        countView.layer.masksToBounds = false
+        countView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
+        countView.layer.cornerRadius = countView.frame.size.width / 2
+        countView.clipsToBounds = true
+
+        if streakPost.image == "" {
+            self.postImageView.image = UIImage(named: "StreakzLogo")
+        } else {
+            self.postImageView.load(url: URL(string: streakPost.image)!)
+        }
+        titleLabel.text = streakPost.streak.name
+        commentLabel.text = streakPost.postText
+        countLabel.text = "\(streakPost.streak.streakNumber)"
+    }
 }
