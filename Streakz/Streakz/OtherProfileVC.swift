@@ -30,7 +30,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var cancelRequestButton: UIButton!
     
     var streakPosts: [StreakPost] = []
-    var otherProfile: Profile? = nil
+    var otherProfileContainer: ProfileContainer? = nil
     var friendStatus: FriendStatus? = nil
     
     let streakPostCell = "StreakPostCellIdentifier"
@@ -51,7 +51,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         updateFriendStatus()
         
-        if let otherProf = otherProfile {
+        if let otherProf = otherProfileContainer?.profile {
             userNameLabel.text = "\(otherProf.firstName) \(otherProf.lastName)"
             friendCountLabel.text = String(otherProf.friends.count)
 
@@ -75,7 +75,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func updateFriendStatus() {
-        guard let friendStatus = friendStatus, let otherProfile = otherProfile else {
+        guard let friendStatus = friendStatus, let otherProfile = otherProfileContainer?.profile else {
             print("Problem loading friend status - it wasn't set by whoever called this VC")
             return
         }
@@ -141,7 +141,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
            let destVC = segue.destination as? ViewStreakPostVC,
            let postIndex = streakPostTable.indexPathForSelectedRow?.row {
             destVC.streakPost = streakPosts[postIndex]
-            destVC.posterProfile = otherProfile
+            destVC.posterProfile = otherProfileContainer?.profile
         }
     }
 

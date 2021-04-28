@@ -15,8 +15,8 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let friendCellIdentifier = "FriendCellIdentifier"
     let otherProfileSegue = "ShowOtherProfileSegue"
     
-    var friends: [Profile] = []
-    var filteredFriends: [Profile] = []
+    var friends: [ProfileContainer] = []
+    var filteredFriends: [ProfileContainer] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +44,13 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
                 switch result {
                 case .success(let fetchedProfile):
-                    self.friends.append(fetchedProfile!)
-                    self.filteredFriends = self.friends
-                    self.tableView.reloadData()
+                    if let profile = fetchedProfile {
+                        self.friends.append(ProfileContainer(baseProfile: friend, profile: profile))
+                        self.filteredFriends = self.friends
+                        self.tableView.reloadData()
+                    } else {
+                        print("Error fetching profile on discover screen:")
+                    }
                 case .failure(let error):
                     print("Error fetching a profile on discover screen: \(error)")
                 }
@@ -57,9 +61,9 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            self.filteredFriends = self.friends.filter{(profile: Profile) -> Bool in
-                let containedInFirstName = profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-                let containedInLastName = profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+            self.filteredFriends = self.friends.filter{(profileContainer: ProfileContainer) -> Bool in
+                let containedInFirstName = profileContainer.profile.firstName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                let containedInLastName = profileContainer.profile.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                 return containedInFirstName || containedInLastName
             }
         } else {
@@ -84,9 +88,10 @@ class FriendsListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  segue.identifier == otherProfileSegue,
             let destination = segue.destination as? OtherProfileVC,
-            let friendIndex = tableView.indexPathForSelectedRow?.row
-        {
-            destination.otherProfile = filteredFriends[friendIndex]
+            let selectedIndexPath = tableView.indexPathForSelectedRow,
+            let cell = tableView.cellForRow(at: selectedIndexPath) as? FriendTableViewCell {
+
+            destination.otherProfileContainer = cell.profileContainer
             destination.friendStatus = FriendStatus.AlreadyFriends
         }
     }
@@ -98,7 +103,10 @@ class FriendTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var streakLabel: UILabel!
     
-    func styleViewWith(_ profile: Profile) {
+    var profileContainer: ProfileContainer? = nil
+
+    
+    func styleViewWith(_ profileContainer: ProfileContainer) {
         // Style image view
         self.profileImage.layer.borderWidth = 1.0
         self.profileImage.layer.masksToBounds = false
@@ -107,6 +115,9 @@ class FriendTableViewCell: UITableViewCell {
         self.profileImage.clipsToBounds = true
         
         // Set fields
+        self.profileContainer = profileContainer
+        let profile = profileContainer.profile
+        
         let imageURL: String = profile.profilePicture
         if imageURL == "" {
             self.profileImage.image = UIImage(named: "ProfileImageBlank")

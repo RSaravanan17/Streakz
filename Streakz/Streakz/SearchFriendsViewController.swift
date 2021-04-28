@@ -122,7 +122,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
                   let selectedIndexPath = usersTableView.indexPathForSelectedRow,
                   let cell = usersTableView.cellForRow(at: selectedIndexPath) as? UserStreakCell {
             
-            destVC.otherProfile = filteredProfiles[selectedIndexPath.row].profile
+            destVC.otherProfileContainer = cell.userProfileContainer
             
             if cell.sendFriendRequestButton.title(for: .normal) == SEND_REQUEST_TEXT {
                 destVC.friendStatus = FriendStatus.Nothing
