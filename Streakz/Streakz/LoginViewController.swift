@@ -311,6 +311,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                     }
                     guard document.data() != nil else {
                         print("cur_user_profile fetch - document data was empty.")
+                        
                         return
                     }
                     do {

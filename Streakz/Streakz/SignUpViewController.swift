@@ -105,7 +105,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     // create the user a profile and push it to Firebase
                     let newProfile = Profile(firstName: firstName, lastName: lastName)
                     do {
-                        try db_firestore.collection("profiles_email").document(email).setData(from: newProfile, merge: true)
+                        try db_firestore.collection("profiles_email").document(email.lowercased()).setData(from: newProfile, merge: true)
                     } catch let error {
                         print("Error adding new user to database", error)
                     }
