@@ -13,6 +13,10 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var friendCountLabel: UILabel!
     @IBOutlet weak var streakPostTable: UITableView!
+
+    @IBOutlet weak var friendStatusLabel: UILabel!
+    @IBOutlet weak var positiveFriendButton: UIButton!
+    @IBOutlet weak var negativeFriendButton: UIButton!
     
     var streakPosts: [StreakPost] = []
     var otherProfile: Profile? = nil
@@ -51,9 +55,30 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             self.streakPosts.sort(by: { $0.datePosted > $1.datePosted })
             
+            friendStatusLabel.isHidden = true
         }
         
     }
+    
+//    // This function is needed to ensure the tableview's header resizes properly once the streak data is fetched
+//    // Code mostly taken from https://useyourloaf.com/blog/variable-height-table-view-header/
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        guard let headerView = streakPostTable.tableHeaderView else {
+//           return
+//        }
+//
+//        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+//
+//        // Trigger a new layout only if the height has changed, otherwise it'd get stuck in a loop
+//        if headerView.frame.size.height != size.height {
+//            print("height being set to \(size.height)")
+//            headerView.frame.size.height = size.height
+//            streakPostTable.tableHeaderView = headerView
+//            streakPostTable.layoutIfNeeded()
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return streakPosts.count
