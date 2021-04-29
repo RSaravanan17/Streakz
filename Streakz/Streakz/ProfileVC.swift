@@ -48,7 +48,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         // Do any additional setup after loading the view.
         streakPostsTable.delegate = self
         streakPostsTable.dataSource = self
-        setCurrentUser()
         
         // Round the profile image view
         userImageView.layer.borderWidth = 1.0
@@ -56,7 +55,19 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         userImageView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setCurrentUser(profileInput: cur_user_profile)
         
+        let queue = DispatchQueue(label: "CountdownQueue")
+
+        queue.async {
+            sleep(1)
+            DispatchQueue.main.async {
+                self.setCurrentUser(profileInput: cur_user_profile)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -126,8 +137,8 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         }
     }
     
-    func setCurrentUser() {
-        if let curProfile = cur_user_profile {
+    func setCurrentUser(profileInput: Profile?) {
+        if let curProfile = profileInput {
             
                         
             print("DEBUG: profile screen set for \(curProfile.firstName)")
