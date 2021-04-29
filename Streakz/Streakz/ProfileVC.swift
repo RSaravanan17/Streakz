@@ -41,8 +41,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     let streakPostSegue = "StreakPostIdentifier"
     let streakPostCell = "StreakPostCellIdentifier"
     var streakPosts: [StreakPost] = []
-    var userProfile: Profile?
-    var currentStreakPost: StreakPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +57,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
         
-        // TODO: remove this if we want to be able to select streakPosts and go to a ViewStreakPostVC
-        //streakPostsTable.allowsSelection = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,13 +96,13 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         if editingStyle == .delete {
             if let email = cur_user_email,
                let collection = cur_user_collection,
-               let curProfile = self.userProfile {
+               let curProfile = cur_user_profile {
                
 //                let streakPost = self.streakPosts[indexPath.row]
                 
                 // remove current streak post from local list and user profile
                 self.streakPosts.remove(at: indexPath.row)
-                self.userProfile?.streakPosts = self.streakPosts
+                curProfile.streakPosts = self.streakPosts
                 
                 // deletes the row in the tableView
                 // can add animation if desired but need to fix TableCell corner rounding
@@ -116,9 +112,9 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
                 do {
                     print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
                     // update the user's profile in Firebase
-                    try db_firestore.collection(collection).document(email).setData(from: curProfile)
-                    
-                    navigationController?.popViewController(animated: true)
+                    try db_firestore.collection(collection).document(email).setData(from: curProfile) {_ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 } catch let error {
                     print("Error writing profile to Firestore: \(error)")
                 }
@@ -131,57 +127,36 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     }
     
     func setCurrentUser() {
-        if let collection = cur_user_collection, let user = cur_user_email {
-            db_firestore.collection(collection).document(user)
-                .addSnapshotListener { documentSnapshot, error in
-                    guard let document = documentSnapshot else {
-                        print("Error fetching document: \(error!)")
-                        return
-                    }
-                    do {
-                        let userProfile = try document.data(as: Profile.self)
-                        self.userProfile = userProfile
-                        // Set profile picture image view
-                        if let imageURL: String = userProfile?.profilePicture {
-                            if imageURL == "" {
-                                self.userImageView.image = UIImage(named: "ProfileImageBlank")
-                            } else {
-                                self.userImageView.load(url: URL(string: imageURL)!)
-                            }
-                        } else {
-                            self.userImageView.image = UIImage(named: "ProfileImageBlank")
-                        }
-                        // Set first and last name labels
-                        if let firstName: String = userProfile?.firstName,
-                           let lastName: String = userProfile?.lastName {
-                            self.userNameLabel.text = "\(firstName) \(lastName)"
-                        }
-                        // Set the number of friends label
-                        if let friendsCount: Int = userProfile?.friends.count {
-                            self.userFriendsLabel.text = "\(friendsCount)"
-                        } else {
-                            self.userFriendsLabel.text = "0"
-                        }
-                        // Set the streakPosts table
-                        if var posts = userProfile?.streakPosts {
-                            posts.sort(by: { $0.datePosted > $1.datePosted })
-                            self.streakPosts = posts
-                        } else {
-//                            let dummyInfo = StreakInfo(owner: "Dummy", name: "Dummy streak", description: "", reminderDays: [false, false, false, false, false, false, false], viewability: .Private)
-//                            let dummyStreak = StreakSubscription(streakInfo: dummyInfo, reminderTime: Date(), subscriptionStartDate: Date(), privacy: .Private)
-//                            self.streakPosts = [StreakPost(for: dummyStreak, postText: "Error fetching streak posts", image: "")]
-                        }
-                        self.streakPostsTable.reloadData()
+        if let curProfile = cur_user_profile {
+            
+                        
+            print("DEBUG: profile screen set for \(curProfile.firstName)")
+            // Set profile picture image view
+            let imageURL: String = curProfile.profilePicture
+            if imageURL == "" {
+                self.userImageView.image = UIImage(named: "ProfileImageBlank")
+            } else {
+                self.userImageView.load(url: URL(string: imageURL)!)
+            }
+            
+            // Set first and last name labels
+            self.userNameLabel.text = "\(curProfile.firstName) \(curProfile.lastName)"
 
-                    } catch let error {
-                        print("Error deserializing data", error)
-                    }
-                }
+            // Set the number of friends label
+            self.userFriendsLabel.text = "\(curProfile.friends.count)"
+            
+            // Set the streakPosts table
+            var posts = curProfile.streakPosts
+            posts.sort(by: { $0.datePosted > $1.datePosted })
+            self.streakPosts = posts
+            
+            self.streakPostsTable.reloadData()
+
         }
     }
     
     func getProfile() -> Profile? {
-        return self.userProfile
+        return cur_user_profile
     }
     
     // MARK: - Navigation
@@ -201,6 +176,11 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
             // sign out Facebook user
             let loginManager = LoginManager()
             loginManager.logOut()
+            
+            print("DEBUG: removing listener for \(cur_user_profile!.firstName)")
+            cur_user_profile = nil
+            cur_user_profile_listener?.remove()
+            cur_user_profile_listener = nil
         } else if segue.identifier == settingsSegue {
             if let destination = segue.destination as? SettingsVC {
                 destination.profileDelegate = self as ProfileDelegate
@@ -210,10 +190,8 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
             if let destination = segue.destination as? ViewStreakPostVC,
                let selectedIndex = self.streakPostsTable.indexPath(for: sender as! UITableViewCell) {
             
-                // set the current selected streak post
-                self.currentStreakPost = self.streakPosts[selectedIndex.row]
-                
-                destination.streakPost = currentStreakPost
+                // use the current selected streak post
+                destination.streakPost = self.streakPosts[selectedIndex.row]
                 
                 // Don't need to set posterNameStr, if left nil it'll use current user which is what we want
                 

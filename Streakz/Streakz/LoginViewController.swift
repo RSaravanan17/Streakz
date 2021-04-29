@@ -19,6 +19,7 @@ let storage = Storage.storage()
 var cur_user_email: String? = nil
 var cur_user_collection: String? = nil
 var cur_user_profile: Profile? = nil
+var cur_user_profile_listener: ListenerRegistration?  = nil
 
 // UI styling for text fields
 extension UITextField {
@@ -56,6 +57,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("DEBUG: loginVC loaded")
 
         // sign out user
         //signOutEmailUser()
@@ -117,6 +120,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("DEBUG: loginVC appeared")
+
         // automatically sign in the user with Google
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
@@ -252,6 +257,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         setCurUserEmailAndType()
+        print("DEBUG: I'm gonna call setCurUserProfile")
         setCurUserProfile()
     }
     
@@ -291,7 +297,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     // Facebook sign-in is taken care of in before perfoming the segue because it requires an async callback function
     func setCurUserEmailAndType() {
         if Auth.auth().currentUser != nil {
-            // current user signed in through Facebook
+            // current user signed in through email
             cur_user_email = Auth.auth().currentUser!.email
             cur_user_collection = "profiles_email"
         } else if let googleUser = GIDSignIn.sharedInstance()?.currentUser {
@@ -302,9 +308,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     }
     
     func setCurUserProfile() {
+        
+        if let listener = cur_user_profile_listener {
+            print("DEBUG: THIS IS BAD, you can't call setCurUserProfile before releasing the old listener. I guess I'll do it for you")
+            listener.remove()
+            cur_user_profile_listener = nil
+        }
+        
+        
         if let collection = cur_user_collection, let document = cur_user_email {
-            db_firestore.collection(collection).document(document)
+            print("DEBUG: creating listener for \(document) in \(collection)")
+            cur_user_profile_listener = db_firestore.collection(collection).document(document)
                 .addSnapshotListener { documentSnapshot, error in
+                    print("DEBUG: cur_user_profile snapshot listener triggered")
                     guard let document = documentSnapshot else {
                         print("cur_user_profile error fetching document: \(error!)")
                         return
@@ -316,7 +332,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                     }
                     do {
                         cur_user_profile = try document.data(as: Profile.self)
-                        print("cur_user_profile successfully set")
+                        print("DEBUG: cur_user_profile successfully set to \(cur_user_profile!.firstName)")
                         self.setupNotifications(profile: cur_user_profile!)
                         print("notifications reset")
                     } catch let error {

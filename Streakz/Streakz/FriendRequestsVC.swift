@@ -89,8 +89,10 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             return
         }
         
-        print("Accepting Friend Request from \(acceptedFriend.profile.firstName)")
+        print("DEBUG: Accepting Friend Request from \(acceptedFriend.profile.firstName)")
         do {
+            let dispatchGroup = DispatchGroup()
+
             // Add friend to this user's list of friends
             let requestSender = BaseProfile(profileType: profileType, email: email)
             let updateUserProfile: Profile = cur_user_profile!
@@ -101,17 +103,30 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             } else {
                 throw MyError.FoundNil
             }
-            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile)
+            
+            dispatchGroup.enter()
+            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile) {_ in
+                dispatchGroup.leave()
+            }
             
             // Add this user to the other users list of friends
             let destination = acceptedFriend.profile
             let destCollection = acceptedFriend.baseProfile.profileType
             let destEmail = acceptedFriend.baseProfile.email
             destination.friends.append(requestSender)
-            try db_firestore.collection(destCollection).document(destEmail).setData(from: destination)
+
+            dispatchGroup.enter()
+            try db_firestore.collection(destCollection).document(destEmail).setData(from: destination) {_ in
+                dispatchGroup.leave()
+            }
             
-            // Refresh list of friend requests
-            self.loadRequests()
+            dispatchGroup.notify(queue: .main, execute: {
+                print("DEBUG: Successfully accepted friend request from \(acceptedFriend.profile.firstName)")
+                
+                // Refresh list of friend requests
+                self.loadRequests()
+            })
+            
         } catch let error {
             print("Error accepting friend request: \(error)")
             let alert = UIAlertController(
@@ -137,7 +152,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             return
         }
         
-        print("Declining Friend Request from \(declinedFriend.profile.firstName)")
+        print("DEBUG: Declining Friend Request from \(declinedFriend.profile.firstName)")
         do {
             let updateUserProfile: Profile = cur_user_profile!
             // Remove friend request from this users list of friend requests
@@ -146,10 +161,11 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             } else {
                 throw MyError.FoundNil
             }
-            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile)
+            try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile) {_ in
+                // Refresh list of friend requests
+                self.loadRequests()
+            }
                         
-            // Refresh list of friend requests
-            self.loadRequests()
         } catch let error {
             print("Error declining friend request: \(error)")
             let alert = UIAlertController(
