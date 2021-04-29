@@ -43,8 +43,12 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             var friendsCircle = profile.getBasicFriendsList()
             friendsCircle.append([email, collection])
             
-            db_firestore.collection("friends_streaks").whereField("owner", in: friendsCircle)
-                .addSnapshotListener { querySnapshot, error in
+            var i = 0
+            while (i < friendsCircle.count) {
+                let lastIndex = min(i + 9, friendsCircle.count - 1)
+                let currentFriendsBatch = Array(friendsCircle[i ... lastIndex])
+                
+                db_firestore.collection("friends_streaks").whereField("owner", in: currentFriendsBatch).addSnapshotListener { querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
                         print("Error fetching documents: \(error!)")
                         return
@@ -64,6 +68,9 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
                     self.discoverTableView.reloadData()
                 }
+                
+                i += 10
+            }
         }
         
         // fetch current list of public streaks from Firebase (including current user)
