@@ -30,6 +30,9 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // Get streak posts related to this streak subscription
         self.relatedStreakPosts = []
         for streakPost in cur_user_profile?.streakPosts ?? [] {
@@ -39,10 +42,7 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         print("Related \(self.streakSub.name) Streak Posts: \(self.relatedStreakPosts.count)")
         self.tableView.reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-
+        
         streakSub.listenStreakInfo { (streakInfo: StreakInfo?) in
             self.descriptionDisplay.text = streakInfo?.description
         }

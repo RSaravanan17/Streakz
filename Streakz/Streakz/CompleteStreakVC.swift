@@ -95,7 +95,6 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
             self.uploadStreakPost(postText: postText, imageLink: "")
         }
         
-        navigationController?.popViewController(animated: true)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -119,7 +118,9 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
             // update Firebase
             curProfile.streakPosts.append(streakPost)
             do {
-                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile)
+                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile) {_ in
+                    self.navigationController?.popViewController(animated: true)
+                }
             } catch let error {
                 print("Error writing profile to Firestore after streak post update: \(error)")
             }
