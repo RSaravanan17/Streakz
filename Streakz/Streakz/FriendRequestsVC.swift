@@ -27,6 +27,10 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.updateTableView()
+    }
+    
+    func updateTableView() {
         self.loadRequests()
         let pluralString: String = (cur_user_profile?.friendRequests.count ?? 0) == 1 ? "" : "s"
         self.searchBar.prompt = "\(cur_user_profile?.friendRequests.count ?? 0) Friend Request\(pluralString)"
@@ -124,7 +128,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                 print("DEBUG: Successfully accepted friend request from \(acceptedFriend.profile.firstName)")
                 
                 // Refresh list of friend requests
-                self.loadRequests()
+                self.updateTableView()
             })
             
         } catch let error {
@@ -163,9 +167,8 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             }
             try db_firestore.collection(profileType).document(email).setData(from: updateUserProfile) {_ in
                 // Refresh list of friend requests
-                self.loadRequests()
+                self.updateTableView()
             }
-                        
         } catch let error {
             print("Error declining friend request: \(error)")
             let alert = UIAlertController(

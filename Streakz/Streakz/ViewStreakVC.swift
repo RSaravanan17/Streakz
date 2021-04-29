@@ -133,19 +133,30 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 }
 
 class PrivateStreakPostCell: UITableViewCell {
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var countView: UIView!
     @IBOutlet weak var postImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var datePostedLabel: UILabel!
     
     func styleCellWith(_ streakPost: StreakPost) {
+        shadowView.backgroundColor = UIColor.clear
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOpacity = 0.2
+        shadowView.layer.shadowOffset = CGSize(width: 6, height: 6)
+        shadowView.layer.shadowRadius = 2
+        
         containerView.layer.borderWidth = 1.0
         containerView.layer.masksToBounds = false
         containerView.layer.borderColor = UIColor(named: "Streakz_LightRed")?.cgColor
         containerView.layer.cornerRadius = 16
+        containerView.layer.masksToBounds = true
         containerView.clipsToBounds = true
+        
+        shadowView.layer.shouldRasterize = true
+        shadowView.layer.rasterizationScale = UIScreen.main.scale
 
         countView.layer.borderWidth = 1.0
         countView.layer.masksToBounds = false
@@ -158,8 +169,10 @@ class PrivateStreakPostCell: UITableViewCell {
         } else {
             self.postImageView.load(url: URL(string: streakPost.image)!)
         }
-        titleLabel.text = streakPost.streak.name
+        self.postImageView.clipsToBounds = true
+        
         commentLabel.text = streakPost.postText
-        countLabel.text = "\(streakPost.streak.streakNumber)"
+        countLabel.text = "\(streakPost.achievedStreak)"
+        datePostedLabel.text = "\(streakPost.datePosted.fullDate)"
     }
 }
