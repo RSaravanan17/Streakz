@@ -1553,6 +1553,7 @@
                         <outlet property="viewThursday" destination="qgu-vb-T85" id="CZ4-6H-jUa"/>
                         <outlet property="viewTuesday" destination="how-Lf-bOR" id="6oY-Jb-vJg"/>
                         <outlet property="viewWednesday" destination="ILg-ec-8DU" id="fDR-gO-U7U"/>
+                        <outlet property="visibilityLabel" destination="Rro-tM-RRB" id="q7I-PT-vdR"/>
                         <outlet property="visibilityPicker" destination="uld-qH-Jl1" id="C9D-4e-H8X"/>
                     </connections>
                 </viewController>
@@ -1770,13 +1771,20 @@
                             <constraint firstItem="Yhq-70-Zvk" firstAttribute="top" secondItem="tpE-N6-mo9" secondAttribute="top" id="fYf-eX-D63"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="View Streak" id="uyI-7z-pNs"/>
+                    <navigationItem key="navigationItem" title="View Streak" id="uyI-7z-pNs">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="m3e-i4-5JD">
+                            <connections>
+                                <segue destination="DWX-zo-HZm" kind="show" identifier="EditStreakSegueIdentifier" id="Nba-1W-rBf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="414" height="800"/>
                     <connections>
                         <outlet property="StreakNumberDisplay" destination="ln5-Mb-f16" id="h99-DF-0D2"/>
                         <outlet property="SubscribedDateDisplay" destination="Ozp-hc-HRc" id="ZaS-sa-Fg7"/>
                         <outlet property="buttonSubText" destination="htb-tk-7M6" id="0UF-ye-maQ"/>
                         <outlet property="descriptionDisplay" destination="c9C-7S-BW8" id="mNu-C0-MyR"/>
+                        <outlet property="editStreakButton" destination="m3e-i4-5JD" id="pQ0-92-wo8"/>
                         <outlet property="markDoneButton" destination="PRp-cO-MXK" id="3Bl-sP-Sbt"/>
                         <outlet property="streakNumberDisplay" destination="ln5-Mb-f16" id="51P-uB-JeU"/>
                         <outlet property="streakTitleDisplay" destination="DuW-EF-PlC" id="q7S-PZ-U8m"/>
@@ -1793,11 +1801,11 @@
             <objects>
                 <viewController id="Vuj-Zg-eq6" customClass="FriendInfoVC" customModule="Streakz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IM2-8O-Qi5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LjZ-jV-il5" userLabel="SegmentedControl">
-                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                                 <segments>
                                     <segment title="Friends List"/>
                                     <segment title="Friend Requests"/>
@@ -1805,7 +1813,7 @@
                                 <color key="selectedSegmentTintColor" name="Streakz_LightRed"/>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYT-HJ-gBQ">
-                                <rect key="frame" x="0.0" y="119" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="31" width="414" height="777"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -1856,13 +1864,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-Pi-LFK">
                                                             <rect key="frame" x="0.0" y="0.0" width="183" height="38.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-20-V2w">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-20-V2w">
                                                                     <rect key="frame" x="0.0" y="0.0" width="183" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di5-6e-Q5N">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di5-6e-Q5N">
                                                                     <rect key="frame" x="0.0" y="22.5" width="183" height="16"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                     <nil key="textColor"/>
@@ -2744,7 +2752,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="RZq-p2-WcN"/>
+        <segue reference="GQS-b0-9Xj"/>
+        <segue reference="Nba-1W-rBf"/>
         <segue reference="ocQ-1A-0DN"/>
         <segue reference="AcB-c6-j40"/>
         <segue reference="txA-AZ-UsG"/>

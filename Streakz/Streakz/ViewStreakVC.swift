@@ -15,14 +15,15 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var streakTitleDisplay: UILabel!
     @IBOutlet weak var descriptionDisplay: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editStreakButton: UIBarButtonItem!
     
     var curUserProfile: Profile? = nil
     var streakSub: StreakSubscription!
     var relatedStreakPosts: [StreakPost]!
     
     var completeStreakSegueIdentifier = "ViewStreakSegueIdentifier"
-    
     let privateStreakPostCellIdentifier = "PrivateStreakPostCellIdentifier"
+    let editStreakSegueIdentifier = "EditStreakSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,15 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         print("Related \(self.streakSub.name) Streak Posts: \(self.relatedStreakPosts.count)")
         self.tableView.reloadData()
+        
+        if streakSub.privacy != .Private {
+            // remove "Edit Streak" button if not private streak
+            editStreakButton.isEnabled = false
+            editStreakButton.title = ""
+        } else {
+            editStreakButton.isEnabled = true
+            editStreakButton.title = "Edit"
+        }
         
         streakSub.listenStreakInfo { (streakInfo: StreakInfo?) in
             self.descriptionDisplay.text = streakInfo?.description
@@ -123,11 +133,15 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == completeStreakSegueIdentifier,
-           let nextVC = segue.destination as? CompleteStreakVC
-        {
+        if segue.identifier == completeStreakSegueIdentifier, let nextVC = segue.destination as? CompleteStreakVC {
             nextVC.streakSub = streakSub
             nextVC.curUserProfile = curUserProfile
+        } else if segue.identifier == editStreakSegueIdentifier, let destVC = segue.destination as? AddStreakVC {
+            // inform Add Streak view controller that this is only an edit, not a new streak
+            destVC.userIsEditing = true
+            destVC.daysOfWeekSelected = streakSub.reminderDays
+            destVC.curUserProfile = curUserProfile
+            destVC.editStreakInfoId = streakSub.streakInfoId
         }
     }
 }

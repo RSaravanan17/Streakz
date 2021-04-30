@@ -23,6 +23,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     @IBOutlet weak var viewSaturday: UIView!
     @IBOutlet weak var reminderTimePicker: UIDatePicker!
     @IBOutlet weak var visibilityPicker: UIPickerView!
+    @IBOutlet weak var visibilityLabel: UILabel!
     
     var pickerData: [StreakSubscription.PrivacyType] = [.Private, .Friends, .Public]
     var privacyType: StreakSubscription.PrivacyType!
@@ -34,6 +35,9 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
     var curUserProfile: Profile? = nil
     let descPlaceholder = "Enter Streak Description"
     let textFieldGray = UIColor.gray.withAlphaComponent(0.5)
+    var userIsEditing: Bool = false         // false if user is creating a new streak, true if simply editing
+    var editStreakInfoId: String? = nil     // if this is an edit, need streakInfoId to update in firebase
+    var editStreakInfo: StreakInfo? = nil   // if this is an edit, need streakInfo object to update firebase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +58,30 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         descTextView.layer.borderWidth = 0.5
         descTextView.clipsToBounds = true
         
+        if userIsEditing, let streakInfoId = editStreakInfoId {
+            addStreakButton.setTitle("Save", for: .normal)
+            descTextView.textColor = .label
+            descTextView.text = "Loading Description..."
+            nameTextField.text = "Loading Name..."
+            visibilityPicker.isHidden = true
+            visibilityLabel.isHidden = true
+            db_firestore.collection("private_streaks").document(streakInfoId).getDocument {
+                (document, error) in
+                let result = Result {
+                    try document?.data(as: StreakInfo.self)
+                }
+                switch result {
+                case .success(let fetchedStreakInfo):
+                    self.editStreakInfo = fetchedStreakInfo
+                    self.descTextView.text = fetchedStreakInfo?.description
+                    self.nameTextField.text = fetchedStreakInfo?.name
+                case .failure(let error):
+                    print("Error fetching streakInfo on edit streak screen: \(error)")
+                }
+                
+            }
+        }
+        
         daysOfWeekViews = [
             viewSunday,
             viewMonday,
@@ -68,7 +96,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         for (i, view) in daysOfWeekViews.enumerated() {
             let button = UIButton(type: .custom)
             button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-            button.backgroundColor = UIColor.gray
+            button.backgroundColor = daysOfWeekSelected[i] ? UIColor.init(named: "Streakz_DarkRed") : UIColor.gray
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
             button.clipsToBounds = true
             button.setTitle(daysOfWeekTitles[i], for: .normal)
@@ -173,52 +201,120 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
         }
         /* End Input Verification */
         
-        // create BaseProfile object of current user
-        let owner: [String] = [email, collection]
-        
-        // create streak with given inputs
-        let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected, viewability: privacyType)
-        
-        // add user to StreakInfo's list of subscribers
-        if cur_user_email != nil && cur_user_collection != nil {
-            newStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
+        if userIsEditing {
+            // user is editing an existing streak
+            
+            if let streakInfoId = editStreakInfoId,
+               let streakInfo = editStreakInfo,
+               let idx = curProfile.subscribedStreaks.firstIndex(where: { $0.streakInfoId == editStreakInfoId }) {
+                
+                if daysOfWeekSelected != streakInfo.reminderDays {
+                    let alert = UIAlertController(
+                        title: "Reminder days changed",
+                        message: "Changing the reminder days will reset your streak. Are you sure you want to continue?",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
+                        curProfile.subscribedStreaks[idx].resetStreak()
+                        self.persistEditToFirestore(streakInfo: streakInfo,
+                                               streakName: streakName,
+                                               streakDesc: streakDesc,
+                                               curProfile: curProfile,
+                                               idx: idx,
+                                               streakInfoId: streakInfoId,
+                                               collection: collection,
+                                               email: email)
+                        self.navigationController?.popViewController(animated: true)
+                    } ))
+                    present(alert, animated: true, completion: nil)
+                } else {
+                    persistEditToFirestore(streakInfo: streakInfo,
+                                           streakName: streakName,
+                                           streakDesc: streakDesc,
+                                           curProfile: curProfile,
+                                           idx: idx,
+                                           streakInfoId: streakInfoId,
+                                           collection: collection,
+                                           email: email)
+                    navigationController?.popViewController(animated: true)
+                }
+            }
         } else {
-            print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
-        }
-        
-        // add to proper collection of streaks
-        var streakCollection = "private_streaks"
-        if privacyType == .Friends {
-            streakCollection = "friends_streaks"
-        } else if privacyType == .Public {
-            streakCollection = "public_streaks"
-        }
-        var ref: DocumentReference? = nil
-        do {
-            print("Attempting to add streak:", newStreak.name)
-            ref = try db_firestore.collection(streakCollection).addDocument(from: newStreak)
-            print("streak added with ID: \(ref!.documentID)")
-        } catch let error {
-            print("Error writing streak to Firestore: \(error)")
-            return
-        }
-        
-        // autosubscribe the user
-        let subbedStreak = StreakSubscription(streakInfoId: ref!.documentID, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: newStreak.viewability, reminderDays: newStreak.reminderDays, name: newStreak.name)
-        
-        // add streak to user profile
-        curProfile.subscribedStreaks.append(subbedStreak)
+            // user has created a new streak
+            
+            // create BaseProfile object of current user
+            let owner: [String] = [email, collection]
+            
+            // create streak with given inputs
+            let newStreak = StreakInfo(owner: owner, name: streakName, description: streakDesc, reminderDays: daysOfWeekSelected, viewability: privacyType)
+            
+            // add user to StreakInfo's list of subscribers
+            if cur_user_email != nil && cur_user_collection != nil {
+                newStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
+            } else {
+                print("Error: user not properly logged in. Streak created, but user not added to list of subscribers")
+            }
+            
+            // add to proper collection of streaks
+            var streakCollection = "private_streaks"
+            if privacyType == .Friends {
+                streakCollection = "friends_streaks"
+            } else if privacyType == .Public {
+                streakCollection = "public_streaks"
+            }
+            var ref: DocumentReference? = nil
+            do {
+                print("Attempting to add streak:", newStreak.name)
+                ref = try db_firestore.collection(streakCollection).addDocument(from: newStreak)
+                print("streak added with ID: \(ref!.documentID)")
+            } catch let error {
+                print("Error writing streak to Firestore: \(error)")
+                return
+            }
+            
+            // autosubscribe the user
+            let subbedStreak = StreakSubscription(streakInfoId: ref!.documentID, reminderTime: reminderTimePicker.date, subscriptionStartDate: Date(), privacy: newStreak.viewability, reminderDays: newStreak.reminderDays, name: newStreak.name)
+            
+            // add streak to user profile
+            curProfile.subscribedStreaks.append(subbedStreak)
 
-        
-        // update Firebase
-        do {
-            print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
-            try db_firestore.collection(collection).document(email).setData(from: curProfile)
-            navigationController?.popViewController(animated: true)
-        } catch let error {
-            print("Error writing profile to Firestore: \(error)")
+            
+            // update Firebase
+            do {
+                print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
+                try db_firestore.collection(collection).document(email).setData(from: curProfile)
+                navigationController?.popViewController(animated: true)
+            } catch let error {
+                print("Error writing profile to Firestore: \(error)")
+            }
         }
+    }
+    
+    func persistEditToFirestore(streakInfo: StreakInfo, streakName: String, streakDesc: String, curProfile: Profile, idx: Int, streakInfoId: String, collection: String, email: String) {
+        // add edits to StreakInfo
+        streakInfo.name = streakName
+        streakInfo.description = streakDesc
+        streakInfo.reminderDays = daysOfWeekSelected
         
+        // add edits to StreakSubscription
+        curProfile.subscribedStreaks[idx].name = streakName
+        curProfile.subscribedStreaks[idx].reminderDays = daysOfWeekSelected
+        curProfile.subscribedStreaks[idx].reminderTime = reminderTimePicker.date
+        
+        // update streakinfo in firestore
+        do {
+            try db_firestore.collection("private_streaks").document(streakInfoId).setData(from: streakInfo)
+        } catch let error {
+            print("Error pushing streak edits to firestore: \(error)")
+        }
+
+        // update profile in firestore with streaksubscription changes
+        do {
+            try db_firestore.collection(collection).document(email).setData(from: curProfile)
+        } catch let error {
+            print("Error pushing streak edits to user profile: \(error)")
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
