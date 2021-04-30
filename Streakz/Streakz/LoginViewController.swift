@@ -310,7 +310,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     func setCurUserProfile() {
         
         if let listener = cur_user_profile_listener {
-            print("DEBUG: THIS IS BAD, you can't call setCurUserProfile before releasing the old listener. I guess I'll do it for you")
+            print("DEBUG: Releasing previous profile listener...")
             listener.remove()
             cur_user_profile_listener = nil
         }

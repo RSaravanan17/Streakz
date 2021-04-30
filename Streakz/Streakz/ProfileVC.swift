@@ -27,6 +27,7 @@ extension UIImageView {
 
 protocol ProfileDelegate {
     func getProfile() -> Profile?
+    func setCurrentUser(profileInput: Profile?)
 }
 
 class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -44,7 +45,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         streakPostsTable.delegate = self
         streakPostsTable.dataSource = self
@@ -55,19 +55,11 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
         userImageView.layer.borderColor = UIColor(named: "Streakz_Inverse")?.cgColor
         userImageView.layer.cornerRadius = userImageView.frame.size.width / 2
         userImageView.clipsToBounds = true
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setCurrentUser(profileInput: cur_user_profile)
-        
-        let queue = DispatchQueue(label: "CountdownQueue")
-
-        queue.async {
-            sleep(1)
-            DispatchQueue.main.async {
-                self.setCurrentUser(profileInput: cur_user_profile)
-            }
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -139,9 +131,6 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
     
     func setCurrentUser(profileInput: Profile?) {
         if let curProfile = profileInput {
-            
-                        
-            print("DEBUG: profile screen set for \(curProfile.firstName)")
             // Set profile picture image view
             let imageURL: String = curProfile.profilePicture
             if imageURL == "" {
@@ -162,6 +151,7 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
             self.streakPosts = posts
             
             self.streakPostsTable.reloadData()
+            print("DEBUG: profile screen set for \(curProfile.firstName)")
 
         }
     }
@@ -188,10 +178,14 @@ class ProfileVC: UIViewController, ProfileDelegate, UITableViewDelegate, UITable
             let loginManager = LoginManager()
             loginManager.logOut()
             
-            print("DEBUG: removing listener for \(cur_user_profile!.firstName)")
-            cur_user_profile = nil
-            cur_user_profile_listener?.remove()
+            if let listener = cur_user_profile_listener {
+                print("DEBUG: Releasing previous profile listener...")
+                listener.remove()
+            }
+            
             cur_user_profile_listener = nil
+            cur_user_profile = nil
+
         } else if segue.identifier == settingsSegue {
             if let destination = segue.destination as? SettingsVC {
                 destination.profileDelegate = self as ProfileDelegate

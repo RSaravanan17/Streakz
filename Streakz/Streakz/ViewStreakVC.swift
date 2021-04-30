@@ -41,6 +41,7 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.relatedStreakPosts.append(streakPost)
             }
         }
+        self.relatedStreakPosts.sort(by: { $0.datePosted > $1.datePosted })
         print("Related \(self.streakSub.name) Streak Posts: \(self.relatedStreakPosts.count)")
         self.tableView.reloadData()
         
@@ -53,7 +54,7 @@ class ViewStreakVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             editStreakButton.title = "Edit"
         }
         
-        streakSub.listenStreakInfo { (streakInfo: StreakInfo?) in
+        streakSub.getStreakInfo { (streakInfo: StreakInfo?) in
             self.descriptionDisplay.text = streakInfo?.description
         }
         

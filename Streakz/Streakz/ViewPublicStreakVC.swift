@@ -50,24 +50,31 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func getPublicSubscribers() {
+        let dispatchGroup = DispatchGroup()
         // Retreive list of profiles subbed to this streak
         for baseProfile in publicStreak.subscribers {
             let email = baseProfile.email
+            dispatchGroup.enter()
             let type = baseProfile.profileType
             db_firestore.collection(type).document(email).getDocument { (document, error) in
                 do {
                     if let document = document, document.exists {
                         let fullProfile = try document.data(as: Profile.self)
                         self.publicSubscribers.append(fullProfile!)
-                        self.tableView.reloadData()
                     } else {
                         print("Document does not exist")
                     }
                 } catch let error {
                     print("Error deserializing data while retreiving user from list of public streak subscribers", error)
                 }
+                dispatchGroup.leave()
             }
         }
+        dispatchGroup.notify(queue: .main, execute: {
+            print("DEBUG: Fetched all public subscribers")
+            self.tableView.reloadData()
+        })
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

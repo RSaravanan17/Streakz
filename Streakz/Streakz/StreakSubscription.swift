@@ -45,18 +45,17 @@ class StreakSubscription : Codable {
         self.name = name
     }
     
-    // Creates a listener for this streak's StreakInfo object in the database
-    // callback is ran whenever the streakInfo is updated
-    func listenStreakInfo(callback: @escaping (StreakInfo?) -> Void) {
+    // Gets this streak's StreakInfo object in the database
+    // callback is ran once the StreakInfo has been fetched
+    func getStreakInfo(callback: @escaping (StreakInfo?) -> Void) {
         var collection = "private_streaks"
         if privacy == .Friends {
             collection = "friends_streaks"
         } else if privacy == .Public {
             collection = "public_streaks"
         }
-        
         db_firestore.collection(collection).document(streakInfoId)
-            .addSnapshotListener { documentSnapshot, error in
+            .getDocument { documentSnapshot, error in
                 guard let document = documentSnapshot else {
                     print("Error fetching StreakInfo: \(error!)")
                     return

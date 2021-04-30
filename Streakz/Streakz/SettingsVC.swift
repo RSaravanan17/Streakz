@@ -143,7 +143,9 @@ class SettingsVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     
     func uploadProfile(collection: String, email: String) {
         do {
-            try db_firestore.collection(collection).document(email).setData(from: userProfile)
+            try db_firestore.collection(collection).document(email).setData(from: userProfile) {_ in
+                self.profileDelegate.setCurrentUser(profileInput: self.userProfile)
+            }
         } catch let error {
             print("Error writing user profile settings to database in SettingsVC - \(error)")
         }
