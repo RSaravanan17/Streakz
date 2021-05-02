@@ -43,6 +43,9 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             var friendsCircle = profile.getBasicFriendsList()
             friendsCircle.append([email, collection])
             
+            // clear out all Friends streakz
+            self.publicStreakz[0].removeAll()
+            
             var i = 0
             while (i < friendsCircle.count) {
                 let lastIndex = min(i + 9, friendsCircle.count - 1)
@@ -54,11 +57,8 @@ class DiscoverVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         return
                     }
 
-                    // clear out all Friends streakz
-                    self.publicStreakz[0].removeAll()
-                    
                     // add each streak to the Friends section
-                    self.publicStreakz[0] = documents.compactMap({ (queryDocumentSnapshot) -> (String, StreakInfo)? in
+                    self.publicStreakz[0] += documents.compactMap({ (queryDocumentSnapshot) -> (String, StreakInfo)? in
                         let documentID: String = queryDocumentSnapshot.documentID
                         let streak: StreakInfo? = try? queryDocumentSnapshot.data(as: StreakInfo.self)
                         return (documentID, streak) as? (String, StreakInfo)
