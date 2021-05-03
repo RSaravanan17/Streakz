@@ -282,7 +282,7 @@ class AddStreakVC: UIViewController, UITextViewDelegate, UIPickerViewDataSource,
             
             // update Firebase
             do {
-                print("Attempting to add streak for", cur_user_email!, "in", cur_user_collection!)
+                print("Attempting to add streak")
                 try db_firestore.collection(collection).document(email).setData(from: curProfile)
                 navigationController?.popViewController(animated: true)
             } catch let error {

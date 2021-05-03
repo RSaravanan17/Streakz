@@ -85,7 +85,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                     .sorted { $0.name < $1.name }
                     .filter { (streakSub: StreakSubscription) -> Bool in
                         let containedInStreakName = streakSub.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-    //                    let containedInStreakDesc = streakSub.description.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                         
                         return containedInStreakName // || containedInStreakDesc
                     }
@@ -175,7 +174,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                 
                 // update Firebase
                 do {
-                    print("Attempting to delete Streak \(indexPath.row) for", cur_user_email!, "in", cur_user_collection!)
+                    print("Attempting to delete Streak \(indexPath.row) for", email, "in", collection)
                     // update the user's profile in Firebase
                     try db_firestore.collection(collection).document(email).setData(from: curProfile)
                     

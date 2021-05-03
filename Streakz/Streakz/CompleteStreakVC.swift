@@ -114,11 +114,11 @@ class CompleteStreakVC: UIViewController, UITextViewDelegate, UIImagePickerContr
     func uploadStreakPost(postText: String, imageLink: String) {
         let streakPost = StreakPost(for: streakSub, postText: postText, image: imageLink)
         
-        if let curProfile = curUserProfile {
+        if let curProfile = curUserProfile, let collection = cur_user_collection, let email = cur_user_email {
             // update Firebase
             curProfile.streakPosts.append(streakPost)
             do {
-                try db_firestore.collection(cur_user_collection!).document(cur_user_email!).setData(from: curProfile) {_ in
+                try db_firestore.collection(collection).document(email).setData(from: curProfile) {_ in
                     self.navigationController?.popViewController(animated: true)
                 }
             } catch let error {

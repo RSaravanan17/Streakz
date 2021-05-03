@@ -81,7 +81,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func onAcceptFriendRequest(acceptedFriend: ProfileContainer) {
-        guard let profileType = cur_user_collection, let email = cur_user_email else {
+        guard let cur_profile = cur_user_profile, let profileType = cur_user_collection, let email = cur_user_email else {
             let alert = UIAlertController(
                 title: "Invalid Session",
                 message: "We're having trouble finding out who you are, please try signing out and signing back in",
@@ -99,7 +99,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
 
             // Add friend to this user's list of friends
             let requestSender = BaseProfile(profileType: profileType, email: email)
-            let updateUserProfile: Profile = cur_user_profile!
+            let updateUserProfile: Profile = cur_profile
             updateUserProfile.friends.append(acceptedFriend.baseProfile)
             // Remove friend request from this users list of friend requests
             if let index = updateUserProfile.friendRequests.firstIndex(of: acceptedFriend.baseProfile) {
@@ -144,7 +144,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func onDeclineFriendRequest(declinedFriend: ProfileContainer) {
-        guard let profileType = cur_user_collection, let email = cur_user_email else {
+        guard let cur_profile = cur_user_profile, let profileType = cur_user_collection, let email = cur_user_email else {
             let alert = UIAlertController(
                 title: "Invalid Session",
                 message: "We're having trouble finding out who you are, please try signing out and signing back in",
@@ -158,7 +158,7 @@ class FriendRequestsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         print("DEBUG: Declining Friend Request from \(declinedFriend.profile.firstName)")
         do {
-            let updateUserProfile: Profile = cur_user_profile!
+            let updateUserProfile: Profile = cur_profile
             // Remove friend request from this users list of friend requests
             if let index = updateUserProfile.friendRequests.firstIndex(of: declinedFriend.baseProfile) {
                 updateUserProfile.friendRequests.remove(at: index)
