@@ -177,6 +177,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Add friend to this user's list of friends
             let myBaseProfile = BaseProfile(profileType: myProfileType, email: myEmail)
             myProfile.friends.append(friendToAccept.baseProfile)
+            
             // Remove friend request from this users list of friend requests
             if let index = myProfile.friendRequests.firstIndex(of: friendToAccept.baseProfile) {
                 myProfile.friendRequests.remove(at: index)
@@ -222,7 +223,8 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func declineFriendRequest(_ sender: UIButton) {
         guard let profileType = cur_user_collection,
               let email = cur_user_email,
-              let friendToDecline = otherProfileContainer else {
+              let friendToDecline = otherProfileContainer,
+              let cur_profile = cur_user_profile else {
             let alert = UIAlertController(
                 title: "Invalid Session",
                 message: "We're having trouble finding out who you are, please try signing out and signing back in",
@@ -236,7 +238,7 @@ class OtherProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         print("DEBUG: Declining Friend Request from \(friendToDecline.profile.firstName)")
         do {
-            let updateUserProfile: Profile = cur_user_profile!
+            let updateUserProfile: Profile = cur_profile
             // Remove friend request from this users list of friend requests
             if let index = updateUserProfile.friendRequests.firstIndex(of: friendToDecline.baseProfile) {
                 updateUserProfile.friendRequests.remove(at: index)

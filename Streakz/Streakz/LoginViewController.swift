@@ -58,13 +58,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("DEBUG: loginVC loaded")
-
-        // sign out user
-        //signOutEmailUser()
-        //signOutGoogleUser()
-        //signOutFacebookUser()
-        
         Auth.auth().addStateDidChangeListener() {
           auth, user in
           
@@ -120,8 +113,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("DEBUG: loginVC appeared")
-
         // automatically sign in the user with Google
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
@@ -172,7 +163,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                     print("User exists, no need to make new profile")
                 } else {
                     print("New google user. Creating new profile")
-                    let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)                    // TODO: get user profile picture
+                    let userProfile = Profile(firstName: user.profile.givenName!, lastName: user.profile.familyName!)
                     do {
                         try db_firestore.collection("profiles_google").document(user.profile.email).setData(from: userProfile, merge: true)
                     } catch let error {
@@ -220,7 +211,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
                             } else {
                                 print("New facebook user. Creating new profile")
                                 let userProfile = Profile(firstName: firstName, lastName: lastName)
-                                // TODO: get user profile picture
                                 do {
                                     try db_firestore.collection("profiles_facebook").document(email).setData(from: userProfile, merge: true)
                                     self.loginSuccessful = true
@@ -257,7 +247,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInDeleg
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         setCurUserEmailAndType()
-        print("DEBUG: I'm gonna call setCurUserProfile")
         setCurUserProfile()
     }
     

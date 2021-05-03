@@ -24,9 +24,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     var streakCellIdentifier = "StreakCellIdentifier"
     var viewStreakSegueIdentifier = "ViewStreakSegueIdentifier"
     var addStreakSegueIdentifier = "AddStreakSegueIdentifier"
-    
-//    var debugSubscribedStreaks: [StreakSubscription] = [StreakSubscription(streakInfo: StreakInfo(owner: "Test User", name: "Debug Streak", description: "a test streak", reminderDays: [true, false, false, false, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private), StreakSubscription(streakInfo: StreakInfo(owner: "Another Test User", name: "If you see this something went wrong getting your profile's streaks", description: "another test streak", reminderDays: [false, false, false, true, false, false, false]), reminderTime: Date(), subscriptionStartDate: Date(), privacy: StreakSubscription.PrivacyType.Private)]
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -86,7 +84,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                     .filter { (streakSub: StreakSubscription) -> Bool in
                         let containedInStreakName = streakSub.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
                         
-                        return containedInStreakName // || containedInStreakDesc
+                        return containedInStreakName
                     }
             }
         } else {
@@ -141,8 +139,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             if let email = cur_user_email,
                let collection = cur_user_collection,
                let curProfile = self.userProfile {
-               //let streakId = self.userProfile?.subscribedStreaks[indexPath.row].streakInfoId,
-               //let streakCollectionType = self.userProfile?.subscribedStreaks[indexPath.row].privacy
                 
                 let streakId = self.sections[indexPath.section][indexPath.row].streakInfoId
                 let streakCollectionType = self.sections[indexPath.section][indexPath.row].privacy
@@ -157,9 +153,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                         streakCollection = "public_streaks"
                 }
                 
-                // remove streak from user profile subscription list
-//                self.subscribedStreaks.remove(at: indexPath.row)
-//                self.userProfile?.subscribedStreaks = subscribedStreaks
                 
                 // remove streak from local list and user profile subscription sectioned list
                 self.sections[indexPath.section].remove(at: indexPath.row)
@@ -168,9 +161,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                     self.userProfile?.subscribedStreaks += section
                 }
                 
-                // deletes the row in the tableView
-                // can add animation if desired but need to fix TableCell corner rounding
-                //tableView.deleteRows(at: [indexPath], with: .fade)
                 
                 // update Firebase
                 do {
@@ -206,8 +196,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             } else {
                 print("Could not delete Streak \(indexPath.row)")
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
     
