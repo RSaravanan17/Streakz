@@ -119,9 +119,7 @@ class ViewPublicStreakVC: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func subscribeToStreak(reminderTime: Date) {
-        // TODO: Guard against resubbing to this streak
-        
+    func subscribeToStreak(reminderTime: Date) {        
         // add user to StreakInfo's list of subscribers
         if cur_user_email != nil && cur_user_collection != nil {
             publicStreak.subscribers.append(BaseProfile(profileType: cur_user_collection!, email: cur_user_email!))
